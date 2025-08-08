@@ -1,26 +1,29 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --accent: #00D4FF;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+html { color-scheme: dark; }
+body { background-color: #0A0B10; color: #E6E7EB; }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+/* Selection */
+::selection { background: rgba(0,212,255,0.2); color: rgba(186,243,255,0.95); }
+
+.noise::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' opacity='0.05'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* Constellation overlay tames orbits */
+.constellation-open [data-orb] { transition: transform .2s ease-out; }
+
+/* Subtle aura pulse */
+@keyframes aura { 0%,100%{ box-shadow: 0 0 40px rgba(34,211,238,.18);} 50%{ box-shadow: 0 0 80px rgba(34,211,238,.25);} }
+.pulse-aura { animation: aura 6s ease-in-out infinite; }

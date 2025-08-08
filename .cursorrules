@@ -1,0 +1,82 @@
+# .cursorrules — DreamOS Galaxy (Ethan Urbanky)
+# Purpose: Interaction rules for the custom cursor and ambient navigation
+# Aligned with: src/config/portfolio.ts (derived from portfolio_prompt.json)
+
+[meta]
+name = "DreamCursor"
+version = "1.0.0"
+principles = [
+  "Every action has a reaction",
+  "Clarity over spectacle",
+  "Motion = meaning (light = clarity, blur = memory, orbit = priority)",
+  "Keyboard parity for all pointer interactions"
+]
+
+[performance]
+raf_loop = single
+pause_when_hidden = true
+intersection_pause = true
+transform_only = true
+passive_listeners = true
+
+[cursor.base]
+shape = "dot"
+size_px = 20
+blend_mode = "screen"
+color = "var(--accent, #00D4FF)"
+border = { width = 2, color = "rgba(34, 211, 238, 0.6)" }
+opacity_idle = 0.7
+lerp_factor = 0.18
+reduced_motion_lerp = 0.3
+
+[cursor.variants]
+allowed = ["dot","magnifier","beam","ripple"]
+
+[cursor.variant.dot]
+trigger = default
+size_px = 20
+
+[cursor.variant.magnifier]
+trigger = ["hover.interactive","focus.form"]
+size_px = 28
+ring = { width = 2, color = "rgba(255,255,255,0.45)" }
+
+[cursor.variant.beam]
+trigger = ["hover.edge"]
+size_px = 14
+trail = { enabled = true, length = "short", opacity = 0.25 }
+
+[cursor.variant.ripple]
+trigger = ["submit.intent","portal.enter"]
+size_px = 22
+ripple = { duration_ms = 300, easing = "cubic-bezier(.22,1,.36,1)" }
+
+[affordances]
+edge_zones = {
+  top =    { action = prev, delay_ms = 500 },
+  left =   { action = prev, delay_ms = 500 },
+  right =  { action = next, delay_ms = 500 },
+  bottom = { action = next, delay_ms = 500 }
+}
+edge_cursor_variant = "beam"
+ambient_hint = "Edge‑hover or Arrow keys to navigate • Enter to send"
+
+[sections]
+hero = { cursor = "dot" }
+projects = { cursor = "dot", hover = { orb = "magnifier" } }
+about = { cursor = "dot", drag = { vinyl = true } }
+contact = { cursor = "magnifier", submit = { enter_key = true, ripple_feedback = true } }
+
+[interactions]
+keyboard = { next = ["ArrowDown","PageDown","j"], prev = ["ArrowUp","PageUp","k"], toggle_mode = ["m"], open_map = ["g"] }
+scroll_snap = true
+
+[a11y]
+focus_visible = true
+aria_labels = required
+reduced_motion = { prefer_opacity = true, disable_parallax = true }
+
+[skins]
+studio  = { hue_shift = 0,   glow = 0.2 }
+stage   = { hue_shift = 6,   glow = 0.35 }
+archive = { hue_shift = -8,  glow = 0.1 }

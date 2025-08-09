@@ -25,16 +25,33 @@ html {
   }
 }
 
+/* iOS specific height fixes to prevent overlapping */
+@media (max-width: 768px) {
+  .h-screen-safe {
+    /* Use actual viewport height on mobile to prevent overlap */
+    height: 100vh !important;
+    height: 100svh !important; /* Small viewport height for iOS */
+  }
+  
+  .min-h-screen-safe {
+    min-height: 100vh !important;
+    min-height: 100svh !important;
+  }
+  
+  /* Ensure sections don't overlap on iOS */
+  section {
+    position: relative;
+    isolation: isolate;
+  }
+}
+
 /* iOS scroll behavior improvements */
 @media (max-width: 768px) {
   * {
     -webkit-overflow-scrolling: touch;
   }
   
-  /* Disable scroll snap on iOS to prevent jank */
-  .snap-y {
-    scroll-snap-type: none;
-  }
+  /* Scroll snap is now handled via responsive classes in HTML */
   
   /* Better touch handling */
   button, a, [role="button"] {

@@ -20,9 +20,9 @@ const Home = () => {
       </div>
 
 
-      <main className="relative z-10 snap-y snap-mandatory h-screen-safe w-full overflow-y-scroll overflow-x-hidden">
+      <main className="relative z-10 md:snap-y md:snap-mandatory h-screen-safe w-full overflow-y-scroll overflow-x-hidden">
         {/* HERO */}
-        <section id="hero" className="h-screen-safe snap-start flex items-center justify-center px-4 sm:px-6">
+        <section id="hero" className="h-screen-safe md:snap-start flex items-center justify-center px-4 sm:px-6">
           <div className="max-w-5xl text-center">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
@@ -109,14 +109,14 @@ const Home = () => {
         </section>
 
         {/* PROJECTS */}
-        <section id="projects" className="relative h-screen-safe snap-start flex items-center justify-center">
+        <section id="projects" className="relative h-screen-safe md:snap-start flex items-center justify-center">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
             <AppStore />
           </div>
         </section>
 
         {/* LIFE JOURNEY - Immersive scroll-driven story */}
-        <section id="about" className="relative snap-start min-h-screen-safe">
+        <section id="about" className="relative md:snap-start min-h-screen-safe">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center pt-20 pb-12">
               <motion.h2 
@@ -144,12 +144,12 @@ const Home = () => {
         </section>
 
         {/* SKILLS - Interactive constellation */}
-        <section id="skills" className="relative h-screen-safe snap-start flex items-center justify-center">
+        <section id="skills" className="relative h-screen-safe md:snap-start flex items-center justify-center">
           <SkillConstellation />
         </section>
 
         {/* CONTACT */}
-        <section id="contact" className="relative h-screen-safe snap-start flex items-center justify-center px-4 sm:px-6">
+        <section id="contact" className="relative h-screen-safe md:snap-start flex items-center justify-center px-4 sm:px-6">
           <div className="max-w-6xl mx-auto w-full">
             <div className="text-center mb-8 sm:mb-10 lg:mb-12">
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent mb-4 lg:mb-6 leading-tight">

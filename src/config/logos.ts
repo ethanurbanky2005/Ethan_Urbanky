@@ -28,6 +28,7 @@ export const logos = {
   "Flask": "https://cdn.simpleicons.org/flask",
   "FastAPI": "https://cdn.simpleicons.org/fastapi",
   "Next.js": "https://cdn.simpleicons.org/nextdotjs",
+  "FinanceTrack": "/financetrack-logo.png",
   "Framer Motion": "https://cdn.simpleicons.org/framer",
   "React.js": "https://cdn.simpleicons.org/react",
   "Supabase": "https://cdn.simpleicons.org/supabase",

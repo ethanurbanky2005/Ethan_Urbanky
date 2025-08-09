@@ -103,7 +103,7 @@ export const portfolio = {
       role: "Full-Stack Developer",
       description: "Comprehensive financial management application with dashboard analytics, transaction tracking, subscription management, and tax liability monitoring. Features secure authentication, data visualization, and real-time budget tracking.",
       tech: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "shadcn/ui", "Recharts"],
-      icon: "Next.js",
+      icon: "FinanceTrack",
       github: "https://github.com/ethanurbanky2005/FinanceTrack.git",
       demo: "https://financetrack-personal.vercel.app",
       mass: 0.8

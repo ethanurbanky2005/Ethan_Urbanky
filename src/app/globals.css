@@ -93,7 +93,16 @@ html {
     /* Remove overflow: hidden to allow content to show */
   }
   
-  /* Debug borders removed - iOS issues resolved */
+  /* Force remove debug borders on mobile */
+  #hero {
+    border: none !important;
+    background: transparent !important;
+  }
+  
+  #projects {
+    border: none !important;
+    background: transparent !important;
+  }
   
   /* Increase app logo sizes on iOS for better touch interaction */
   .group > div[class*="w-16"][class*="h-16"] {

@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Download, ExternalLink, Github, Play } from "lucide-react";
+import { Download, ExternalLink, Github, Play, X } from "lucide-react";
 import { portfolio } from "@/config/portfolio";
 import { getLogo } from "@/config/logos";
 import Image from "next/image";
@@ -184,14 +184,49 @@ interface AppModalProps {
 }
 
 function AppModal({ project, onClose }: AppModalProps) {
+  // Prevent body scroll and fix iOS viewport issues
+  useEffect(() => {
+    const scrollY = window.scrollY;
+    const body = document.body;
+    const html = document.documentElement;
+    
+    // Store original styles
+    const originalBodyStyle = body.style.cssText;
+    const originalHtmlStyle = html.style.cssText;
+    
+    // Lock scroll position for iOS
+    body.style.position = 'fixed';
+    body.style.top = `-${scrollY}px`;
+    body.style.width = '100%';
+    body.style.overflow = 'hidden';
+    html.style.overflow = 'hidden';
+    
+    return () => {
+      // Restore original styles
+      body.style.cssText = originalBodyStyle;
+      html.style.cssText = originalHtmlStyle;
+      // Restore scroll position
+      window.scrollTo(0, scrollY);
+    };
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm overflow-hidden"
+      className="fixed z-[9999] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
       onClick={onClose}
-      style={{ WebkitOverflowScrolling: 'touch' }}
+      style={{ 
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: '100vw',
+        height: '100vh',
+        WebkitOverflowScrolling: 'touch'
+      }}
     >
       <motion.div
         initial={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -202,22 +237,34 @@ function AppModal({ project, onClose }: AppModalProps) {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-start gap-6 mb-6">
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-400/20 to-blue-500/20 border border-white/20 flex items-center justify-center flex-shrink-0 p-3">
-            <Image
-              src={getLogo(project.icon)}
-              alt={project.title}
-              width={80}
-              height={80}
-              className="max-w-full max-h-full object-contain filter brightness-0 invert"
-              unoptimized={true}
-            />
-          </div>
+        <div className="relative">
+          {/* Close Button */}
+          <motion.button
+            onClick={onClose}
+            className="absolute -top-4 -right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 border border-white/20 flex items-center justify-center transition-all duration-200 touch-manipulation z-10"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <X size={20} className="text-white" />
+          </motion.button>
           
-          <div className="flex-1">
-            <h2 className="text-2xl font-light text-white mb-2">{project.title}</h2>
-            <p className="text-cyan-400 mb-3">{project.role}</p>
-            <p className="text-slate-300 leading-relaxed">{project.description}</p>
+          <div className="flex items-start gap-6 mb-6">
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-400/20 to-blue-500/20 border border-white/20 flex items-center justify-center flex-shrink-0 p-3">
+              <Image
+                src={getLogo(project.icon)}
+                alt={project.title}
+                width={80}
+                height={80}
+                className="max-w-full max-h-full object-contain filter brightness-0 invert"
+                unoptimized={true}
+              />
+            </div>
+            
+            <div className="flex-1">
+              <h2 className="text-2xl font-light text-white mb-2">{project.title}</h2>
+              <p className="text-cyan-400 mb-3">{project.role}</p>
+              <p className="text-slate-300 leading-relaxed">{project.description}</p>
+            </div>
           </div>
         </div>
 

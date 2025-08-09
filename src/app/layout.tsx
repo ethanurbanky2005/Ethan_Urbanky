@@ -8,8 +8,13 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: `${portfolio.identity.name} — DreamOS Galaxy`,
+  title: `${portfolio.identity.name}`,
   description: `${portfolio.identity.tagline}`,
+  icons: {
+    icon: '/ethan-brand-logo.svg',
+    shortcut: '/ethan-brand-logo.svg',
+    apple: '/ethan-brand-logo.svg',
+  },
 };
 
 export const viewport: Viewport = {

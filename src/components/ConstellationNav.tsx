@@ -60,10 +60,6 @@ export default function ConstellationNav() {
       const currentStarId = constellationPath[i];
       const nextStarId = constellationPath[i + 1];
       
-      // Find the star data
-      const currentStar = stars.find(s => s.id === currentStarId);
-      const nextStar = stars.find(s => s.id === nextStarId);
-      
       // Get actual DOM positions instead of calculated ones
       const currentStarEl = starRefs.current[currentStarId];
       const nextStarEl = starRefs.current[nextStarId];
@@ -206,7 +202,7 @@ export default function ConstellationNav() {
         cancelAnimationFrame(animationId);
       }
     };
-  }, [open, hoveredStar]);
+  }, [open, hoveredStar, drawParticleTrace]);
 
   // Initial constellation draw
   useEffect(() => {
@@ -226,7 +222,7 @@ export default function ConstellationNav() {
       clearTimeout(timer);
       window.removeEventListener('resize', handleResize);
     };
-  }, [open]);
+  }, [open, drawConstellation]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -270,7 +266,7 @@ export default function ConstellationNav() {
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
-            transition={{ type: "easeOut", duration: 0.4 }}
+            transition={{ ease: "easeOut", duration: 0.4 }}
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(95vw,900px)] h-[min(85vh,600px)]"
             onClick={(e) => e.stopPropagation()}
           >

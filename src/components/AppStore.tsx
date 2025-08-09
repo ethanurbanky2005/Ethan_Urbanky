@@ -105,7 +105,7 @@ function AppTile({ project, index, isDownloading, onDownload }: AppTileProps) {
       className="group relative"
     >
       {/* App Icon Container */}
-      <div className="relative aspect-square rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md p-6 transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)]">
+      <div className="relative aspect-square rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md p-6 transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)] active:scale-95 touch-manipulation">
         
         {/* App Icon */}
         <div className="relative w-full h-full flex flex-col items-center justify-center">
@@ -153,9 +153,9 @@ function AppTile({ project, index, isDownloading, onDownload }: AppTileProps) {
         <motion.button
           onClick={onDownload}
           disabled={isDownloading}
-          className="absolute bottom-4 left-4 right-4 h-10 rounded-xl bg-cyan-500/80 hover:bg-cyan-500 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm border border-cyan-400/30 disabled:opacity-50"
+          className="absolute bottom-4 left-4 right-4 h-10 rounded-xl bg-cyan-500/80 hover:bg-cyan-500 active:bg-cyan-600 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm border border-cyan-400/30 disabled:opacity-50 touch-manipulation"
           whileHover={{ scale: isDownloading ? 1 : 1.02 }}
-          whileTap={{ scale: isDownloading ? 1 : 0.98 }}
+          whileTap={{ scale: isDownloading ? 1 : 0.95 }}
         >
           {isDownloading ? (
             <>
@@ -189,8 +189,9 @@ function AppModal({ project, onClose }: AppModalProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm overflow-hidden"
       onClick={onClose}
+      style={{ WebkitOverflowScrolling: 'touch' }}
     >
       <motion.div
         initial={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -242,7 +243,7 @@ function AppModal({ project, onClose }: AppModalProps) {
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 h-12 rounded-xl bg-cyan-500/80 hover:bg-cyan-500 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm border border-cyan-400/30"
+              className="flex-1 h-12 rounded-xl bg-cyan-500/80 hover:bg-cyan-500 active:bg-cyan-600 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm border border-cyan-400/30 touch-manipulation"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -256,7 +257,7 @@ function AppModal({ project, onClose }: AppModalProps) {
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 h-12 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm border border-white/20"
+              className="flex-1 h-12 rounded-xl bg-white/10 hover:bg-white/20 active:bg-white/30 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm border border-white/20 touch-manipulation"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -269,7 +270,7 @@ function AppModal({ project, onClose }: AppModalProps) {
             href={project.github || project.demo || '#'}
             target="_blank"
             rel="noopener noreferrer"
-            className="h-12 px-6 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium transition-all duration-300 flex items-center justify-center backdrop-blur-sm border border-white/20"
+            className="h-12 px-6 rounded-xl bg-white/10 hover:bg-white/20 active:bg-white/30 text-white font-medium transition-all duration-300 flex items-center justify-center backdrop-blur-sm border border-white/20 touch-manipulation"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >

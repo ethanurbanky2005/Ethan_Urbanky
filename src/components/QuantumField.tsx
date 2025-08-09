@@ -26,6 +26,10 @@ export default function QuantumField() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    // Check if mobile device
+    const isMobile = window.innerWidth <= 768;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -37,7 +41,8 @@ export default function QuantumField() {
     // Initialize particles with better distribution
     const initParticles = () => {
       particlesRef.current = [];
-      for (let i = 0; i < 40; i++) {
+      const particleCount = isMobile ? 15 : 40; // Reduce particles on mobile
+      for (let i = 0; i < particleCount; i++) {
         particlesRef.current.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
@@ -61,6 +66,13 @@ export default function QuantumField() {
 
     // Quantum field animation
     const animate = () => {
+      // Skip animation if user prefers reduced motion
+      if (reduceMotion) {
+        ctx.fillStyle = 'rgba(2, 6, 23, 0.95)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        return;
+      }
+      
       ctx.fillStyle = 'rgba(2, 6, 23, 0.1)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -117,7 +129,7 @@ export default function QuantumField() {
         ctx.fill();
 
         // Reduced quantum connections for performance
-        if (i % 2 === 0) { // Only draw connections for every other particle
+        if (!isMobile && i % 2 === 0) { // Skip connections entirely on mobile, only draw for every other particle on desktop
           particles.forEach((other, j) => {
             if (i >= j) return;
             

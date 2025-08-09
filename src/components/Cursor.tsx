@@ -41,6 +41,6 @@ export default function Cursor() {
   }, [reduceMotion]);
 
   return (
-    <div ref={ref} className="fixed z-[200] pointer-events-none h-5 w-5 rounded-full bg-cyan-300/40 ring-2 ring-cyan-400/60" />
+    <div ref={ref} className="fixed z-[200] pointer-events-none h-5 w-5 rounded-full bg-cyan-300/40 ring-2 ring-cyan-400/60 hidden md:block" />
   );
 }

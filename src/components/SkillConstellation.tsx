@@ -94,7 +94,7 @@ export default function SkillConstellation() {
         ))}
       </div>
 
-      <div ref={containerRef} className="relative h-[400px] sm:h-[450px] lg:h-[500px] rounded-2xl lg:rounded-3xl bg-gradient-to-br from-slate-900/50 to-slate-800/30 ring-1 ring-white/10 backdrop-blur-sm overflow-hidden">
+      <div ref={containerRef} className="relative h-[400px] sm:h-[450px] lg:h-[500px] rounded-2xl lg:rounded-3xl bg-gradient-to-br from-slate-900/50 to-slate-800/30 ring-1 ring-white/10 backdrop-blur-sm overflow-hidden touch-manipulation">
         {/* Connection lines */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none">
           {connections.map(([skill1, skill2], i) => {
@@ -157,8 +157,10 @@ export default function SkillConstellation() {
               }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 1.1 }}
               onHoverStart={() => setHoveredSkill(skill.name)}
               onHoverEnd={() => setHoveredSkill(null)}
+              onTap={() => setHoveredSkill(hoveredSkill === skill.name ? null : skill.name)}
             >
               <div 
                 className={`relative w-16 h-16 rounded-full bg-gradient-to-br ${categoryConfig.color} ring-2 ring-white/20 backdrop-blur-sm flex items-center justify-center transition-all duration-300 group-hover:ring-white/40 p-3`}

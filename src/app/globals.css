@@ -4,6 +4,59 @@ html {
   scroll-behavior: smooth;
 }
 
+/* iOS Safari viewport fixes */
+@supports (height: 100dvh) {
+  .h-screen-safe {
+    height: 100dvh;
+  }
+  .min-h-screen-safe {
+    min-height: 100dvh;
+  }
+}
+
+@supports not (height: 100dvh) {
+  .h-screen-safe {
+    height: 100vh;
+    height: -webkit-fill-available;
+  }
+  .min-h-screen-safe {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* iOS scroll behavior improvements */
+@media (max-width: 768px) {
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Disable scroll snap on iOS to prevent jank */
+  .snap-y {
+    scroll-snap-type: none;
+  }
+  
+  /* Better touch handling */
+  button, a, [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  
+  /* Improved text rendering on iOS */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  /* Ensure minimum font sizes for readability */
+  .text-xs { font-size: 0.75rem; }
+  .text-sm { font-size: 0.875rem; }
+  .text-base { font-size: 1rem; }
+  .text-lg { font-size: 1.125rem; }
+}
+
 :root {
   --accent: #00D4FF;
 }
@@ -27,3 +80,19 @@ body { background-color: #0A0B10; color: #E6E7EB; }
 /* Subtle aura pulse */
 @keyframes aura { 0%,100%{ box-shadow: 0 0 40px rgba(34,211,238,.18);} 50%{ box-shadow: 0 0 80px rgba(34,211,238,.25);} }
 .pulse-aura { animation: aura 6s ease-in-out infinite; }
+
+/* Reduce animations on mobile and for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Reduce particle animations on mobile for better performance */
+  [class*="animate-"] {
+    animation-duration: 1s;
+  }
+}

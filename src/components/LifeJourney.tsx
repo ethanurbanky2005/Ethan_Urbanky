@@ -111,7 +111,7 @@ export default function LifeJourney() {
 
 
       {/* Journey steps */}
-      <div className="space-y-32 py-20">
+      <div className="space-y-16 sm:space-y-24 lg:space-y-32 py-10 sm:py-16 lg:py-20">
         {journeySteps.map((step, index) => {
           const isLeft = index % 2 === 0;
 
@@ -190,10 +190,10 @@ export default function LifeJourney() {
 
                   {/* Content */}
                   <div className="relative z-10">
-                    <h3 className={`text-2xl sm:text-3xl font-bold mb-2 bg-gradient-to-r ${step.color} bg-clip-text text-transparent`}>
+                    <h3 className={`text-xl sm:text-2xl lg:text-3xl font-bold mb-2 bg-gradient-to-r ${step.color} bg-clip-text text-transparent`}>
                       {step.title}
                     </h3>
-                    <p className="text-cyan-300/90 text-lg mb-4">{step.subtitle}</p>
+                    <p className="text-cyan-300/90 text-base sm:text-lg mb-4">{step.subtitle}</p>
                     <p className="text-slate-300/90 leading-relaxed mb-6">{step.story}</p>
 
                     {/* Stats */}

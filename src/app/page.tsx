@@ -20,9 +20,9 @@ const Home = () => {
       </div>
 
 
-      <main className="relative z-10 snap-y snap-mandatory h-dvh w-screen overflow-y-scroll">
+      <main className="relative z-10 snap-y snap-mandatory h-dvh w-full overflow-y-scroll overflow-x-hidden">
         {/* HERO */}
-        <section id="hero" className="h-dvh snap-start flex items-center justify-center px-6">
+        <section id="hero" className="h-dvh snap-start flex items-center justify-center px-4 sm:px-6">
           <div className="max-w-5xl text-center">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
@@ -41,7 +41,7 @@ const Home = () => {
             </motion.div>
             
             <motion.h1 
-              className="text-6xl md:text-7xl lg:text-8xl tracking-tight leading-[0.95] mb-6"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-tight leading-[1.1] mb-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.5 }}
@@ -76,7 +76,7 @@ const Home = () => {
                   animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 />
-                <p className="text-lg md:text-xl text-slate-300/90 font-medium">
+                <p className="text-base sm:text-lg md:text-xl text-slate-300/90 font-medium">
                   {portfolio.identity.tagline}
                 </p>
                 <motion.div 
@@ -123,7 +123,7 @@ const Home = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent mb-6 leading-tight"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent mb-6 leading-tight"
               >
                 The Journey
               </motion.h2>
@@ -152,7 +152,7 @@ const Home = () => {
         <section id="contact" className="relative h-dvh snap-start flex items-center justify-center px-4 sm:px-6">
           <div className="max-w-6xl mx-auto w-full">
             <div className="text-center mb-8 sm:mb-10 lg:mb-12">
-              <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent mb-4 lg:mb-6 leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent mb-4 lg:mb-6 leading-tight">
                 Let&apos;s Connect
               </h2>
               <p className="text-lg sm:text-xl text-slate-300/90 max-w-3xl mx-auto leading-relaxed">

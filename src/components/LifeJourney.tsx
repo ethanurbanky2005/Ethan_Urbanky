@@ -189,21 +189,14 @@ export default function LifeJourney() {
                     
                     {/* Logo container with subtle background */}
                     <div className={`relative w-20 h-20 rounded-xl bg-gradient-to-br ${step.color} bg-opacity-5 border border-white/10 backdrop-blur-sm flex items-center justify-center p-2 shadow-lg`}>
-                      {step.visual === "UPick" ? (
-                        // Custom text for UPick instead of logo
-                        <div className="text-white font-bold text-sm leading-tight text-center opacity-90">
-                          UPick
-                        </div>
-                      ) : (
-                        <Image
-                          src={getLogo(step.visual)}
-                          alt={step.visual}
-                          width={56}
-                          height={56}
-                          className="max-w-full max-h-full object-contain filter brightness-0 invert opacity-90"
-                          unoptimized={true}
-                        />
-                      )}
+                      <Image
+                        src={getLogo(step.visual)}
+                        alt={step.visual}
+                        width={56}
+                        height={56}
+                        className="max-w-full max-h-full object-contain filter brightness-0 invert opacity-90"
+                        unoptimized={true}
+                      />
                       
                       {/* Subtle inner glow */}
                       <div className={`absolute inset-0 rounded-xl bg-gradient-to-br ${step.color} opacity-10 mix-blend-soft-light`} />

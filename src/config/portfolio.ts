@@ -98,14 +98,14 @@ export const portfolio = {
       mass: 0.9
     },
     {
-      id: "ci-financial-app",
-      title: "CI Financial Web App",
-      role: "Software Developer Intern",
-      description: "Internal web application for financial data management. Built with Django backend, responsive frontend with Tailwind CSS, and integrated data pipelines from internal APIs.",
-      tech: ["Django", "JavaScript", "Tailwind CSS", "PostgreSQL", "APIs"],
-      icon: "CI Financial",
-      github: null,
-      demo: null,
+      id: "financetrack",
+      title: "FinanceTrack",
+      role: "Full-Stack Developer",
+      description: "Comprehensive financial management application with dashboard analytics, transaction tracking, subscription management, and tax liability monitoring. Features secure authentication, data visualization, and real-time budget tracking.",
+      tech: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "shadcn/ui", "Recharts"],
+      icon: "Next.js",
+      github: "https://github.com/ethanurbanky2005/FinanceTrack.git",
+      demo: "https://financetrack-personal.vercel.app",
       mass: 0.8
     },
     {

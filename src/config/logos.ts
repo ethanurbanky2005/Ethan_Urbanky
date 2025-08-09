@@ -30,6 +30,9 @@ export const logos = {
   "Next.js": "https://cdn.simpleicons.org/nextdotjs",
   "Framer Motion": "https://cdn.simpleicons.org/framer",
   "React.js": "https://cdn.simpleicons.org/react",
+  "Supabase": "https://cdn.simpleicons.org/supabase",
+  "shadcn/ui": "https://cdn.simpleicons.org/shadcnui",
+  "Recharts": "https://cdn.simpleicons.org/recharts",
   
   // Data & Analytics
   "Pandas": "https://cdn.simpleicons.org/pandas",

@@ -65,14 +65,14 @@ const journeySteps = [
     id: "entrepreneur",
     year: "2024-Present",
     title: "Building the Future",
-    subtitle: "UPick: College Football ML Platform",
-    story: "Founding and developing UPick, a machine learning platform for college football parlay picking. Managing the full product lifecycle from wireframes to deployment using Python (Flask/FastAPI) backend and React.js frontend. Implementing advanced ML models with feature engineering and probability calibration. Integrating diverse APIs like OddsAPI and Sportradar for real-time data.",
+    subtitle: "UPick & FinanceTrack",
+    story: "Founding and developing multiple applications including UPick (college football ML platform) and FinanceTrack (comprehensive financial management app). Managing full product lifecycles from concept to deployment, implementing advanced features like ML models, real-time analytics, secure authentication, and interactive dashboards using modern tech stacks.",
     visual: "UPick",
     color: "from-cyan-400 to-blue-600",
     stats: [
-      { label: "Role", value: "Founder & Developer" },
-      { label: "Tech Stack", value: "Python + React + ML" },
-      { label: "Data Integration", value: "OddsAPI + Sportradar" }
+      { label: "Projects", value: "UPick + FinanceTrack" },
+      { label: "Tech Stack", value: "Next.js + Python + ML + Supabase" },
+      { label: "Features", value: "ML Models + Financial Analytics" }
     ]
   }
 ];

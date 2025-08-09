@@ -114,7 +114,7 @@ export const portfolio = {
       role: "Designer & Developer",
       description: "A cosmic interface portfolio featuring neural networks, particle fields, and smooth animations. Built with Next.js, Framer Motion, and cutting-edge UI patterns.",
       tech: ["Next.js", "TypeScript", "Framer Motion", "Tailwind CSS", "Canvas API"],
-      icon: "Next.js",
+      icon: "This Portfolio",
       github: "https://github.com/ethanurbanky2005",
       demo: "https://ethan-urbanky.dev",
       mass: 0.7

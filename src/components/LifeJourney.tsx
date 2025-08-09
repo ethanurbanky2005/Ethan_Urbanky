@@ -1,5 +1,5 @@
 "use client";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef } from "react";
 import { getLogo } from "@/config/logos";
 import Image from "next/image";
@@ -79,10 +79,6 @@ const journeySteps = [
 
 export default function LifeJourney() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
 
   return (
     <div ref={containerRef} className="relative">
@@ -112,18 +108,7 @@ export default function LifeJourney() {
         />
       </div>
 
-      {/* Progress indicator */}
-      <div className="fixed left-8 top-1/2 -translate-y-1/2 z-20 hidden lg:block">
-        <div className="relative h-80 w-1 bg-white/10 rounded-full overflow-hidden">
-          <motion.div
-            className="absolute top-0 left-0 w-full bg-gradient-to-b from-cyan-400 to-blue-600 rounded-full"
-            style={{
-              height: useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
-            }}
-          />
-        </div>
-        <div className="absolute -left-2 top-0 w-5 h-5 rounded-full bg-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.6)]" />
-      </div>
+
 
       {/* Journey steps */}
       <div className="space-y-32 py-20">

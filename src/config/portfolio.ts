@@ -6,6 +6,7 @@ export const portfolio = {
     email: "ethan.urbanky@gmail.com",
     phone: "+1 (647) 710-2061",
     links: {
+      website: "https://ethanurbanky.dev",
       linkedin: "https://linkedin.com/in/ethan-urbanky",
       github: "https://github.com/ethanurbanky2005",
       primary_repo: "https://github.com/ethanurbanky2005/UPickv0",

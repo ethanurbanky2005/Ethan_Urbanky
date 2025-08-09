@@ -8,7 +8,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38bdf8?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 [![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 
-**[VIEW LIVE PORTFOLIO](https://ethan-urbanky.vercel.app)**
+**[VIEW LIVE PORTFOLIO](https://ethanurbanky.dev)**
 
 *Next-generation portfolio with interactive animations and modern design*
 
@@ -136,7 +136,7 @@ src/
 
 <div align="center">
 
-[![Portfolio](https://img.shields.io/badge/Portfolio-View_Live-blueviolet?style=for-the-badge)](https://ethan-urbanky.vercel.app)
+[![Portfolio](https://img.shields.io/badge/Portfolio-View_Live-blueviolet?style=for-the-badge)](https://ethanurbanky.dev)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/ethan-urbanky)
 [![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=for-the-badge&logo=github)](https://github.com/ethanurbanky2005)
 [![Email](https://img.shields.io/badge/Email-Contact-EA4335?style=for-the-badge&logo=gmail)](mailto:ethan.urbanky@gmail.com)

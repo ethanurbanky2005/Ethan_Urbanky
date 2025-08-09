@@ -163,6 +163,21 @@ const Home = () => {
             <div className="max-w-4xl mx-auto rounded-2xl lg:rounded-3xl bg-gradient-to-br from-white/10 to-white/5 ring-1 ring-white/20 backdrop-blur-xl p-6 sm:p-8 lg:p-12 shadow-2xl">
               <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 mb-8">
                 <a 
+                  href="https://ethanurbanky.dev"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center space-x-3 sm:space-x-4 p-4 sm:p-6 rounded-xl lg:rounded-2xl bg-white/5 ring-1 ring-white/10 hover:bg-white/10 transition-all duration-300"
+                >
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-purple-400/20 ring-1 ring-purple-300/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <span className="text-lg sm:text-2xl">🌐</span>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-sm sm:text-base">Portfolio</div>
+                    <div className="text-slate-400 text-xs sm:text-sm">ethanurbanky.dev</div>
+                  </div>
+                </a>
+                
+                <a 
                   href="mailto:ethan.urbanky@gmail.com"
                   className="group flex items-center space-x-3 sm:space-x-4 p-4 sm:p-6 rounded-xl lg:rounded-2xl bg-white/5 ring-1 ring-white/10 hover:bg-white/10 transition-all duration-300"
                 >
@@ -177,6 +192,8 @@ const Home = () => {
                 
                 <a 
                   href="https://linkedin.com/in/ethan-urbanky"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group flex items-center space-x-3 sm:space-x-4 p-4 sm:p-6 rounded-xl lg:rounded-2xl bg-white/5 ring-1 ring-white/10 hover:bg-white/10 transition-all duration-300"
                 >
                   <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-blue-400/20 ring-1 ring-blue-300/30 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -190,6 +207,8 @@ const Home = () => {
                 
                 <a 
                   href="https://github.com/ethanurbanky2005"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group flex items-center space-x-3 sm:space-x-4 p-4 sm:p-6 rounded-xl lg:rounded-2xl bg-white/5 ring-1 ring-white/10 hover:bg-white/10 transition-all duration-300"
                 >
                   <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-slate-400/20 ring-1 ring-slate-300/30 flex items-center justify-center group-hover:scale-110 transition-transform">

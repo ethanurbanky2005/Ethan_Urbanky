@@ -98,7 +98,7 @@ const Home = () => {
             </motion.div>
             
             <motion.p 
-              className="mt-12 text-slate-500 text-sm"
+              className="mt-12 text-slate-500 text-sm hidden md:block"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 2 }}

@@ -27,21 +27,34 @@ html {
 
 /* iOS specific height fixes to prevent overlapping */
 @media (max-width: 768px) {
+  /* Force exact viewport on mobile - no dvh/svh fallbacks */
   .h-screen-safe {
-    /* Use actual viewport height on mobile to prevent overlap */
     height: 100vh !important;
-    height: 100svh !important; /* Small viewport height for iOS */
+    max-height: 100vh !important;
+    min-height: 100vh !important;
   }
   
   .min-h-screen-safe {
     min-height: 100vh !important;
-    min-height: 100svh !important;
   }
   
   /* Ensure sections don't overlap on iOS */
   section {
     position: relative;
     isolation: isolate;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Debug: add visible borders to see what's happening */
+  #hero {
+    border: 2px solid red !important;
+    background: rgba(255, 0, 0, 0.1) !important;
+  }
+  
+  #projects {
+    border: 2px solid blue !important;
+    background: rgba(0, 0, 255, 0.1) !important;
   }
 }
 

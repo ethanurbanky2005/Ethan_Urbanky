@@ -110,7 +110,7 @@ function AppTile({ project, index, isDownloading, onDownload }: AppTileProps) {
         {/* App Icon */}
         <div className="relative w-full h-full flex flex-col items-center justify-center">
           {/* Icon Background */}
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-cyan-400/20 to-blue-500/20 border border-white/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 p-3">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-cyan-400/20 to-blue-500/20 border border-white/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 p-2">
             {project.icon === "UPick" ? (
               // Custom text for UPick instead of logo
               <div className="text-white font-bold text-sm sm:text-base leading-tight text-center">
@@ -120,8 +120,8 @@ function AppTile({ project, index, isDownloading, onDownload }: AppTileProps) {
               <Image
                 src={getLogo(project.icon)}
                 alt={project.title}
-                width={64}
-                height={64}
+                width={80}
+                height={80}
                 className="max-w-full max-h-full object-contain filter brightness-0 invert"
                 unoptimized={true}
               />
@@ -209,7 +209,7 @@ function AppModal({ project, onClose }: AppModalProps) {
       >
         {/* Header */}
         <div className="flex items-start gap-6 mb-6">
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-400/20 to-blue-500/20 border border-white/20 flex items-center justify-center flex-shrink-0 p-4">
+          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-400/20 to-blue-500/20 border border-white/20 flex items-center justify-center flex-shrink-0 p-3">
             {project.icon === "UPick" ? (
               // Custom text for UPick instead of logo
               <div className="text-white font-bold text-base leading-tight text-center">
@@ -219,8 +219,8 @@ function AppModal({ project, onClose }: AppModalProps) {
               <Image
                 src={getLogo(project.icon)}
                 alt={project.title}
-                width={64}
-                height={64}
+                width={80}
+                height={80}
                 className="max-w-full max-h-full object-contain filter brightness-0 invert"
                 unoptimized={true}
               />

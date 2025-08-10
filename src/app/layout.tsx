@@ -28,7 +28,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-950 text-slate-100`}>         
         {children}
         <Cursor />
-        <Analytics />
+        <Analytics 
+          mode="production"
+          debug={process.env.NODE_ENV === 'development'}
+        />
       </body>
     </html>
   );

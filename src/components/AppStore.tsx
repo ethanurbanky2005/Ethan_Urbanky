@@ -46,7 +46,7 @@ export default function AppStore() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-5xl sm:text-6xl lg:text-7xl font-light tracking-tight text-transparent bg-gradient-to-br from-white via-cyan-100 to-cyan-300 bg-clip-text mb-8"
+          className="text-5xl sm:text-6xl lg:text-7xl font-light tracking-tight leading-tight text-transparent bg-gradient-to-br from-white via-cyan-100 to-cyan-300 bg-clip-text mb-4 lg:mb-6"
         >
           Project <span className="text-cyan-400">Store</span>
         </motion.h2>
@@ -55,7 +55,7 @@ export default function AppStore() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="text-lg sm:text-xl text-slate-300/90 max-w-4xl mx-auto leading-relaxed mb-12"
+          className="text-lg sm:text-xl text-slate-300/90 max-w-3xl mx-auto leading-relaxed"
         >
           Download and explore my latest applications—each project crafted with passion, 
           innovation, and attention to detail.

@@ -123,7 +123,7 @@ const Home = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent mb-6 leading-tight"
+                className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-4 lg:mb-6 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent leading-tight"
               >
                 The Journey
               </motion.h2>
@@ -132,7 +132,7 @@ const Home = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
-                className="text-lg sm:text-xl text-slate-300/90 max-w-4xl mx-auto leading-relaxed mb-12"
+                className="text-lg sm:text-xl text-slate-300/90 max-w-3xl mx-auto leading-relaxed"
               >
                 Scroll through my story—from academic foundations to leading teams, 
                 each step building toward the future I&apos;m creating.

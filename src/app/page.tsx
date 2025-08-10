@@ -8,18 +8,11 @@ import SkillConstellation from "@/components/SkillConstellation";
 import QuantumField from "@/components/QuantumField";
 import { motion } from "framer-motion";
 import React, { useEffect } from "react";
-import { trackPageView, trackInteraction } from "@/lib/analytics";
+
 
 const Home = () => {
   useEffect(() => {
-    // Track page view when component mounts
-    trackPageView();
-    
-    // Track some interactions for testing
-    trackInteraction('page', 'loaded', {
-      portfolio: portfolio.identity.name,
-      timestamp: new Date().toISOString()
-    });
+    // Page loaded - Vercel Analytics will automatically track this
   }, []);
 
   return (

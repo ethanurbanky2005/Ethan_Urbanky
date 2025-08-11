@@ -269,98 +269,38 @@ This section documents identified issues and their planned fixes for improved us
 
 This roadmap embodies the philosophy that drove this portfolio's creation: **exploration over performance, comprehension over clutter, respect over capture**. Each planned feature follows the principle that information should find you naturally, not trap you in navigation theater.
 
-### **Revolutionary Portfolio Experiences**
-*Pushing the boundaries of what a portfolio can be*
+### **Next-Generation Portfolio Features**
+*Simple enhancements that respect the exploration philosophy*
 
-#### **1. Evolution-Aware Project Stories**
-Transform static project showcases into **living narratives**:
+#### **1. Project Evolution**
+Projects show their learning journey, not just final results.
 
-- **Project DNA**: Visual family trees showing how projects influenced each other
-- **Decision Timelines**: Interactive exploration of "why this choice?" moments with real impact data
-- **Learning Extraction**: Each project distills key lessons learned into reusable patterns
-- **Technical Debt Archaeology**: Honest documentation of what went wrong and how it was fixed
-- **Impact Ripples**: Show how each project's lessons influenced subsequent work
+#### **2. Smart Contact**
+Contact method suggested based on what you explored.
 
-#### **2. Smart Contact Intelligence** 
-Revolutionize the standard contact section:
+#### **3. Skill Connections**
+Hover any skill to see which projects actually used it.
 
-- **Context-Aware Contact**: Different contact methods suggested based on visitor's exploration pattern
-- **Project-Specific Outreach**: "Interested in FinanceTrack? Let's discuss fintech challenges specifically"
-- **Collaboration Readiness**: Real-time availability calendar with project collaboration time slots
-- **Response Time Transparency**: Honest expectations based on current workload and project phases
-- **Communication Style Matching**: Choose your preferred interaction style (technical deep-dive vs. business overview)
+#### **4. Timeline Branches**
+Click any career moment to see alternate paths considered.
 
-#### **3. Intelligent Skill Relationships**
-Expand beyond the current constellation to show **true technical mastery**:
+#### **5. Code Samples**
+Real snippets from projects with before/after improvements.
 
-- **Technology Stack Synergies**: Visual representation of how your skills combine to solve specific problems
-- **Learning Path Transparency**: Show the actual progression from novice to expert with specific projects as evidence
-- **Cross-Domain Applications**: How frontend skills influenced backend decisions and vice versa
-- **Skill Gap Honesty**: Explicit acknowledgment of areas still learning with active improvement plans
-- **Real-World Application Maps**: Connect each skill to specific project outcomes and business impact
+#### **6. Live Status**
+Current availability and what you're actively learning.
 
-#### **4. Interactive Career Trajectory**
-Transform the resume into an **explorable journey**:
+#### **7. Context Memory**
+Portfolio remembers your interests across visits (locally).
 
-- **Parallel Universe Paths**: "What if I had chosen data science over web development?" with branching narratives
-- **Mentor and Learning Influence**: Visual map of people, courses, and experiences that shaped your approach
-- **Cross-Reference Everything**: Click any technology, see every project it appeared in and how usage evolved
-- **Context Behind Decisions**: Why you chose UWO for data science, why CI Financial was the right internship fit
-- **Future Trajectory Modeling**: Honest speculation about next 2-5 years based on current interests and market trends
+#### **8. Decision Stories**
+One-sentence explanations for major technical choices.
 
-#### **5. Code Philosophy in Action**
-Demonstrate your development principles through **concrete examples**:
+#### **9. Working Style**
+Clear preview of collaboration preferences and communication style.
 
-- **Before/After Code Quality**: Real diffs showing how your coding standards evolved between internships
-- **Architecture Decision Records**: Interactive exploration of major technical choices with long-term outcomes
-- **Performance Optimization Stories**: Specific examples of making code faster, more maintainable, or more elegant
-- **Debugging War Stories**: Interactive narratives of complex problems solved, with the actual thinking process
-- **Open Source Mindset**: Contributions, code reviews, and community involvement with impact metrics
-
-#### **6. Dynamic Portfolio Intelligence**
-Make the portfolio itself **responsive to context**:
-
-- **Visitor Intent Recognition**: Subtly adapt content order based on whether someone seems to be recruiting, collaborating, or learning
-- **Progressive Disclosure**: Start simple, reveal complexity as visitor demonstrates deeper interest
-- **Technical Depth Matching**: Automatically adjust explanation detail based on visitor's apparent technical background
-- **Exploration Memory**: Remember what visitors found interesting across sessions (locally stored)
-- **Contextual Recommendations**: "Based on your interest in FinanceTrack, you might also find the data pipeline work interesting"
-
-#### **7. Real-Time Professional Status**
-Honest, transparent career positioning:
-
-- **Current Learning Focus**: What you're actively studying with progress indicators and learning artifacts
-- **Availability Windows**: Realistic timelines for different types of opportunities (internships, full-time, consulting)
-- **Collaboration Interests**: Specific types of projects or problems you're excited to work on next
-- **Skill Development Roadmap**: Public commitments to learning goals with progress tracking
-- **Professional Network Growth**: How your understanding of the industry is evolving through mentorships and connections
-
-#### **8. Interactive Technical Demonstrations**
-Prove capabilities through **hands-on examples**:
-
-- **Live Code Challenges**: Visitors can pose technical problems and watch your problem-solving approach
-- **Architecture Walkthroughs**: Interactive tours of your most complex technical decisions with zoom-in detail
-- **Performance Analysis**: Real metrics from your applications with explanations of optimization strategies
-- **Code Review Examples**: Demonstrate your ability to read, understand, and improve others' code
-- **Technical Communication**: Examples of explaining complex concepts to both technical and non-technical audiences
-
-#### **9. Value-Driven Collaboration Preview**
-Show what working with you would actually be like:
-
-- **Working Style Transparency**: How you approach collaboration, communication preferences, and feedback styles
-- **Problem-Solving Methodology**: Your actual process for approaching new challenges with real examples
-- **Quality Standards**: What "done" means to you with concrete examples from past work
-- **Learning Integration**: How you incorporate new information and adapt approaches based on feedback
-- **Project Lifecycle Ownership**: Your approach to projects from conception through maintenance
-
-#### **10. Future-Focused Professional Vision**
-Demonstrate forward-thinking career development:
-
-- **Industry Trend Analysis**: Your perspective on where technology is heading with specific implications for development work
-- **Skill Investment Strategy**: Why you're learning certain technologies and how they fit into your career vision
-- **Problem Domain Interest**: Specific types of challenges you want to solve (fintech, healthcare, climate, etc.)
-- **Technical Leadership Growth**: How you're developing capabilities beyond just coding
-- **Value Creation Focus**: Your understanding of how technical work translates to business and user impact
+#### **10. Learning Path**
+Visual progression from project to project showing skill growth.
 
 ### **Enhanced Portfolio Features**
 

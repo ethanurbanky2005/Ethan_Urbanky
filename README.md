@@ -130,7 +130,127 @@ src/
 - **Spatial Awareness** - 3D thinking in 2D space
 - **Performance Poetry** - Smooth as silk, fast as light
 
+## **Known Issues & Fixes**
 
+This section documents identified issues and their planned fixes for improved user experience across all platforms.
+
+### **Mobile iOS Formatting Issues**
+
+#### **Issue: Layout Breaking Past "The Journey" Section**
+- **Component**: `src/components/LifeJourney.tsx`
+- **Problem**: iOS Safari viewport handling causes layout shifts and spacing issues after the timeline section
+- **Root Cause**: CSS viewport units (`vh`) behave inconsistently on iOS, especially with Safari's dynamic toolbar
+- **Impact**: Timeline cards may overflow, text becomes misaligned, and scroll behavior becomes erratic
+- **Planned Fix**: 
+  - Replace `h-screen-safe` classes with iOS-compatible viewport calculations
+  - Implement `dvh` (dynamic viewport height) units with fallbacks
+  - Add iOS-specific media queries for Safari browser detection
+  - Optimize touch scroll behavior for timeline navigation
+
+#### **Issue: Responsive Breakpoint Inconsistencies**
+- **Component**: Global layout system
+- **Problem**: Tailwind responsive classes don't account for iOS Safari's collapsing address bar
+- **Planned Fix**: Custom CSS variables for true viewport dimensions on iOS
+
+### **Contact Section Issues**
+
+#### **Issue: Phone Number Exposure in Let's Connect Section**
+- **Component**: `src/app/page.tsx` (lines 228-240)
+- **Problem**: Phone number `(647) 710-2061` publicly exposed in both desktop and mobile versions
+- **Security Concern**: Direct phone access can lead to spam and privacy issues
+- **Planned Fix**: 
+  - Remove phone number card completely from contact grid
+  - Restructure contact grid from 6 items to 4 items (Portfolio, Email, LinkedIn, GitHub)
+  - Implement CSS Grid auto-fit for better responsive layout
+  - Consider adding a contact form as alternative communication method
+
+### **Story Timeline Issues**
+
+#### **Issue: "Leadership & Growth" Story Point Formatting**
+- **Component**: `src/components/LifeJourney.tsx` (line 53)
+- **Problem**: Inconsistent spacing and typography hierarchy in the story card
+- **Details**: 
+  - Title uses ampersand which may not render consistently across fonts
+  - Card padding doesn't match other timeline entries
+  - Stats grid alignment issues on mobile devices
+- **Planned Fix**:
+  - Standardize title formatting with consistent character encoding
+  - Normalize card padding using CSS custom properties
+  - Implement responsive stats grid with `minmax()` for consistent spacing
+  - Add typography scale consistency checks
+
+### **Tech Constellation Component Issues**
+
+#### **Issue: Proficiency Percentage Display**
+- **Component**: `src/components/SkillConstellation.tsx` (line 217)
+- **Problem**: Displaying raw proficiency percentages may appear boastful or inaccurate
+- **Current Code**: `{skill.level}% proficiency`
+- **Planned Fix**: 
+  - Replace percentage with skill level descriptors: "Expert", "Advanced", "Proficient", "Familiar"
+  - Create mapping function: 90-100% = "Expert", 80-89% = "Advanced", etc.
+  - Improve tooltip visual hierarchy with better typography
+
+#### **Issue: Tooltip Popup Positioning and Performance**
+- **Component**: `src/components/SkillConstellation.tsx` (lines 208-225)
+- **Problems**:
+  - Collision detection is simplified and can cause overlapping tooltips
+  - Mobile touch interactions don't properly dismiss tooltips
+  - Z-index conflicts with other UI elements
+  - Performance issues with hover states on mobile devices
+- **Planned Fixes**:
+  - Implement proper collision detection using element bounds
+  - Add touch-friendly tap-to-show/hide tooltip behavior
+  - Create tooltip manager with proper z-index stacking
+  - Add viewport boundary detection to prevent tooltips from going off-screen
+  - Implement tooltip queuing system for mobile devices
+
+### **Content and UX Issues**
+
+#### **Issue: Sentence Clarity and Flow**
+- **Components**: Various throughout the portfolio
+- **Problems Identified**:
+  - Technical jargon without sufficient context for non-technical audiences
+  - Long sentences that could be broken down for better readability
+  - Inconsistent tone between sections (academic vs. professional vs. casual)
+- **Planned Improvements**:
+  - Rewrite technical descriptions with broader audience appeal
+  - Break complex sentences into digestible chunks
+  - Standardize tone to professional yet approachable
+  - Add progressive disclosure for technical details
+
+#### **Issue: Spacing Between "Ready for What's Next" and Tech Constellation**
+- **Components**: `src/components/LifeJourney.tsx` (lines 233-239) and `src/app/page.tsx` (line 152)
+- **Problem**: Insufficient visual separation causing sections to feel cramped
+- **Details**:
+  - LifeJourney final message doesn't have enough bottom padding
+  - Skills section lacks proper top margin
+  - Snap scroll behavior can cause jarring transitions
+- **Planned Fix**:
+  - Add consistent section padding using CSS custom properties
+  - Implement smooth transition zones between major sections
+  - Optimize snap scroll points for better flow
+  - Add visual separators or gradient transitions between sections
+
+### **Performance and Accessibility Fixes**
+
+#### **Issue: Animation Performance on Lower-End Devices**
+- **Components**: Particle systems, constellation connections, timeline animations
+- **Planned Optimizations**:
+  - Implement `prefers-reduced-motion` respect
+  - Add performance budgets for animation complexity
+  - Provide fallback static layouts for devices with limited GPU acceleration
+
+#### **Issue: Keyboard Navigation and Screen Reader Support**
+- **Components**: Interactive elements throughout
+- **Planned Improvements**:
+  - Add proper ARIA labels and descriptions
+  - Implement keyboard navigation patterns
+  - Ensure proper focus management in dynamic content
+  - Add skip links for complex interactive sections
+
+---
+
+*This issues list is actively maintained and updated as fixes are implemented. Each fix includes proper testing across devices and browsers before deployment.*
 
 ## **Connect & Collaborate**
 

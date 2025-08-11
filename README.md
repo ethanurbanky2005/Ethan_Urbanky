@@ -160,9 +160,20 @@ This section documents identified issues and their planned fixes for improved us
 - **Security Concern**: Direct phone access can lead to spam and privacy issues
 - **Planned Fix**: 
   - Remove phone number card completely from contact grid
-  - Restructure contact grid from 6 items to 4 items (Portfolio, Email, LinkedIn, GitHub)
+  - Restructure contact grid from 5 items to 4 items (Resume, Email, LinkedIn, GitHub)
   - Implement CSS Grid auto-fit for better responsive layout
   - Consider adding a contact form as alternative communication method
+
+#### **Issue: Portfolio Button Should Link to Resume Instead of Website**
+- **Component**: `src/app/page.tsx` (lines 170-183)
+- **Current Behavior**: Portfolio button links to `https://ethanurbanky.dev` (the current website)
+- **Problem**: Circular reference - portfolio linking to itself is not useful for visitors
+- **Planned Fix**:
+  - Change Portfolio button to "Resume" with document icon (📄)
+  - Update href to `/resume.pdf` for direct PDF download
+  - Change descriptive text from "ethanurbanky.dev" to "Download PDF"
+  - Add `download="Ethan_Urbanky_Resume.pdf"` attribute for better file naming
+  - Ensure resume.pdf is placed in `/public/` directory for proper serving
 
 ### **Story Timeline Issues**
 

@@ -265,14 +265,14 @@ This section documents identified issues and their planned fixes for improved us
 
 ## **Future Features: The Exploration Manifesto**
 
-> *"Portfolios should behave like landscapes, not filing cabets. Exploration beats instruction."*
+> *"Portfolios should behave like landscapes, not filing cabinets. Exploration beats instruction."*
 
 This roadmap embodies the philosophy that drove this portfolio's creation: **exploration over performance, comprehension over clutter, respect over capture**. Each planned feature follows the principle that information should find you naturally, not trap you in navigation theater.
 
-### **The Creative Universe Constellation** 🌌
+### **The Creative Universe Constellation**
 *Launching multiple dimensions of creative exploration*
 
-#### **1. Living Blog Landscape** 📝
+#### **1. Living Blog Landscape**
 Transform traditional blogging into an **explorable thought-space**:
 
 - **Thought Nodes**: Each blog post becomes a node in an expandable constellation
@@ -281,7 +281,7 @@ Transform traditional blogging into an **explorable thought-space**:
 - **Interactive Story Elements**: Code playgrounds, before/after diffs, decision trees
 - **Journey Architecture**: Posts organize around exploration paths, not rigid categories
 
-#### **2. Digital Art Gallery** 🎨
+#### **2. Digital Art Gallery**
 Creative coding meets visual expression:
 
 - **Generative Art Playground**: Interactive p5.js/Three.js experiments visitors can modify
@@ -290,7 +290,7 @@ Creative coding meets visual expression:
 - **ASCII Art Terminal**: Retro computing aesthetic with interactive command exploration
 - **Pixel Nostalgia**: 8-bit style animations that tell development stories
 
-#### **3. Interactive Experiments Lab** 🧪
+#### **3. Interactive Experiments Lab**
 Micro-experiences that demonstrate concepts:
 
 - **Physics Simulations**: Gravity, collision, and particle systems with editable parameters
@@ -299,7 +299,7 @@ Micro-experiences that demonstrate concepts:
 - **CSS Magic Showcase**: Impossible-seeming effects with copy-paste code
 - **Mini-Game Arcade**: Simple games that demonstrate programming concepts
 
-#### **4. Music & Audio Experiences** 🎵
+#### **4. Music & Audio Experiences**
 Sound design meets code:
 
 - **Ambient Code Soundscapes**: Background audio that changes based on section/activity
@@ -308,7 +308,7 @@ Sound design meets code:
 - **Sound-Responsive Visuals**: Graphics that dance to audio input
 - **Podcast Integration**: Audio stories about development journey with visual accompaniment
 
-#### **5. Community Collaboration Canvas** 👥
+#### **5. Community Collaboration Canvas**
 Shared creative spaces:
 
 - **Visitor Constellation**: Anonymous nodes showing where people come from and explore
@@ -317,7 +317,7 @@ Shared creative spaces:
 - **Inspiration Board**: Visitors share links to amazing creative coding projects
 - **Digital Guest Book**: Beautiful, interactive signatures and messages
 
-#### **6. Experimental UI Playground** 🔮
+#### **6. Experimental UI Playground**
 Pushing interaction boundaries:
 
 - **Gesture Language**: Custom swipe/pinch patterns for different navigation actions
@@ -326,7 +326,7 @@ Pushing interaction boundaries:
 - **Biometric Ambience**: Heart rate API integration for stress-responsive design
 - **AR Portfolio Cards**: Scan QR codes to see projects floating in your space
 
-#### **7. Time Travel Interface** ⏰
+#### **7. Time Travel Interface**
 Explore development evolution:
 
 - **Code Archaeology**: Dig through git history with beautiful diff visualizations
@@ -335,7 +335,7 @@ Explore development evolution:
 - **Decision Archaeology**: Interactive exploration of "why this choice?" moments
 - **Future Prediction Engine**: ML model guessing next technologies to learn
 
-#### **8. Creative Writing & Storytelling** ✍️
+#### **8. Creative Writing & Storytelling**
 Beyond traditional blogging:
 
 - **Interactive Fiction**: Choose-your-own-adventure style technical tutorials
@@ -344,7 +344,7 @@ Beyond traditional blogging:
 - **Technical Fairy Tales**: Complex concepts explained through narrative
 - **Dialogue-Driven Tutorials**: Conversations between developer-characters
 
-#### **9. Gamification & Achievements** 🏆
+#### **9. Gamification & Achievements**
 Exploration rewards without dark patterns:
 
 - **Hidden Easter Eggs**: Konami codes, secret areas, and delightful surprises
@@ -353,7 +353,7 @@ Exploration rewards without dark patterns:
 - **Portfolio Speedruns**: How fast can you understand the full story?
 - **Knowledge Quest Maps**: Visual progress through different technical domains
 
-#### **10. Educational Interactive Experiences** 🎓
+#### **10. Educational Interactive Experiences**
 Learning through play:
 
 - **Concept Playground**: Drag-and-drop programming concepts to build understanding
@@ -362,7 +362,7 @@ Learning through play:
 - **Performance Profiler Game**: Optimize code for speed/memory in real-time
 - **Security Escape Rooms**: Learn vulnerabilities through puzzle-solving
 
-### **Enhanced Portfolio Features** ✨
+### **Enhanced Portfolio Features**
 
 #### **Respect Mode Evolution**
 Expanding accessibility beyond motion preferences:
@@ -371,26 +371,26 @@ Expanding accessibility beyond motion preferences:
 - **Cognitive Load Reducer**: Progressive disclosure of complex technical information
 - **Ambient Intelligence**: Content adapts to reading pace and comprehension cues
 
-#### **AI Collaboration Transparency** 🤖
+#### **AI Collaboration Transparency**
 Living demonstration of AI-assisted development philosophy:
 - **AI Average Toggle**: One-click comparison showing "generic AI output" vs. deliberate design choices
 - **Prompt Museum**: Curated collection of effective prompts with context and reasoning
 - **Generation Archaeology**: Show the evolution from AI draft → human refinement → shipped feature
 - **Specification Playground**: Interactive demonstration of how clear specs improve AI assistance
 
-#### **Advanced Constellation Features** 🗺️
+#### **Advanced Constellation Features**
 - **Memory Paths**: Locally learn visitor traversal patterns; suggest personalized exploration routes
 - **Relationship Strength Visualization**: Dynamic edge thickness based on actual project interdependencies
 - **Hidden Constellation**: Complete all sections to unlock a secret geometric pattern
 - **Contextual Breadcrumbs**: Always know where you came from and where you might go next
 
-#### **Project Evolution Timeline** 📈
+#### **Project Evolution Timeline**
 - **Living Documentation**: Projects update with real deployment metrics and user feedback
 - **Architecture Archaeology**: Explore how technical decisions evolved over time
 - **Learning Extraction**: Each project distills key lessons and decision frameworks
 - **Impact Measurement**: Real metrics on user engagement, performance, and business value
 
-### **The Honest Flex Philosophy in Action** 💎
+### **The Honest Flex Philosophy in Action**
 
 #### **Comprehension Over Volume**
 Every new feature answers: *"Does this help visitors understand, or does it just impress?"*
@@ -406,7 +406,7 @@ Every new feature answers: *"Does this help visitors understand, or does it just
 - **Decision Changelog**: Terse, dated notes on every design and technical choice
 - **Constraint Documentation**: Show the limitations that shaped each creative solution
 
-### **Technical Implementation Roadmap** 🛠️
+### **Technical Implementation Roadmap**
 
 #### **Phase 1: Creative Foundation** *(v1.1 - Living Laboratory)*
 - [ ] **Respect Mode Evolution**: Advanced accessibility with reader mode and cognitive load reduction
@@ -472,7 +472,7 @@ Every new feature answers: *"Does this help visitors understand, or does it just
 - **Privacy-First Innovation**: All biometric/tracking features with explicit opt-in and local processing
 - **Open Source Extraction**: Key interaction patterns released as reusable components for community benefit
 
-### **The Blogging Manifesto** 📝
+### **The Blogging Manifesto**
 
 #### **Writing Principles**
 - **Show, Don't Tell**: Every technical claim backed by runnable code or measurable outcome
@@ -486,7 +486,7 @@ Every new feature answers: *"Does this help visitors understand, or does it just
 - **Code Archaeology**: Show how implementations evolved, including dead ends and breakthroughs
 - **Philosophy in Practice**: Demonstrate how values translate to specific technical decisions
 
-### **Success Metrics That Matter** 📊
+### **Success Metrics That Matter**
 
 Instead of vanity metrics, measuring what aligns with the exploration philosophy:
 
@@ -496,7 +496,7 @@ Instead of vanity metrics, measuring what aligns with the exploration philosophy
 - **Comprehension Sentiment**: Exit feedback focused on understanding rather than impression
 - **Return Exploration**: Visitors who come back to explore new connections
 
-### **Creative Technology Arsenal** 🛠️
+### **Creative Technology Arsenal**
 
 #### **Core Creative Stack**
 - **Canvas & WebGL**: Three.js, p5.js, and custom shaders for visual experiences
@@ -519,7 +519,7 @@ Instead of vanity metrics, measuring what aligns with the exploration philosophy
 - **Content Management**: Headless CMS for collaborative community features
 - **Analytics & Insights**: Privacy-first visitor behavior patterns for experience optimization
 
-### **The Long Game** 🎯
+### **The Long Game**
 
 This isn't just a portfolio or blog—it's a **living laboratory** for the future of creative web experiences:
 

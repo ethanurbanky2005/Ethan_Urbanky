@@ -12,6 +12,42 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Scroll-driven progress bar: main is the scroll container; body exposes timeline for siblings (compliance: progressive enhancement, reduced motion in JS fallback) */
+body {
+  timeline-scope: --main-scroll;
+}
+main#main-content {
+  scroll-timeline-name: --main-scroll;
+  scroll-timeline-axis: block;
+}
+@supports (animation-timeline: scroll()) {
+  .scroll-progress-css {
+    transform-origin: left;
+    animation: scroll-progress-linear 1ms linear both;
+    animation-timeline: scroll(--main-scroll);
+  }
+  .scroll-progress-js {
+    display: none !important;
+  }
+}
+@supports not (animation-timeline: scroll()) {
+  .scroll-progress-css {
+    display: none !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress-css {
+    display: none !important;
+  }
+  .scroll-progress-js {
+    display: block !important;
+  }
+}
+@keyframes scroll-progress-linear {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
 /* Viewport height: prefer dvh (dynamic) for mobile, fallback for older browsers */
 @supports (height: 100dvh) {
   .h-screen-safe {
@@ -389,6 +425,30 @@ html {
 
 .font-display {
   font-family: var(--font-display);
+  font-variation-settings: "wght" 600;
+}
+.font-display-sub {
+  font-variation-settings: "wght" 500;
+}
+
+/* Glass tokens: consistent depth and blur (compliance: design system, no flat grey) */
+.glass-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.05) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+}
+.glass-panel {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.glass-overlay {
+  background: rgba(10, 11, 16, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 /* Safe area padding for main content (notch/home indicator) */
@@ -417,6 +477,17 @@ body {
 /* Subtle aura pulse */
 @keyframes aura { 0%,100%{ box-shadow: 0 0 40px rgba(34,211,238,.18);} 50%{ box-shadow: 0 0 80px rgba(34,211,238,.25);} }
 .pulse-aura { animation: aura 6s ease-in-out infinite; }
+
+/* Ambient backdrop breath: very slow gradient shift (only when motion is OK) */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes ambient-breath {
+    0%, 100% { opacity: 0.85; }
+    50% { opacity: 1; }
+  }
+  .ambient-breath {
+    animation: ambient-breath 20s ease-in-out infinite;
+  }
+}
 
 /* Reduce animations on mobile and for users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {

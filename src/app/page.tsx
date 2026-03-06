@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { portfolio } from "@/config/portfolio";
 import AmbientNav from "@/components/AmbientNav";
 import AppStore from "@/components/AppStore";
@@ -6,8 +7,75 @@ import ConstellationNav from "@/components/ConstellationNav";
 import LifeJourney from "@/components/LifeJourney";
 import SkillConstellation from "@/components/SkillConstellation";
 import QuantumField from "@/components/QuantumField";
-import { motion } from "framer-motion";
-import { Globe, Mail, Briefcase, Github } from "lucide-react";
+import ScrollProgress from "@/components/ScrollProgress";
+import { motion, AnimatePresence } from "framer-motion";
+import { Globe, Mail, Briefcase, Github, Check } from "lucide-react";
+
+function ContactFormBlock() {
+  const [sent, setSent] = useState(false);
+  return (
+    <AnimatePresence mode="wait">
+      {sent ? (
+        <motion.div
+          key="thanks"
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0 }}
+          className="flex flex-col items-center justify-center gap-4 py-8 text-center"
+        >
+          <div className="w-14 h-14 rounded-full bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center">
+            <Check className="w-7 h-7 text-cyan-400" strokeWidth={2.5} />
+          </div>
+          <p className="text-slate-200 font-medium">Thanks — I&apos;ll get back to you.</p>
+          <p className="text-slate-500 text-sm">Demo only · form was not submitted.</p>
+          <button
+            type="button"
+            onClick={() => setSent(false)}
+            className="text-sm text-cyan-400 hover:text-cyan-300 underline underline-offset-2"
+          >
+            Send another
+          </button>
+        </motion.div>
+      ) : (
+        <motion.form
+          key="form"
+          id="contact-form"
+          className="grid grid-cols-1 gap-4 sm:gap-6"
+          action="#"
+          method="post"
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onKeyDown={(e: React.KeyboardEvent<HTMLFormElement>) => {
+            const targetTag = (e.target as HTMLElement).tagName;
+            if (e.key === "Enter" && targetTag !== "TEXTAREA") {
+              (e.currentTarget as HTMLFormElement).requestSubmit();
+            }
+          }}
+          onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+            setSent(true);
+            e.currentTarget.reset();
+            setTimeout(() => setSent(false), 4000);
+          }}
+        >
+          <label className="block group">
+            <span className="sr-only">Your name</span>
+            <input name="name" autoComplete="name" aria-label="Your name" placeholder="Name" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-cyan-400/60 py-3 text-base min-h-[44px]" />
+          </label>
+          <label className="block group">
+            <span className="sr-only">Your email</span>
+            <input name="email" type="email" autoComplete="email" aria-label="Your email" placeholder="Email" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-cyan-400/60 py-3 text-base min-h-[44px]" />
+          </label>
+          <label className="block group">
+            <span className="sr-only">Your message</span>
+            <textarea name="message" rows={3} aria-label="Your message" placeholder="Message" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-cyan-400/60 py-3 text-base min-h-[44px]" />
+          </label>
+          <p className="mt-2 text-slate-500 text-xs">Demo only · form is not submitted.</p>
+        </motion.form>
+      )}
+    </AnimatePresence>
+  );
+}
 
 const Home = () => {
   return (
@@ -15,7 +83,7 @@ const Home = () => {
       {/* Ambient backdrop: layered depth */}
       <div aria-hidden className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,var(--accent-muted),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-500/10 via-slate-900 to-slate-950 opacity-90" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-500/10 via-slate-900 to-slate-950 ambient-breath opacity-90" />
         <div className="noise" />
         <QuantumField />
       </div>
@@ -29,7 +97,7 @@ const Home = () => {
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="mx-auto mb-8 h-24 w-24 rounded-full bg-gradient-to-br from-cyan-400/20 to-slate-700/40 ring-1 ring-white/10 flex items-center justify-center"
+              className="mx-auto mb-8 h-24 w-24 rounded-full bg-gradient-to-br from-cyan-400/20 to-slate-700/40 ring-1 ring-white/10 flex items-center justify-center pulse-aura"
             >
               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500" />
             </motion.div>
@@ -79,15 +147,25 @@ const Home = () => {
         <section id="about" className="relative md:snap-start min-h-screen-safe">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="text-center pt-20 pb-12">
-              <motion.h2
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4 }}
-                className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight mb-4 lg:mb-6 bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-cyan-300 bg-clip-text text-transparent leading-tight"
-              >
-                Experience
-              </motion.h2>
+              <div className="inline-block">
+                <motion.h2
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4 }}
+                  className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight mb-4 lg:mb-6 bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-cyan-300 bg-clip-text text-transparent leading-tight"
+                >
+                  Experience
+                </motion.h2>
+                <motion.div
+                  className="h-0.5 w-full rounded-full bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-cyan-400"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.15 }}
+                  style={{ transformOrigin: "left" }}
+                />
+              </div>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -112,15 +190,25 @@ const Home = () => {
         <section id="contact" className="relative h-screen-safe md:snap-start flex items-center justify-center px-4 sm:px-6">
           <div className="max-w-6xl mx-auto w-full">
             <div className="text-center mb-8 sm:mb-10 lg:mb-12">
-              <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-cyan-300 bg-clip-text text-transparent mb-4 lg:mb-6 leading-tight">
-                Contact
-              </h2>
+              <div className="inline-block">
+                <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-cyan-300 bg-clip-text text-transparent mb-4 lg:mb-6 leading-tight">
+                  Contact
+                </h2>
+                <motion.div
+                  className="h-0.5 w-full rounded-full bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-cyan-400"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  style={{ transformOrigin: "left" }}
+                />
+              </div>
               <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto">
                 Get in touch for projects or collaboration.
               </p>
             </div>
             
-            <div className="max-w-4xl mx-auto rounded-2xl lg:rounded-3xl bg-gradient-to-br from-white/10 to-white/5 ring-1 ring-white/20 backdrop-blur-xl p-6 sm:p-8 lg:p-12 shadow-2xl">
+            <div className="glass-card max-w-4xl mx-auto rounded-2xl lg:rounded-3xl p-6 sm:p-8 lg:p-12">
               <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 mb-8">
                 <a
                   href="https://ethanurbanky.dev"
@@ -181,41 +269,12 @@ const Home = () => {
                 </a>
               </div>
 
-              <form
-                id="contact-form"
-                className="grid grid-cols-1 gap-4 sm:gap-6"
-                action="#"
-                method="post"
-                onKeyDown={(e: React.KeyboardEvent<HTMLFormElement>) => {
-                  const targetTag = (e.target as HTMLElement).tagName;
-                  if (e.key === 'Enter' && targetTag !== 'TEXTAREA') {
-                    (e.currentTarget as HTMLFormElement).requestSubmit();
-                  }
-                }}
-                onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-                  e.preventDefault();
-                  // Demo only: no backend. When adding one, add validation, rate limit, CSRF.
-                  e.currentTarget.reset();
-                }}
-              >
-                <label className="block group">
-                  <span className="sr-only">Your name</span>
-                  <input name="name" autoComplete="name" aria-label="Your name" placeholder="Name" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-cyan-400/60 py-3 text-base min-h-[44px]" />
-                </label>
-                <label className="block group">
-                  <span className="sr-only">Your email</span>
-                  <input name="email" type="email" autoComplete="email" aria-label="Your email" placeholder="Email" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-cyan-400/60 py-3 text-base min-h-[44px]" />
-                </label>
-                <label className="block group">
-                  <span className="sr-only">Your message</span>
-                  <textarea name="message" rows={3} aria-label="Your message" placeholder="Message" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-cyan-400/60 py-3 text-base min-h-[44px]" />
-                </label>
-                <p className="mt-2 text-slate-500 text-xs">Demo only · form is not submitted.</p>
-              </form>
+              <ContactFormBlock />
             </div>
     </div>
         </section>
       </main>
+      <ScrollProgress />
       <ConstellationNav />
       <AmbientNav />
     </>

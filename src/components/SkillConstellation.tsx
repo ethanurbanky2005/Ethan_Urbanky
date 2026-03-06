@@ -5,25 +5,26 @@ import { getLogo } from "@/config/logos";
 import Image from "next/image";
 
 
+/* Spread-out positions to reduce clutter; keep related skills loosely grouped by category. */
 const skills = [
-  { name: "Python", level: 95, category: "core", x: 50, y: 25 },
-  { name: "JavaScript", level: 90, category: "frontend", x: 25, y: 35 },
-  { name: "Java", level: 85, category: "core", x: 75, y: 30 },
-  { name: "React", level: 90, category: "frontend", x: 20, y: 55 },
-  { name: "Django", level: 88, category: "backend", x: 80, y: 45 },
-  { name: "TypeScript", level: 85, category: "frontend", x: 35, y: 75 },
-  { name: "HTML5", level: 95, category: "frontend", x: 15, y: 20 },
-  { name: "CSS", level: 92, category: "frontend", x: 65, y: 65 },
-  { name: "Tailwind CSS", level: 92, category: "frontend", x: 45, y: 80 },
-  { name: "SQL", level: 88, category: "data", x: 85, y: 25 },
-  { name: "PostgreSQL", level: 80, category: "data", x: 15, y: 70 },
-  { name: "Snowflake", level: 75, category: "data", x: 70, y: 80 },
-  { name: "C++", level: 78, category: "core", x: 25, y: 80 },
-  { name: "Docker", level: 78, category: "devops", x: 85, y: 70 },
-  { name: "Pandas", level: 88, category: "data", x: 70, y: 15 },
-  { name: "Git", level: 95, category: "devops", x: 40, y: 50 },
-  { name: "NumPy", level: 85, category: "data", x: 60, y: 35 },
-  { name: "SQR", level: 70, category: "data", x: 30, y: 60 },
+  { name: "Python", level: 95, category: "core", x: 22, y: 18 },
+  { name: "JavaScript", level: 90, category: "frontend", x: 18, y: 42 },
+  { name: "Java", level: 85, category: "core", x: 78, y: 22 },
+  { name: "React", level: 90, category: "frontend", x: 15, y: 58 },
+  { name: "Django", level: 88, category: "backend", x: 82, y: 48 },
+  { name: "TypeScript", level: 85, category: "frontend", x: 38, y: 72 },
+  { name: "HTML5", level: 95, category: "frontend", x: 12, y: 28 },
+  { name: "CSS", level: 92, category: "frontend", x: 58, y: 62 },
+  { name: "Tailwind CSS", level: 92, category: "frontend", x: 45, y: 85 },
+  { name: "SQL", level: 88, category: "data", x: 85, y: 28 },
+  { name: "PostgreSQL", level: 80, category: "data", x: 18, y: 75 },
+  { name: "Snowflake", level: 75, category: "data", x: 72, y: 78 },
+  { name: "C++", level: 78, category: "core", x: 28, y: 88 },
+  { name: "Docker", level: 78, category: "devops", x: 88, y: 68 },
+  { name: "Pandas", level: 88, category: "data", x: 68, y: 15 },
+  { name: "Git", level: 95, category: "devops", x: 50, y: 50 },
+  { name: "NumPy", level: 85, category: "data", x: 55, y: 35 },
+  { name: "SQR", level: 70, category: "data", x: 35, y: 55 },
 ];
 
 const categories = {
@@ -63,8 +64,18 @@ export default function SkillConstellation() {
   return (
     <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
       <div className="text-center mb-8 lg:mb-10">
-        <h2 className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight mb-4 lg:mb-6 bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-cyan-300 bg-clip-text text-transparent leading-tight">Skills</h2>
-        <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto">Hover to explore skills and connections.</p>
+        <div className="inline-block">
+          <h2 className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight mb-4 lg:mb-6 bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-cyan-300 bg-clip-text text-transparent leading-tight">Skills</h2>
+          <motion.div
+            className="h-0.5 w-full rounded-full bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-cyan-400"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            style={{ transformOrigin: "left" }}
+          />
+        </div>
+        <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mt-4">Hover to explore skills and connections.</p>
       </div>
 
       {/* Category filters */}
@@ -116,12 +127,12 @@ export default function SkillConstellation() {
                 y1={`${s1.y}%`}
                 x2={`${s2.x}%`}
                 y2={`${s2.y}%`}
-                stroke="rgba(34, 211, 238, 0.3)"
+                stroke="rgba(34, 211, 238, 0.25)"
                 strokeWidth="1"
                 initial={{ pathLength: 0, opacity: 0 }}
                 animate={{ 
                   pathLength: isVisible ? 1 : 0, 
-                  opacity: isVisible ? 0.6 : 0.1 
+                  opacity: isVisible ? 0.35 : 0.08 
                 }}
                 transition={{ duration: 0.8, delay: i * 0.1 }}
               />

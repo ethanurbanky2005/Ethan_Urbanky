@@ -2,6 +2,16 @@
 
 Use this as reference when changing UI/UX so the site stays **distinctive and polished**, not generic or “AI slop.”
 
+## Compliance (all changes)
+
+All UI/UX and front-end work must also comply with:
+
+- **Security** — Headers and CSP in `src/middleware.ts`; no secrets in client code; safe forms/backend when added; `npm audit` and patched deps.
+- **Compatibility** — Responsive at all viewports; iOS-safe (safe-area, 16px inputs, 44px touch targets, dvh/svh); `prefers-reduced-motion` respected.
+- **Accessibility** — Skip link, focus styles, semantic HTML, external links `rel="noopener noreferrer"`, WCAG contrast.
+
+See **docs/FRONTEND_PINNACLE_RESEARCH.md** for the full compliance checklist when adding new features.
+
 ## Principles
 
 - **Typography** — Prefer distinctive, well-paired type. Avoid defaulting to Inter, Roboto, Arial, or system stacks. This app uses Geist (sans + mono); if changing, consider display + monospace or strong weight contrast (e.g. 200 vs 800), and state the choice before changing.
@@ -20,7 +30,7 @@ Use this as reference when changing UI/UX so the site stays **distinctive and po
 ## For this codebase
 
 - **Theme:** Dark-first, cyan/blue accent, cosmic/tech feel. Keep that commitment; refine rather than dilute.
-- **Typography:** Geist (sans + mono) for body and UI; Outfit for section headings and hero (`.font-display`). One clear display/sans pairing.
+- **Typography:** Geist (sans + mono) for body and UI; Outfit for section headings and hero (`.font-display`). One clear display/sans pairing. **Variable fonts:** Geist and Outfit from next/font support variable axes (e.g. weight); use `font-variation-settings` or Tailwind arbitrary weights (e.g. `font-[550]`) for fine steps; section titles use semibold (600), body regular (400).
 - **Color system:** Use CSS variables in `globals.css` (`--accent`, `--accent-secondary`, `--accent-muted`, `--bg-primary`, `--text-primary`, `--text-muted`) for consistency. Section title gradient: `from-[var(--accent)] via-[var(--accent-secondary)] to-cyan-300`.
 - **Motion:** One orchestrated hero entrance (short stagger); section headers use `whileInView` once. Avoid adding scattered hover animations.
 - **Backgrounds:** Layered radial gradients + noise + QuantumField; no flat fills.

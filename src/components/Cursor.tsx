@@ -1,10 +1,14 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+const INTERACTIVE_SELECTOR = "a, button, [role='button'], [data-cursor-hover]";
 
 export default function Cursor() {
   const ref = useRef<HTMLDivElement>(null);
   const state = useRef({ x: 0, y: 0, tx: 0, ty: 0 });
-  const reduceMotion = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const [isHoveringInteractive, setIsHoveringInteractive] = useState(false);
+  const reduceMotion = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const canHover = typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches;
 
   useEffect(() => {
     const el = ref.current;
@@ -13,6 +17,11 @@ export default function Cursor() {
     const onMove = (e: PointerEvent) => {
       state.current.tx = e.clientX;
       state.current.ty = e.clientY;
+      if (canHover) {
+        const target = e.target as Node;
+        const interactive = target && document.body.contains(target) && (target as Element).closest?.(INTERACTIVE_SELECTOR);
+        setIsHoveringInteractive(!!interactive);
+      }
     };
     window.addEventListener("pointermove", onMove, { passive: true });
 
@@ -38,9 +47,17 @@ export default function Cursor() {
       document.removeEventListener("visibilitychange", onVis);
       cancelAnimationFrame(raf);
     };
-  }, [reduceMotion]);
+  }, [reduceMotion, canHover]);
 
   return (
-    <div ref={ref} className="fixed z-[200] pointer-events-none h-5 w-5 rounded-full bg-cyan-300/40 ring-2 ring-cyan-400/60 hidden md:block" />
+    <div
+      ref={ref}
+      className={`fixed z-[200] pointer-events-none h-5 w-5 rounded-full ring-2 transition-all duration-200 hidden md:block ${
+        isHoveringInteractive && canHover
+          ? "bg-cyan-400/60 ring-cyan-400/80 scale-125"
+          : "bg-cyan-300/40 ring-cyan-400/60 scale-100"
+      }`}
+      aria-hidden
+    />
   );
 }

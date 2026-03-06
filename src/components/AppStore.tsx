@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import { Download, ExternalLink, Github, Play, X } from "lucide-react";
 import { portfolio } from "@/config/portfolio";
 import { getLogo } from "@/config/logos";
@@ -38,18 +38,29 @@ export default function AppStore() {
   const projects = portfolio.projects as Project[];
 
   return (
+    <LayoutGroup>
     <div className="w-full">
       {/* App Store Header - Matching Journey section */}
       <div className="text-center mb-12">
-        <motion.h2
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight leading-tight bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-cyan-300 bg-clip-text text-transparent mb-4 lg:mb-6"
-        >
-          Projects
-        </motion.h2>
+        <div className="inline-block">
+          <motion.h2
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+            className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight leading-tight bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-cyan-300 bg-clip-text text-transparent mb-4 lg:mb-6"
+          >
+            Projects
+          </motion.h2>
+          <motion.div
+            className="h-0.5 w-full rounded-full bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-cyan-400"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            style={{ transformOrigin: "left" }}
+          />
+        </div>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -84,6 +95,7 @@ export default function AppStore() {
         )}
       </AnimatePresence>
     </div>
+    </LayoutGroup>
   );
 }
 
@@ -102,14 +114,19 @@ function AppTile({ project, index, isDownloading, onDownload }: AppTileProps) {
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
       className="group relative"
+      data-cursor-hover
     >
       {/* App Icon Container */}
-      <div className="relative aspect-square rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md p-6 transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)] active:scale-95 touch-manipulation">
+      <div className="relative aspect-square rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md p-6 transition-all duration-300 hover:bg-white/10 hover:border-cyan-400/30 hover:shadow-[0_0_24px_rgba(34,211,238,0.12),0_20px_40px_rgba(0,0,0,0.3)] active:scale-95 touch-manipulation">
         
         {/* App Icon */}
         <div className="relative w-full h-full flex flex-col items-center justify-center">
-          {/* Icon Background */}
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-cyan-400/20 to-blue-500/20 border border-white/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 p-2">
+          {/* Icon: shared element with modal */}
+          <motion.div
+            layoutId={`project-icon-${project.id}`}
+            className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-cyan-400/20 to-blue-500/20 border border-white/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 p-2"
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+          >
             <Image
               src={getLogo(project.icon)}
               alt={project.title}
@@ -118,13 +135,17 @@ function AppTile({ project, index, isDownloading, onDownload }: AppTileProps) {
               className="max-w-full max-h-full object-contain filter brightness-0 invert"
               unoptimized={true}
             />
-          </div>
+          </motion.div>
           
           {/* App Info */}
           <div className="text-center">
-            <h3 className="text-white font-medium text-lg mb-1 group-hover:text-cyan-400 transition-colors">
+            <motion.h3
+              layoutId={`project-title-${project.id}`}
+              className="text-white font-medium text-lg mb-1 group-hover:text-cyan-400 transition-colors"
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            >
               {project.title}
-            </h3>
+            </motion.h3>
             <p className="text-slate-400 text-sm mb-3">
               {project.role}
             </p>
@@ -243,7 +264,11 @@ function AppModal({ project, onClose }: AppModalProps) {
           </motion.button>
           
           <div className="flex items-start gap-6 mb-6">
-            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-400/20 to-blue-500/20 border border-white/20 flex items-center justify-center flex-shrink-0 p-3">
+            <motion.div
+              layoutId={`project-icon-${project.id}`}
+              className="w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-400/20 to-blue-500/20 border border-white/20 flex items-center justify-center flex-shrink-0 p-3"
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            >
               <Image
                 src={getLogo(project.icon)}
                 alt={project.title}
@@ -252,10 +277,16 @@ function AppModal({ project, onClose }: AppModalProps) {
                 className="max-w-full max-h-full object-contain filter brightness-0 invert"
                 unoptimized={true}
               />
-            </div>
+            </motion.div>
             
-            <div className="flex-1">
-              <h2 className="font-display text-2xl font-medium text-white mb-2">{project.title}</h2>
+            <div className="flex-1 min-w-0">
+              <motion.h2
+                layoutId={`project-title-${project.id}`}
+                className="font-display text-2xl font-medium text-white mb-2"
+                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              >
+                {project.title}
+              </motion.h2>
               <p className="text-cyan-400 mb-3">{project.role}</p>
               <p className="text-slate-300 leading-relaxed">{project.description}</p>
             </div>

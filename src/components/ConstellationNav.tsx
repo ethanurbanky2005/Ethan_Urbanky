@@ -1,17 +1,27 @@
 "use client";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Home, LayoutGrid, UserCircle, Mail, Cpu } from "lucide-react";
 
 const CONSTELLATION_PATH: string[] = ['hero', 'projects', 'about', 'contact', 'skills'];
 
-interface StarPoint {
+const ACCENT = 'rgba(34, 211, 238, 0.5)'; // single accent, no rainbow
+
+interface NavNode {
   id: string;
   label: string;
-  icon: string;
+  Icon: React.ComponentType<{ className?: string; size?: number }>;
   x: number;
   y: number;
-  color: string;
 }
+
+const nodes: NavNode[] = [
+  { id: 'hero', label: 'Hero', Icon: Home, x: 20, y: 30 },
+  { id: 'projects', label: 'Projects', Icon: LayoutGrid, x: 50, y: 20 },
+  { id: 'about', label: 'About', Icon: UserCircle, x: 80, y: 35 },
+  { id: 'skills', label: 'Skills', Icon: Cpu, x: 30, y: 75 },
+  { id: 'contact', label: 'Contact', Icon: Mail, x: 70, y: 65 },
+];
 
 export default function ConstellationNav() {
   const [open, setOpen] = useState(false);
@@ -19,14 +29,6 @@ export default function ConstellationNav() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const starRefs = useRef<{ [key: string]: HTMLButtonElement }>({});
-
-  const stars: StarPoint[] = [
-    { id: 'hero', label: 'Origin Point', icon: '🌟', x: 20, y: 30, color: '#fbbf24' },
-    { id: 'projects', label: 'Project Nexus', icon: '🚀', x: 50, y: 20, color: '#22d3ee' },
-    { id: 'about', label: 'Life Pathway', icon: '✨', x: 80, y: 35, color: '#a78bfa' },
-    { id: 'skills', label: 'Tech Galaxy', icon: '⚡', x: 30, y: 75, color: '#34d399' },
-    { id: 'contact', label: 'Connection Hub', icon: '🌌', x: 70, y: 65, color: '#f472b6' },
-  ];
 
   // Draw constellation lines based on actual DOM positions
   const drawConstellation = useCallback(() => {
@@ -49,9 +51,9 @@ export default function ConstellationNav() {
     // Clear canvas
     ctx.clearRect(0, 0, rect.width, rect.height);
 
-    // Draw lines between consecutive stars in the path
-    ctx.strokeStyle = 'rgba(34, 211, 238, 0.6)';
-    ctx.lineWidth = 2;
+    // Draw lines between consecutive nodes (single accent)
+    ctx.strokeStyle = ACCENT;
+    ctx.lineWidth = 1.5;
     ctx.lineCap = 'round';
 
     // Instead of using DOM positions, use the same percentage calculation as the stars
@@ -98,18 +100,9 @@ export default function ConstellationNav() {
       }
     }
 
-    // Draw subtle background stars (reduced)
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.03)';
-    for (let i = 0; i < 8; i++) {
-      const x = (i * 67 + 89) % rect.width;
-      const y = (i * 73 + 127) % rect.height;
-      ctx.beginPath();
-      ctx.arc(x, y, 1, 0, Math.PI * 2);
-      ctx.fill();
-    }
   }, []);
 
-  // Draw animated particle trace from hovered star to next star
+  // Highlight path from hovered node to next
   const drawParticleTrace = useCallback(() => {
     if (!hoveredStar) return;
     
@@ -156,27 +149,13 @@ export default function ConstellationNav() {
       const endX = x2 - unitX * nodeRadius;
       const endY = y2 - unitY * nodeRadius;
       
-      // Highlight the path
-      ctx.strokeStyle = 'rgba(34, 211, 238, 0.8)';
-      ctx.lineWidth = 3;
+      // Highlight the path on hover (same accent, slightly stronger)
+      ctx.strokeStyle = 'rgba(34, 211, 238, 0.5)';
+      ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(startX, startY);
       ctx.lineTo(endX, endY);
       ctx.stroke();
-      
-      // Draw animated particle
-      const time = Date.now() * 0.003;
-      const progress = (Math.sin(time) + 1) / 2; // 0 to 1
-      const particleX = startX + (endX - startX) * progress;
-      const particleY = startY + (endY - startY) * progress;
-      
-      ctx.fillStyle = 'rgba(34, 211, 238, 0.9)';
-      ctx.shadowColor = 'rgba(34, 211, 238, 0.8)';
-      ctx.shadowBlur = 8;
-      ctx.beginPath();
-      ctx.arc(particleX, particleY, 3, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.shadowBlur = 0;
     }
   }, [hoveredStar]);
 
@@ -207,7 +186,7 @@ export default function ConstellationNav() {
     
     const timer = setTimeout(() => {
       drawConstellation();
-    }, 300); // Wait for stars to animate in
+    }, 300); // Wait for nodes to animate in
     
     const handleResize = () => {
       setTimeout(drawConstellation, 100);
@@ -252,42 +231,29 @@ export default function ConstellationNav() {
           className="fixed inset-0 z-[180] bg-black/60 backdrop-blur-lg"
           role="dialog"
           aria-modal="true"
-          aria-label="Constellation navigation"
+          aria-label="Jump to section"
           onClick={() => setOpen(false)}
         >
-          {/* Subtle holographic overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/3 via-transparent to-purple-500/3" />
-          
-          {/* Main constellation container */}
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
+            initial={{ scale: 0.96, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.95, opacity: 0 }}
-            transition={{ ease: "easeOut", duration: 0.4 }}
+            exit={{ scale: 0.98, opacity: 0 }}
+            transition={{ ease: "easeOut", duration: 0.25 }}
             className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(95vw,900px)] h-[min(85dvh,600px)] max-h-[calc(100dvh-2rem)] mx-4 sm:mx-12"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Holographic border */}
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/8 via-cyan-500/3 to-purple-500/5 backdrop-blur-xl border border-white/15 shadow-[0_0_60px_rgba(34,211,238,0.2)] overflow-hidden">
+            <div className="glass-panel absolute inset-0 rounded-2xl overflow-hidden">
               
               {/* Header */}
-              <div className="relative z-10 text-center pt-6 pb-6">
+              <div className="relative z-10 text-center pt-6 pb-4">
                 <motion.h2
-                  initial={{ y: -12, opacity: 0 }}
+                  initial={{ y: -8, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.3, delay: 0.1 }}
-                  className="font-display text-2xl font-semibold text-white mb-2 tracking-tight"
+                  transition={{ duration: 0.2, delay: 0.05 }}
+                  className="font-display text-xl font-semibold text-white tracking-tight"
                 >
-                  Sections
+                  Jump to section
                 </motion.h2>
-                <motion.p
-                  initial={{ y: -10, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.3 }}
-                  className="text-slate-400 text-sm"
-                >
-                  Jump to a section
-                </motion.p>
               </div>
               
               {/* Constellation map */}
@@ -307,76 +273,52 @@ export default function ConstellationNav() {
                   style={{ width: '100%', height: '100%' }}
                 />
                 
-                {/* Navigation stars */}
+                {/* Navigation nodes */}
                 <div className="absolute inset-0">
-                  {stars.map((star, index) => (
+                  {nodes.map((node, index) => (
                     <motion.button
-                      key={star.id}
+                      key={node.id}
                       ref={(el) => {
-                        if (el) starRefs.current[star.id] = el;
+                        if (el) starRefs.current[node.id] = el;
                       }}
-                      initial={{ scale: 0.8, opacity: 0 }}
+                      initial={{ scale: 0.9, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
-                      transition={{ 
-                        delay: 0.2 + index * 0.05,
-                        duration: 0.3,
-                        ease: "easeOut"
-                      }}
-                      whileHover={{ 
-                        scale: 1.1,
-                        transition: { duration: 0.2 }
-                      }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => jump(star.id)}
-                      onMouseEnter={() => setHoveredStar(star.id)}
+                      transition={{ delay: 0.1 + index * 0.04, duration: 0.2, ease: "easeOut" }}
+                      whileHover={{ scale: 1.08 }}
+                      whileTap={{ scale: 0.97 }}
+                      onClick={() => jump(node.id)}
+                      onMouseEnter={() => setHoveredStar(node.id)}
                       onMouseLeave={() => setHoveredStar(null)}
-                      className="absolute group"
+                      className="absolute"
                       style={{
-                        left: `${star.x}%`,
-                        top: `${star.y}%`,
+                        left: `${node.x}%`,
+                        top: `${node.y}%`,
                         transform: 'translate(-50%, -50%)',
                         position: 'absolute'
                       }}
+                      aria-label={`Go to ${node.label}`}
                     >
-                      {/* Star glow */}
-                      <div 
-                        className="absolute inset-0 rounded-full blur-xl transition-all duration-300"
-                        style={{
-                          background: `radial-gradient(circle, ${star.color}30 0%, ${star.color}15 50%, transparent 70%)`,
-                          transform: hoveredStar === star.id ? 'scale(2)' : 'scale(1)',
-                          opacity: hoveredStar === star.id ? 1 : 0.5
-                        }}
-                      />
-                      
-                      {/* Star core */}
-                      <div 
-                        className="relative w-12 h-12 rounded-full border border-white/20 backdrop-blur-md flex items-center justify-center transition-all duration-300"
-                        style={{
-                          background: `radial-gradient(circle at 30% 30%, ${star.color}25, ${star.color}10, transparent 70%)`,
-                          boxShadow: hoveredStar === star.id 
-                            ? `0 0 30px ${star.color}60, inset 0 1px 0 rgba(255,255,255,0.2)`
-                            : `0 0 15px ${star.color}40, inset 0 1px 0 rgba(255,255,255,0.1)`
-                        }}
+                      <div
+                        className={`relative w-12 h-12 rounded-xl border flex items-center justify-center transition-colors duration-200 ${
+                          hoveredStar === node.id
+                            ? 'border-cyan-400/60 bg-cyan-500/15 text-cyan-300'
+                            : 'border-white/15 bg-white/5 text-slate-300'
+                        }`}
                       >
-                        <span className="text-xl filter drop-shadow-sm">
-                          {star.icon}
-                        </span>
+                        <node.Icon className="w-5 h-5" aria-hidden />
                       </div>
-                      
-                      {/* Label tooltip */}
                       <AnimatePresence>
-                        {hoveredStar === star.id && (
+                        {hoveredStar === node.id && (
                           <motion.div
-                            initial={{ opacity: 0, y: 10, scale: 0.8 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: 5, scale: 0.9 }}
-                            className="absolute top-full mt-3 left-1/2 -translate-x-1/2 whitespace-nowrap z-20"
+                            initial={{ opacity: 0, y: 6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 4 }}
+                            transition={{ duration: 0.15 }}
+                            className="absolute top-full mt-2 left-1/2 -translate-x-1/2 whitespace-nowrap z-20"
                           >
-                            <div className="px-3 py-2 rounded-lg bg-black/80 border border-white/20 backdrop-blur-sm">
-                              <span className="text-white text-sm font-medium">
-                                {star.label}
-                              </span>
-                            </div>
+                            <span className="px-2.5 py-1.5 rounded-md bg-slate-800 border border-white/10 text-slate-200 text-sm">
+                              {node.label}
+                            </span>
                           </motion.div>
                         )}
                       </AnimatePresence>
@@ -386,15 +328,10 @@ export default function ConstellationNav() {
               </div>
               
               {/* Footer */}
-              <div className="absolute bottom-0 left-0 right-0 z-10 text-center pb-8">
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.8 }}
-                  className="text-slate-500 text-xs"
-                >
-                  Press <kbd className="px-2 py-1 bg-white/10 rounded border border-white/20 text-cyan-400">G</kbd> again or <kbd className="px-2 py-1 bg-white/10 rounded border border-white/20 text-cyan-400">ESC</kbd> to close
-                </motion.p>
+              <div className="absolute bottom-0 left-0 right-0 z-10 text-center pb-6">
+                <p className="text-slate-500 text-xs">
+                  <kbd className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400 font-mono text-[11px]">G</kbd> or <kbd className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-slate-400 font-mono text-[11px]">Esc</kbd> to close
+                </p>
               </div>
             </div>
           </motion.div>

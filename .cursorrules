@@ -81,5 +81,8 @@ studio  = { hue_shift = 0,   glow = 0.2 }
 stage   = { hue_shift = 6,   glow = 0.35 }
 archive = { hue_shift = -8,  glow = 0.1 }
 
+[compliance]
+# All changes must comply with: security (headers/CSP, no secrets in client, npm audit), compatibility (responsive, iOS safe-area/16px inputs/44px touch, dvh/svh), a11y (skip link, focus, rel=noopener), and docs/DESIGN_AESTHETICS.md. Full checklist: docs/FRONTEND_PINNACLE_RESEARCH.md § Compliance.
+
 [debug]
 # For bugs: use Cursor Debug Mode—instrument, give repro steps, fix from logs. Reproduce: npm run dev (browser) or npm run test. See docs/DEBUG_MODE.md.

@@ -188,8 +188,8 @@ export default function LifeJourney() {
                     </div>
                   </div>
 
-                  {/* Content */}
-                  <div className="relative z-10">
+                  {/* Content: padding-right clears the top-right logo so title/subtitle don’t sit under it */}
+                  <div className="relative z-10 pr-28 sm:pr-32">
                     <h3 className={`text-xl sm:text-2xl lg:text-3xl font-bold mb-2 bg-gradient-to-r ${step.color} bg-clip-text text-transparent`}>
                       {step.title}
                     </h3>

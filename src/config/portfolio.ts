@@ -117,7 +117,7 @@ export const portfolio = {
       tech: ["Next.js", "TypeScript", "Framer Motion", "Tailwind CSS", "Canvas API"],
       icon: "This Portfolio",
       github: "https://github.com/ethanurbanky2005",
-      demo: "https://ethan-urbanky.dev",
+      demo: "https://ethanurbanky.dev",
       mass: 0.7
     }
   ]

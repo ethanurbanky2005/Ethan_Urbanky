@@ -30,7 +30,13 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} antialiased bg-slate-950 text-slate-100`}>         
+      <body className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} antialiased bg-slate-950 text-slate-100`}>
+        <a
+          href="#main-content"
+          className="absolute -left-[9999px] top-4 z-[300] px-4 py-2 bg-cyan-500 text-white rounded-lg font-medium focus:left-4 focus:outline focus:outline-2 focus:outline-cyan-400 focus:outline-offset-2"
+        >
+          Skip to main content
+        </a>
         {children}
         <Cursor />
         <Analytics 

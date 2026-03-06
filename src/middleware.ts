@@ -17,9 +17,10 @@ export function middleware(request: NextRequest) {
     "max-age=31536000; includeSubDomains; preload"
   );
 
+  // Next.js injects inline scripts for hydration; script-src needs 'unsafe-inline' unless using nonces (not supported out of the box in App Router).
   const csp = [
     "default-src 'self'",
-    "script-src 'self' https://v2.vercel-insights.com https://va.vercel-scripts.com",
+    "script-src 'self' 'unsafe-inline' https://v2.vercel-insights.com https://va.vercel-scripts.com",
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: https://cdn.simpleicons.org https://logo.clearbit.com https://upload.wikimedia.org https://www.svgrepo.com https://icons.veryicon.com https://the-odds-api.com",
     "font-src 'self'",

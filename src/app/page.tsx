@@ -21,7 +21,7 @@ const Home = () => {
       </div>
 
 
-      <main className="relative z-10 md:snap-y md:snap-mandatory h-screen-safe w-full overflow-y-auto overflow-x-hidden safe-area-padding">
+      <main id="main-content" className="relative z-10 md:snap-y md:snap-mandatory h-screen-safe w-full overflow-y-auto overflow-x-hidden safe-area-padding">
         {/* HERO */}
         <section id="hero" className="h-screen-safe md:snap-start flex items-center justify-center px-4 sm:px-6">
           <div className="max-w-5xl text-center">

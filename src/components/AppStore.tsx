@@ -41,24 +41,23 @@ export default function AppStore() {
     <div className="w-full">
       {/* App Store Header - Matching Journey section */}
       <div className="text-center mb-12">
-        <motion.h2 
-          initial={{ opacity: 0, y: 30 }}
+        <motion.h2
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-5xl sm:text-6xl lg:text-7xl font-light tracking-tight leading-tight text-transparent bg-gradient-to-br from-white via-cyan-100 to-cyan-300 bg-clip-text mb-4 lg:mb-6"
+          transition={{ duration: 0.4 }}
+          className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight leading-tight bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-cyan-300 bg-clip-text text-transparent mb-4 lg:mb-6"
         >
-          Project <span className="text-cyan-400">Store</span>
+          Projects
         </motion.h2>
-        <motion.p 
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="text-lg sm:text-xl text-slate-300/90 max-w-3xl mx-auto leading-relaxed"
+          className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto"
         >
-          Download and explore my latest applications—each project crafted with passion, 
-          innovation, and attention to detail.
+          Selected projects I&apos;ve built and shipped.
         </motion.p>
       </div>
 
@@ -215,17 +214,12 @@ function AppModal({ project, onClose }: AppModalProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed z-[9999] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
       onClick={onClose}
-      style={{ 
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        width: '100vw',
-        height: '100vh',
-        WebkitOverflowScrolling: 'touch'
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden overscroll-contain p-4 bg-black/50 backdrop-blur-sm"
+      style={{
+        width: '100dvw',
+        minHeight: '100dvh',
+        WebkitOverflowScrolling: 'touch',
       }}
     >
       <motion.div
@@ -233,7 +227,7 @@ function AppModal({ project, onClose }: AppModalProps) {
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.8, y: 20 }}
         transition={{ type: "spring", damping: 25, stiffness: 300 }}
-        className="w-full max-w-2xl bg-white/10 border border-white/20 rounded-3xl backdrop-blur-md p-8"
+        className="w-full max-w-2xl my-auto max-h-[calc(100dvh-2rem)] overflow-y-auto bg-white/10 border border-white/20 rounded-2xl sm:rounded-3xl backdrop-blur-md p-6 sm:p-8 touch-manipulation"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -261,7 +255,7 @@ function AppModal({ project, onClose }: AppModalProps) {
             </div>
             
             <div className="flex-1">
-              <h2 className="text-2xl font-light text-white mb-2">{project.title}</h2>
+              <h2 className="font-display text-2xl font-medium text-white mb-2">{project.title}</h2>
               <p className="text-cyan-400 mb-3">{project.role}</p>
               <p className="text-slate-300 leading-relaxed">{project.description}</p>
             </div>

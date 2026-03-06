@@ -80,3 +80,6 @@ reduced_motion = { prefer_opacity = true, disable_parallax = true }
 studio  = { hue_shift = 0,   glow = 0.2 }
 stage   = { hue_shift = 6,   glow = 0.35 }
 archive = { hue_shift = -8,  glow = 0.1 }
+
+[debug]
+# For bugs: use Cursor Debug Mode—instrument, give repro steps, fix from logs. Reproduce: npm run dev (browser) or npm run test. See docs/DEBUG_MODE.md.

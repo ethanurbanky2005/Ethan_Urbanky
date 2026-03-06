@@ -52,8 +52,8 @@ export default function SkillConstellation() {
     ["JavaScript", "React"],
     ["JavaScript", "TypeScript"],
     ["React", "TypeScript"],
-    ["HTML", "CSS"],
-    ["CSS", "Tailwind"],
+    ["HTML5", "CSS"],
+    ["CSS", "Tailwind CSS"],
     ["SQL", "PostgreSQL"],
     ["SQL", "Snowflake"],
     ["Docker", "Git"],
@@ -63,8 +63,8 @@ export default function SkillConstellation() {
   return (
     <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
       <div className="text-center mb-8 lg:mb-10">
-        <h3 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-4 lg:mb-6 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent leading-tight">Tech Constellation</h3>
-        <p className="text-lg sm:text-xl text-slate-300/90 max-w-3xl mx-auto leading-relaxed">Each star represents a technology I&apos;ve mastered. Hover to explore connections and discover expertise levels.</p>
+        <h2 className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight mb-4 lg:mb-6 bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-cyan-300 bg-clip-text text-transparent leading-tight">Skills</h2>
+        <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto">Hover to explore skills and connections.</p>
       </div>
 
       {/* Category filters */}
@@ -94,7 +94,8 @@ export default function SkillConstellation() {
         ))}
       </div>
 
-      <div ref={containerRef} className="relative h-[400px] sm:h-[450px] lg:h-[500px] rounded-2xl lg:rounded-3xl bg-gradient-to-br from-slate-900/50 to-slate-800/30 ring-1 ring-white/10 backdrop-blur-sm overflow-hidden touch-manipulation">
+      {/* Height: on mobile use 72dvh (fills most of viewport) clamped to 280–400px so it scales on short screens (e.g. landscape) but doesn’t exceed 400px or drop below 280px; sm/lg align with Tailwind breakpoints. */}
+      <div ref={containerRef} className="relative h-[max(280px,min(400px,72dvh))] sm:h-[450px] lg:h-[500px] rounded-2xl lg:rounded-3xl bg-gradient-to-br from-slate-900/50 to-slate-800/30 ring-1 ring-white/10 backdrop-blur-sm overflow-hidden touch-manipulation">
         {/* Connection lines */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none">
           {connections.map(([skill1, skill2], i) => {
@@ -266,9 +267,9 @@ export default function SkillConstellation() {
               {hoveredSkill === "React" && " Building dynamic, responsive user interfaces"}
               {hoveredSkill === "Django" && " Rapid web development with Python's most popular framework"}
               {hoveredSkill === "TypeScript" && " Type-safe JavaScript for robust applications"}
-              {hoveredSkill === "HTML" && " The foundation of web structure and semantic markup"}
+              {hoveredSkill === "HTML5" && " The foundation of web structure and semantic markup"}
               {hoveredSkill === "CSS" && " Styling and layout mastery for beautiful interfaces"}
-              {hoveredSkill === "Tailwind" && " Utility-first CSS for rapid, consistent styling"}
+              {hoveredSkill === "Tailwind CSS" && " Utility-first CSS for rapid, consistent styling"}
               {hoveredSkill === "SQL" && " Database querying and data manipulation expertise"}
               {hoveredSkill === "PostgreSQL" && " Robust relational database for complex applications"}
               {hoveredSkill === "Snowflake" && " Cloud data warehouse platform for analytics"}

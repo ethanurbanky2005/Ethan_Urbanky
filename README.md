@@ -89,8 +89,8 @@ This isn't just another developer portfolio. It's an **interactive showcase** wh
 git clone https://github.com/ethanurbanky2005/Ethan_Urbanky.git
 cd Ethan_Urbanky
 
-# Install dependencies
-npm install
+# Install dependencies (run from dreamos-galaxy if you're in the monorepo)
+cd dreamos-galaxy && npm install
 
 # Start development server
 npm run dev
@@ -98,6 +98,33 @@ npm run dev
 # Open in browser
 open http://localhost:3000
 ```
+
+**Debugging:** For bug fixes, use Cursor Debug Mode so the agent instruments the app and fixes from runtime logs. See [docs/DEBUG_MODE.md](docs/DEBUG_MODE.md).
+
+## **Security**
+
+- **Headers & CSP:** Security headers (X-Frame-Options, CSP, HSTS, etc.) and Vercel Analytics allowlist are set in `src/middleware.ts`. Analytics domains: `v2.vercel-insights.com`, `vitals.vercel-insights.com`, `va.vercel-scripts.com`.
+- **No secrets in client:** Only `process.env.NODE_ENV` is used; no `NEXT_PUBLIC_` secrets. Keep API keys and tokens server-side only when adding backend features.
+- **No raw user input to DOM:** All displayed content is from static config; contact form data is not sent to a server or rendered. If you add a CMS or API-driven content, validate and sanitize URLs and HTML.
+- **Deployment:** Ensure every subdomain (e.g. `www`, `api`) points to a service you control; remove dangling DNS records to avoid subdomain takeover.
+
+### **Contact form (demo only)**
+
+The contact form in the app is **demo only**: it does not submit to a server. When you add a real backend (e.g. API route or form service), add server-side validation, length limits, sanitization, **rate limiting** (by IP or identifier), and **CSRF** protection (e.g. token or SameSite cookies). Do not rely on client-side checks alone.
+
+### **When adding backend or AI (future-proofing)**
+
+- **Prompt injection:** If user input is ever sent to an LLM (e.g. contact form → AI summarization, chat widget), treat all user text as untrusted: strict length limits, clear prompt boundaries (e.g. USER/ASSISTANT), minimal system prompt, no secrets in the prompt. Sanitize model output before rendering.
+- **Cookies:** Use `Secure`, `HttpOnly` for session/auth cookies, and `SameSite=Strict` (or Lax) where appropriate. Do not store tokens or secrets in `localStorage`.
+- **CSRF:** For state-changing endpoints (POST/PUT/DELETE), use CSRF tokens or SameSite cookies + same-origin checks. Do not rely only on Referer/Origin.
+- **Open redirects:** Do not redirect based on user or query input (e.g. `?next=...`) without strict allowlisting (same-origin or fixed path list). Validate and allowlist any “return URL” or “redirect to” parameter.
+- **Prototype pollution:** When merging request body or query into config objects, validate with a schema (e.g. Zod) and avoid merging user input directly into prototype-bearing objects. Use allowlisted keys; avoid `Object.assign(req.body, ...)` with unsanitized input.
+
+### **Dependency security**
+
+- **Patched CVEs:** Next.js is pinned to **15.4.10** and React/react-dom to **19.1.5** to address critical RCE and related issues (e.g. CVE-2025-55182, CVE-2025-55183, CVE-2025-55184) in React Server Components and Next.js image optimization. Do not downgrade without reviewing [Next.js security advisories](https://github.com/vercel/next.js/security/advisories) and [React security](https://react.dev/blog).
+- **Audit:** Run `npm audit` (or `npm run audit`) regularly; fix critical/high with `npm audit fix` or targeted upgrades. Use `npm ci` in CI for reproducible installs.
+- **Lockfile:** Keep `package-lock.json` committed so installs are deterministic and audit results are reproducible.
 
 ## **Architecture Overview**
 
@@ -282,9 +309,14 @@ This section documents identified issues and their planned fixes for improved us
 
 **Designed, Coded, and Built by Ethan Urbanky**
 
-*"Code is poetry written in logic"*
-
 [![Stars](https://img.shields.io/github/stars/ethanurbanky2005/Ethan_Urbanky?style=social)](https://github.com/ethanurbanky2005/Ethan_Urbanky/stargazers)
 [![Forks](https://img.shields.io/github/forks/ethanurbanky2005/Ethan_Urbanky?style=social)](https://github.com/ethanurbanky2005/Ethan_Urbanky/network/members)
 
 </div>
+
+<div align = "center">
+
+**Reminder**
+*"For TMR"*
+
+*"For tmr remember to finish the optimized version of the Binary Search for the iterative side of things"*

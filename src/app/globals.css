@@ -1,10 +1,18 @@
 @import "tailwindcss";
 
+/* Safe area insets for notched devices (iOS, etc.) */
+:root {
+  --sat: env(safe-area-inset-top, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+}
+
 html {
   scroll-behavior: smooth;
 }
 
-/* iOS Safari viewport fixes */
+/* Viewport height: prefer dvh (dynamic) for mobile, fallback for older browsers */
 @supports (height: 100dvh) {
   .h-screen-safe {
     height: 100dvh;
@@ -37,7 +45,7 @@ html {
     min-height: 100vh !important;
   }
   
-  /* Ensure sections don't overlap on iOS */
+  /* Sections: 2rem vertical padding = 32px, 8px grid (4×4); keeps content clear of edges. */
   section {
     position: relative;
     isolation: isolate;
@@ -45,14 +53,14 @@ html {
     flex-direction: column;
     z-index: 1;
     contain: layout style;
-    padding-top: 2rem; /* Add top padding to prevent cutoff */
-    padding-bottom: 2rem; /* Add bottom padding for spacing */
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
-  
-  /* Stack sections properly */
-  #hero { 
-    z-index: 10; 
-    padding-top: 4rem; /* Extra space for nucleus */
+
+  /* Hero: 4rem top = 64px, accommodates status bar (~44px) + nucleus and breathing room. */
+  #hero {
+    z-index: 10;
+    padding-top: 4rem;
   }
   #projects { 
     z-index: 9;
@@ -78,13 +86,13 @@ html {
     /* Remove overflow: hidden to prevent content cutoff */
   }
   
-  /* Constrain text sizes on mobile */
+  /* Mobile (≤768px, Tailwind md): hero 2.5rem (40px), section titles 2rem (32px); balances readability and fit. */
   #hero h1 {
-    font-size: 2.5rem !important; /* Much smaller on mobile */
+    font-size: 2.5rem !important;
   }
-  
+
   #projects h2 {
-    font-size: 2rem !important; /* Much smaller on mobile */
+    font-size: 2rem !important;
   }
   
   /* Ensure sections contain their content */
@@ -112,16 +120,18 @@ html {
     margin-bottom: 0.375rem !important; /* Perfect space to title */
   }
   
-  /* Fix modal positioning on iOS */
+  /* Modal overlay: full viewport in dynamic units (dvh/dvw); safe-area padding so content stays clear of notch/home indicator */
   .fixed.inset-0.z-50 {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
     right: 0 !important;
     bottom: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    height: 100svh !important; /* iOS safe area */
+    width: 100dvw !important;
+    height: 100dvh !important;
+    height: 100svh !important; /* fallback for older Safari */
+    padding: var(--sat) var(--sar) var(--sab) var(--sal);
+    box-sizing: border-box !important;
   }
   
   /* iOS App Store ultra-compact layout */
@@ -363,7 +373,13 @@ html {
 }
 
 :root {
-  --accent: #00D4FF;
+  --bg-primary: #0a0b10;
+  --bg-elevated: rgba(15, 23, 42, 0.8);
+  --accent: #22d3ee;
+  --accent-muted: rgba(34, 211, 238, 0.12);
+  --accent-secondary: #3b82f6;
+  --text-primary: #e2e8f0;
+  --text-muted: #94a3b8;
 }
 
 @theme inline {
@@ -371,8 +387,24 @@ html {
   --font-mono: var(--font-geist-mono);
 }
 
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Safe area padding for main content (notch/home indicator) */
+.safe-area-padding {
+  padding-left: var(--sal);
+  padding-right: var(--sar);
+  padding-top: var(--sat);
+  padding-bottom: var(--sab);
+}
+
 html { color-scheme: dark; }
-body { background-color: #0A0B10; color: #E6E7EB; }
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
 
 /* Selection */
 ::selection { background: rgba(0,212,255,0.2); color: rgba(186,243,255,0.95); }
@@ -399,5 +431,39 @@ body { background-color: #0A0B10; color: #E6E7EB; }
   /* Reduce particle animations on mobile for better performance */
   [class*="animate-"] {
     animation-duration: 1s;
+  }
+
+  /* Touch targets: 44×44px minimum (Apple HIG, WCAG 2.2). Buttons and [role="button"] get both dimensions; form controls get min-height only so full-width inputs aren’t forced wider. */
+  button,
+  [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  input,
+  select,
+  textarea {
+    min-height: 44px;
+    min-width: unset;
+  }
+}
+
+/*
+ * Narrow phones: viewport width ≤400px (below Tailwind sm 640px).
+ * Common widths: 320 (legacy), 375 (iPhone SE/8), 390 (iPhone 14). Scale down hero and section titles so they don’t overflow; 2rem (32px) hero and 1.75rem (28px) section titles keep ~2–3 words per line on 320px.
+ */
+@media (max-width: 400px) {
+  #hero h1 {
+    font-size: 2rem !important;
+  }
+  #hero .text-base,
+  #hero .text-lg,
+  #hero .text-xl {
+    font-size: 0.9375rem !important; /* 15px, still readable; avoids overflow */
+  }
+  #projects .text-center h2,
+  #about .text-center h2,
+  #skills h2,
+  #contact h2 {
+    font-size: 1.75rem !important;
   }
 }

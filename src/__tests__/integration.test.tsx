@@ -1,5 +1,7 @@
+import React from 'react'
 import { render, screen, waitFor } from '@testing-library/react'
 import { portfolio } from '@/config/portfolio'
+import { getLogo } from '@/config/logos'
 
 // Test the actual NeuralBrain with real dependencies
 describe('Integration Tests', () => {
@@ -8,9 +10,7 @@ describe('Integration Tests', () => {
       expect(portfolio.projects).toBeDefined()
       expect(Array.isArray(portfolio.projects)).toBe(true)
       expect(portfolio.projects.length).toBeGreaterThan(0)
-      
-      console.log('Portfolio projects:', portfolio.projects)
-      
+
       portfolio.projects.forEach((project) => {
         expect(project.id).toBeTruthy()
         expect(project.title).toBeTruthy()
@@ -21,13 +21,11 @@ describe('Integration Tests', () => {
       })
     })
 
-    test('project icons are valid emojis', () => {
-      const validEmojis = ['🏈', '💼', '🌌', '⚡', '🚀', '💻', '🔬', '🎯']
-      
+    test('project icons are valid logo keys', () => {
       portfolio.projects.forEach((project) => {
-        expect(
-          validEmojis.includes(project.icon) || /\p{Emoji}/u.test(project.icon)
-        ).toBe(true)
+        const url = getLogo(project.icon)
+        expect(url).toBeTruthy()
+        expect(typeof url).toBe('string')
       })
     })
 
@@ -46,9 +44,6 @@ describe('Integration Tests', () => {
         const [debugInfo, setDebugInfo] = React.useState<Record<string, unknown>>({})
 
         React.useEffect(() => {
-          console.log('useEffect running...')
-          console.log('portfolio.projects:', portfolio.projects)
-          
           const projects = portfolio.projects
           setDebugInfo({
             projectsLength: projects.length,
@@ -56,10 +51,7 @@ describe('Integration Tests', () => {
             firstProject: projects[0] || null
           })
 
-          if (projects.length === 0) {
-            console.log('No projects found - early return')
-            return
-          }
+          if (projects.length === 0) return
 
           const newNodes = projects.map((project, index) => {
             const angle = (index / projects.length) * Math.PI * 2
@@ -78,7 +70,6 @@ describe('Integration Tests', () => {
             }
           })
 
-          console.log('Setting nodes:', newNodes)
           setNodes(newNodes)
         }, [])
 
@@ -95,7 +86,6 @@ describe('Integration Tests', () => {
         )
       }
 
-      const { React } = await import('react')
       render(<TestComponent />)
 
       // Wait for useEffect to complete

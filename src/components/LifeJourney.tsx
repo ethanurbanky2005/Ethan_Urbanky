@@ -230,7 +230,7 @@ export default function LifeJourney() {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        <h3 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent mb-4">
+        <h3 className="font-display text-4xl font-semibold bg-gradient-to-r from-[var(--accent)] to-[var(--accent-secondary)] bg-clip-text text-transparent mb-4">
           Ready for What&apos;s Next
         </h3>
         <p className="text-xl text-slate-300/90 max-w-2xl mx-auto">

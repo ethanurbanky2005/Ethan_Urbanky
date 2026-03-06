@@ -1,6 +1,8 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
+const CONSTELLATION_PATH: string[] = ['hero', 'projects', 'about', 'contact', 'skills'];
 
 interface StarPoint {
   id: string;
@@ -26,11 +28,8 @@ export default function ConstellationNav() {
     { id: 'contact', label: 'Connection Hub', icon: '🌌', x: 70, y: 65, color: '#f472b6' },
   ];
 
-  // Define the constellation path
-  const constellationPath = ['hero', 'projects', 'about', 'contact', 'skills'];
-
   // Draw constellation lines based on actual DOM positions
-  const drawConstellation = () => {
+  const drawConstellation = useCallback(() => {
     const canvas = canvasRef.current;
     const container = containerRef.current;
     
@@ -56,9 +55,9 @@ export default function ConstellationNav() {
     ctx.lineCap = 'round';
 
     // Instead of using DOM positions, use the same percentage calculation as the stars
-    for (let i = 0; i < constellationPath.length - 1; i++) {
-      const currentStarId = constellationPath[i];
-      const nextStarId = constellationPath[i + 1];
+    for (let i = 0; i < CONSTELLATION_PATH.length - 1; i++) {
+      const currentStarId = CONSTELLATION_PATH[i];
+      const nextStarId = CONSTELLATION_PATH[i + 1];
       
       // Get actual DOM positions instead of calculated ones
       const currentStarEl = starRefs.current[currentStarId];
@@ -90,9 +89,7 @@ export default function ConstellationNav() {
         const startY = y1 + unitY * nodeRadius;
         const endX = x2 - unitX * nodeRadius;
         const endY = y2 - unitY * nodeRadius;
-        
-        console.log(`Drawing perfect line from ${currentStarId} to ${nextStarId}`);
-        
+
         // Draw the constellation line
         ctx.beginPath();
         ctx.moveTo(startX, startY);
@@ -110,10 +107,10 @@ export default function ConstellationNav() {
       ctx.arc(x, y, 1, 0, Math.PI * 2);
       ctx.fill();
     }
-  };
+  }, []);
 
   // Draw animated particle trace from hovered star to next star
-  const drawParticleTrace = () => {
+  const drawParticleTrace = useCallback(() => {
     if (!hoveredStar) return;
     
     const canvas = canvasRef.current;
@@ -123,10 +120,10 @@ export default function ConstellationNav() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const currentIndex = constellationPath.indexOf(hoveredStar);
-    if (currentIndex === -1 || currentIndex === constellationPath.length - 1) return;
+    const currentIndex = CONSTELLATION_PATH.indexOf(hoveredStar);
+    if (currentIndex === -1 || currentIndex === CONSTELLATION_PATH.length - 1) return;
 
-    const nextStarId = constellationPath[currentIndex + 1];
+    const nextStarId = CONSTELLATION_PATH[currentIndex + 1];
     
     // Get actual DOM positions instead of calculated ones
     const currentStarEl = starRefs.current[hoveredStar];
@@ -181,7 +178,7 @@ export default function ConstellationNav() {
       ctx.fill();
       ctx.shadowBlur = 0;
     }
-  };
+  }, [hoveredStar]);
 
   // Animation loop for particle trace
   useEffect(() => {
@@ -202,7 +199,7 @@ export default function ConstellationNav() {
         cancelAnimationFrame(animationId);
       }
     };
-  }, [open, hoveredStar, drawParticleTrace]);
+  }, [open, hoveredStar, drawConstellation, drawParticleTrace]);
 
   // Initial constellation draw
   useEffect(() => {
@@ -267,7 +264,7 @@ export default function ConstellationNav() {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
             transition={{ ease: "easeOut", duration: 0.4 }}
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(95vw,900px)] h-[min(85vh,600px)]"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(95vw,900px)] h-[min(85dvh,600px)] max-h-[calc(100dvh-2rem)] mx-4 sm:mx-12"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Holographic border */}
@@ -276,12 +273,12 @@ export default function ConstellationNav() {
               {/* Header */}
               <div className="relative z-10 text-center pt-6 pb-6">
                 <motion.h2
-                  initial={{ y: -20, opacity: 0 }}
+                  initial={{ y: -12, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                  className="text-3xl font-light text-white mb-3 tracking-wide"
+                  transition={{ duration: 0.3, delay: 0.1 }}
+                  className="font-display text-2xl font-semibold text-white mb-2 tracking-tight"
                 >
-                  Cosmic Navigation
+                  Sections
                 </motion.h2>
                 <motion.p
                   initial={{ y: -10, opacity: 0 }}
@@ -289,17 +286,18 @@ export default function ConstellationNav() {
                   transition={{ delay: 0.3 }}
                   className="text-slate-400 text-sm"
                 >
-                  Chart your course through the digital universe
+                  Jump to a section
                 </motion.p>
               </div>
               
               {/* Constellation map */}
               <div 
                 ref={containerRef} 
-                className="relative mx-12" 
+                className="relative mx-4 sm:mx-8 lg:mx-12" 
                 style={{ 
-                  height: 'calc(100% - 180px)', // Full height minus header (120px) and footer (60px)
-                  width: 'calc(100% - 96px)' // Full width minus margins (48px each side)
+                  height: 'calc(100% - 180px)',
+                  width: '100%',
+                  maxWidth: 'calc(100% - 1.5rem)',
                 }}
               >
                 {/* Canvas for constellation lines */}

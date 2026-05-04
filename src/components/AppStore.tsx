@@ -101,7 +101,7 @@ function StatusPill({ status }: { status?: Project["status"] }) {
     status.tone === "active"
       ? "bg-emerald-400"
       : status.tone === "live"
-      ? "bg-violet-400"
+      ? "bg-amber-400"
       : "bg-slate-500";
   return (
     <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 ring-1 ring-white/10 text-[10px] font-mono uppercase tracking-[0.12em] text-slate-300">
@@ -129,7 +129,7 @@ function useCursorGlow<T extends HTMLElement>() {
   const my = useMotionValue(50);
   const sx = useSpring(mx, { stiffness: 120, damping: 20, mass: 0.4 });
   const sy = useSpring(my, { stiffness: 120, damping: 20, mass: 0.4 });
-  const bg = useMotionTemplate`radial-gradient(420px circle at ${sx}% ${sy}%, rgba(167,139,250,0.18), transparent 55%)`;
+  const bg = useMotionTemplate`radial-gradient(420px circle at ${sx}% ${sy}%, rgba(251,191,36,0.18), transparent 55%)`;
 
   const onMove = (e: React.PointerEvent<T>) => {
     if (e.pointerType === "touch") return;
@@ -166,7 +166,7 @@ function FeaturedTile({ project, index, onOpen }: { project: Project; index: num
       onPointerMove={glow.onMove}
       onPointerLeave={glow.onLeave}
     >
-      <div className="relative h-full rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-md overflow-hidden transition-all duration-300 hover:border-violet-400/30 hover:shadow-[0_0_40px_rgba(139,92,246,0.12),0_24px_60px_rgba(0,0,0,0.35)] active:scale-[0.995] touch-manipulation">
+      <div className="relative h-full rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-md overflow-hidden transition-all duration-300 hover:border-amber-400/30 hover:shadow-[0_0_40px_rgba(245,158,11,0.12),0_24px_60px_rgba(0,0,0,0.35)] active:scale-[0.995] touch-manipulation">
 
         {/* Cursor-driven inner bloom */}
         <motion.div
@@ -178,7 +178,7 @@ function FeaturedTile({ project, index, onOpen }: { project: Project; index: num
         {/* Static signature gradient (always present, hover-amplified) */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-60 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(ellipse_60%_50%_at_85%_-10%,rgba(139,92,246,0.18),transparent_60%)]"
+          className="pointer-events-none absolute inset-0 opacity-60 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(ellipse_60%_50%_at_85%_-10%,rgba(245,158,11,0.18),transparent_60%)]"
         />
 
         <div className="relative h-full p-6 sm:p-8 flex flex-col">
@@ -186,7 +186,7 @@ function FeaturedTile({ project, index, onOpen }: { project: Project; index: num
           <div className="flex items-start justify-between gap-4 mb-6">
             <motion.div
               layoutId={`project-icon-${project.id}`}
-              className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-violet-400/20 to-violet-500/20 border border-white/10 flex items-center justify-center flex-shrink-0 p-3"
+              className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-amber-400/20 to-amber-500/20 border border-white/10 flex items-center justify-center flex-shrink-0 p-3"
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
             >
               <Image
@@ -199,7 +199,7 @@ function FeaturedTile({ project, index, onOpen }: { project: Project; index: num
               />
             </motion.div>
             <div className="flex flex-col items-end gap-2">
-              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-violet-400/80">
+              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-amber-400/80">
                 Featured
               </span>
               <StatusPill status={project.status} />
@@ -214,7 +214,7 @@ function FeaturedTile({ project, index, onOpen }: { project: Project; index: num
           >
             {project.title}
           </motion.h3>
-          <p className="text-violet-300/90 text-sm sm:text-base mb-5">{project.role}</p>
+          <p className="text-amber-300/90 text-sm sm:text-base mb-5">{project.role}</p>
 
           {/* Tagline (in-tile, no click required) */}
           {project.tagline && (
@@ -242,8 +242,8 @@ function FeaturedTile({ project, index, onOpen }: { project: Project; index: num
 
           {/* CTA arrow */}
           <div className="absolute top-6 right-6 sm:top-8 sm:right-8 opacity-0 group-hover:opacity-100 translate-x-1 group-hover:translate-x-0 transition-all duration-300 hidden sm:block">
-            <div className="w-10 h-10 rounded-full bg-violet-500/15 ring-1 ring-violet-400/30 flex items-center justify-center">
-              <ArrowUpRight size={16} className="text-violet-300" />
+            <div className="w-10 h-10 rounded-full bg-amber-500/15 ring-1 ring-amber-400/30 flex items-center justify-center">
+              <ArrowUpRight size={16} className="text-amber-300" />
             </div>
           </div>
         </div>
@@ -270,7 +270,7 @@ function SecondaryTile({ project, index, onOpen }: { project: Project; index: nu
       onPointerMove={glow.onMove}
       onPointerLeave={glow.onLeave}
     >
-      <div className="relative h-full rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-md overflow-hidden transition-all duration-300 hover:border-violet-400/25 hover:shadow-[0_0_24px_rgba(139,92,246,0.10),0_16px_40px_rgba(0,0,0,0.3)] active:scale-[0.99] touch-manipulation">
+      <div className="relative h-full rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-md overflow-hidden transition-all duration-300 hover:border-amber-400/25 hover:shadow-[0_0_24px_rgba(245,158,11,0.10),0_16px_40px_rgba(0,0,0,0.3)] active:scale-[0.99] touch-manipulation">
 
         <motion.div
           aria-hidden
@@ -283,7 +283,7 @@ function SecondaryTile({ project, index, onOpen }: { project: Project; index: nu
           <div className="flex items-start gap-4 mb-3">
             <motion.div
               layoutId={`project-icon-${project.id}`}
-              className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-400/20 to-violet-500/20 border border-white/10 flex items-center justify-center flex-shrink-0 p-2"
+              className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400/20 to-amber-500/20 border border-white/10 flex items-center justify-center flex-shrink-0 p-2"
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
             >
               <Image
@@ -299,14 +299,14 @@ function SecondaryTile({ project, index, onOpen }: { project: Project; index: nu
               <div className="flex items-center justify-between gap-2 mb-0.5">
                 <motion.h3
                   layoutId={`project-title-${project.id}`}
-                  className="text-white font-semibold text-base group-hover:text-violet-200 transition-colors truncate"
+                  className="text-white font-semibold text-base group-hover:text-amber-200 transition-colors truncate"
                   transition={{ type: "spring", damping: 25, stiffness: 300 }}
                 >
                   {project.title}
                 </motion.h3>
                 <ArrowUpRight
                   size={14}
-                  className="text-slate-500 group-hover:text-violet-300 transition-colors flex-shrink-0"
+                  className="text-slate-500 group-hover:text-amber-300 transition-colors flex-shrink-0"
                 />
               </div>
               <p className="text-slate-500 text-xs truncate">{project.role}</p>
@@ -411,7 +411,7 @@ function AppModal({ project, onClose }: AppModalProps) {
           <div className="flex items-start gap-6 mb-6">
             <motion.div
               layoutId={`project-icon-${project.id}`}
-              className="w-20 h-20 rounded-2xl bg-gradient-to-br from-violet-400/20 to-violet-500/20 border border-white/20 flex items-center justify-center flex-shrink-0 p-3"
+              className="w-20 h-20 rounded-2xl bg-gradient-to-br from-amber-400/20 to-amber-500/20 border border-white/20 flex items-center justify-center flex-shrink-0 p-3"
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
             >
               <Image
@@ -432,7 +432,7 @@ function AppModal({ project, onClose }: AppModalProps) {
               >
                 {project.title}
               </motion.h2>
-              <p className="text-violet-400 mb-3">{project.role}</p>
+              <p className="text-amber-400 mb-3">{project.role}</p>
               <p className="text-slate-300 leading-relaxed">{project.description}</p>
             </div>
           </div>
@@ -474,7 +474,7 @@ function AppModal({ project, onClose }: AppModalProps) {
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 min-w-[160px] h-12 rounded-xl bg-violet-600/80 hover:bg-violet-600 active:bg-violet-700 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm border border-violet-400/30 touch-manipulation"
+              className="flex-1 min-w-[160px] h-12 rounded-xl bg-amber-600/80 hover:bg-amber-600 active:bg-amber-700 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm border border-amber-400/30 touch-manipulation"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -487,7 +487,7 @@ function AppModal({ project, onClose }: AppModalProps) {
             <motion.a
               href={project.download}
               download
-              className="flex-1 min-w-[160px] h-12 rounded-xl bg-violet-600/80 hover:bg-violet-600 active:bg-violet-700 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm border border-violet-400/30 touch-manipulation"
+              className="flex-1 min-w-[160px] h-12 rounded-xl bg-amber-600/80 hover:bg-amber-600 active:bg-amber-700 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm border border-amber-400/30 touch-manipulation"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >

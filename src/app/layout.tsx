@@ -64,17 +64,17 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5, // allow zoom for a11y (WCAG)
-  themeColor: "#0A0B10",
+  themeColor: "#0a0a0a",
   viewportFit: "cover", // required for env(safe-area-inset-*) on notched devices
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} antialiased bg-slate-950 text-slate-100`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} antialiased bg-neutral-950 text-slate-100`}>
         <a
           href="#main-content"
-          className="absolute -left-[9999px] top-4 z-[300] px-4 py-2 bg-violet-500 text-white rounded-lg font-medium focus:left-4 focus:outline focus:outline-2 focus:outline-violet-400 focus:outline-offset-2"
+          className="absolute -left-[9999px] top-4 z-[300] px-4 py-2 bg-amber-500 text-white rounded-lg font-medium focus:left-4 focus:outline focus:outline-2 focus:outline-amber-400 focus:outline-offset-2"
         >
           Skip to main content
         </a>

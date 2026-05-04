@@ -125,7 +125,7 @@ export default function SkillConstellation() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.25, delay: gi * 0.08 + si * 0.03 }}
                     whileHover={{ y: -2 }}
-                    className="relative flex flex-col items-center gap-2 py-4 px-2 rounded-xl bg-white/[0.03] border border-white/[0.07] hover:bg-white/[0.06] hover:border-violet-400/25 transition-colors duration-200 group cursor-default"
+                    className="relative flex flex-col items-center gap-2 py-4 px-2 rounded-xl bg-white/[0.03] border border-white/[0.07] hover:bg-white/[0.06] hover:border-amber-400/25 transition-colors duration-200 group cursor-default"
                     title={
                       usages.length > 0
                         ? `Used in: ${usages.map((u) => u.label).join(", ")}`
@@ -148,7 +148,7 @@ export default function SkillConstellation() {
 
                     {/* Usage count chip — small, low-noise. Hidden until hover. */}
                     {usages.length > 0 && (
-                      <span className="absolute top-1.5 right-1.5 px-1.5 py-0.5 text-[9px] font-mono font-medium rounded-md bg-violet-500/10 text-violet-300/70 ring-1 ring-violet-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 tabular-nums">
+                      <span className="absolute top-1.5 right-1.5 px-1.5 py-0.5 text-[9px] font-mono font-medium rounded-md bg-amber-500/10 text-amber-300/70 ring-1 ring-amber-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 tabular-nums">
                         {usages.length}×
                       </span>
                     )}
@@ -185,7 +185,7 @@ export default function SkillConstellation() {
             </div>
             <div className="min-w-0">
               <p className="text-xs text-slate-300 font-medium leading-tight">Exploring SAP Business Technology Platform</p>
-              <p className="text-[11px] text-slate-500 mt-0.5">SAP Learning · May 4, 2026 <span className="text-violet-400/70 ml-1">· Verify ↗</span></p>
+              <p className="text-[11px] text-slate-500 mt-0.5">SAP Learning · May 4, 2026 <span className="text-amber-400/70 ml-1">· Verify ↗</span></p>
             </div>
           </a>
 

@@ -20,19 +20,19 @@ export default async function Image() {
           justifyContent: "space-between",
           padding: "72px 80px",
           background:
-            "linear-gradient(135deg, #0a0b10 0%, #16121f 55%, #1d1730 100%)",
+            "linear-gradient(135deg, #0a0a0a 0%, #1a1408 55%, #2a1f08 100%)",
           color: "#f8fafc",
           fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
           position: "relative",
         }}
       >
-        {/* Soft violet bloom — visual signature of the site */}
+        {/* Soft amber bloom — visual signature of the site */}
         <div
           style={{
             position: "absolute",
             inset: 0,
             background:
-              "radial-gradient(ellipse 70% 55% at 18% 110%, rgba(139,92,246,0.55), transparent 65%)",
+              "radial-gradient(ellipse 70% 55% at 18% 110%, rgba(245,158,11,0.55), transparent 65%)",
           }}
         />
         <div
@@ -40,7 +40,7 @@ export default async function Image() {
             position: "absolute",
             inset: 0,
             background:
-              "radial-gradient(ellipse 50% 40% at 95% -10%, rgba(196,181,253,0.28), transparent 70%)",
+              "radial-gradient(ellipse 50% 40% at 95% -10%, rgba(252,211,77,0.28), transparent 70%)",
           }}
         />
 
@@ -50,7 +50,7 @@ export default async function Image() {
             display: "flex",
             alignItems: "center",
             gap: 14,
-            color: "#c4b5fd",
+            color: "#fcd34d",
             fontSize: 22,
             letterSpacing: "0.2em",
             textTransform: "uppercase",
@@ -63,8 +63,8 @@ export default async function Image() {
               width: 10,
               height: 10,
               borderRadius: 999,
-              background: "#a78bfa",
-              boxShadow: "0 0 16px #a78bfa",
+              background: "#fbbf24",
+              boxShadow: "0 0 16px #fbbf24",
             }}
           />
           ethanurbanky.dev

@@ -11,10 +11,10 @@ export default function NotFound() {
     <main className="relative min-h-screen-safe w-full flex items-center justify-center px-6 overflow-hidden">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_70%_50%_at_50%_30%,rgba(139,92,246,0.18),transparent_60%)]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_70%_50%_at_50%_30%,rgba(245,158,11,0.18),transparent_60%)]"
       />
       <div className="max-w-xl w-full text-center">
-        <p className="text-violet-400 text-xs sm:text-sm font-mono tracking-[0.2em] uppercase mb-5">
+        <p className="text-amber-400 text-xs sm:text-sm font-mono tracking-[0.2em] uppercase mb-5">
           Error · 404
         </p>
         <h1 className="font-display text-7xl sm:text-8xl font-semibold tracking-tight leading-none mb-6">
@@ -27,7 +27,7 @@ export default function NotFound() {
         <div className="flex flex-wrap items-center justify-center gap-3">
           <Link
             href="/"
-            className="px-5 py-2.5 rounded-lg bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium transition-colors duration-200"
+            className="px-5 py-2.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-sm font-medium transition-colors duration-200"
           >
             Back home
           </Link>

@@ -26,21 +26,21 @@ export default function ScrollProgress() {
 
   return (
     <div
-      className="fixed top-0 left-0 right-0 z-[200] h-[3px] bg-slate-900/60"
+      className="fixed top-0 left-0 right-0 z-[200] h-[3px] bg-neutral-900/60"
       aria-hidden
     >
       {/* CSS scroll-driven when supported (compositor thread); JS fallback otherwise.
-         3px tall + bright violet→fuchsia ramp + soft glow keeps it visible without
+         3px tall + amber gold ramp + soft glow keeps it visible without
          dominating; track is dark slate so the bar reads on light backdrops too. */}
       <div
-        className="scroll-progress-js h-full bg-gradient-to-r from-violet-500 via-violet-400 to-fuchsia-400 shadow-[0_0_8px_rgba(167,139,250,0.55)]"
+        className="scroll-progress-js h-full bg-gradient-to-r from-amber-500 via-amber-400 to-amber-300 shadow-[0_0_8px_rgba(251,191,36,0.55)]"
         style={{
           width: `${progress * 100}%`,
           transition: "width 0.12s ease-out",
         }}
       />
       <div
-        className="scroll-progress-css h-full w-full bg-gradient-to-r from-violet-500 via-violet-400 to-fuchsia-400 shadow-[0_0_8px_rgba(167,139,250,0.55)]"
+        className="scroll-progress-css h-full w-full bg-gradient-to-r from-amber-500 via-amber-400 to-amber-300 shadow-[0_0_8px_rgba(251,191,36,0.55)]"
       />
     </div>
   );

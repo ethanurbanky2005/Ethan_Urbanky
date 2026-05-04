@@ -5,7 +5,7 @@ import { Home, LayoutGrid, UserCircle, Mail, Cpu } from "lucide-react";
 
 const CONSTELLATION_PATH: string[] = ['hero', 'projects', 'about', 'contact', 'skills'];
 
-const ACCENT = 'rgba(167, 139, 250, 0.5)'; // single accent, no rainbow
+const ACCENT = 'rgba(251, 191, 36, 0.5)'; // amber-400, single accent, no rainbow
 
 interface NavNode {
   id: string;
@@ -150,7 +150,7 @@ export default function ConstellationNav() {
       const endY = y2 - unitY * nodeRadius;
       
       // Highlight the path on hover (same accent, slightly stronger)
-      ctx.strokeStyle = 'rgba(167, 139, 250, 0.5)';
+      ctx.strokeStyle = 'rgba(251, 191, 36, 0.5)';
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(startX, startY);
@@ -301,7 +301,7 @@ export default function ConstellationNav() {
                       <div
                         className={`relative w-12 h-12 rounded-xl border flex items-center justify-center transition-colors duration-200 ${
                           hoveredStar === node.id
-                            ? 'border-violet-400/60 bg-violet-500/15 text-violet-300'
+                            ? 'border-amber-400/60 bg-amber-500/15 text-amber-300'
                             : 'border-white/15 bg-white/5 text-slate-300'
                         }`}
                       >

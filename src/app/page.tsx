@@ -34,7 +34,7 @@ function CopyButton({ value, label, className }: { value: string; label?: string
       type="button"
       onClick={onClick}
       aria-label={`Copy ${label ?? value}`}
-      className={`inline-flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-violet-300 transition-colors ${className ?? ""}`}
+      className={`inline-flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-amber-300 transition-colors ${className ?? ""}`}
     >
       {copied ? (
         <>
@@ -113,14 +113,14 @@ function ContactFormBlock() {
           exit={{ opacity: 0 }}
           className="flex flex-col items-center justify-center gap-4 py-8 text-center"
         >
-          <div className="w-14 h-14 rounded-full bg-violet-500/20 border border-violet-400/40 flex items-center justify-center">
-            <Check className="w-7 h-7 text-violet-400" strokeWidth={2.5} />
+          <div className="w-14 h-14 rounded-full bg-amber-500/20 border border-amber-400/40 flex items-center justify-center">
+            <Check className="w-7 h-7 text-amber-400" strokeWidth={2.5} />
           </div>
           <p className="text-slate-200 font-medium">Thanks, I&apos;ll get back to you soon.</p>
           <button
             type="button"
             onClick={() => setStatus("idle")}
-            className="text-sm text-violet-400 hover:text-violet-300 underline underline-offset-2"
+            className="text-sm text-amber-400 hover:text-amber-300 underline underline-offset-2"
           >
             Send another
           </button>
@@ -142,15 +142,15 @@ function ContactFormBlock() {
         >
           <label className="block group">
             <span className="sr-only">Your name</span>
-            <input required name="name" autoComplete="name" aria-label="Your name" placeholder="Name" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-violet-400/60 py-3 text-base min-h-[44px]" />
+            <input required name="name" autoComplete="name" aria-label="Your name" placeholder="Name" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-amber-400/60 py-3 text-base min-h-[44px]" />
           </label>
           <label className="block group">
             <span className="sr-only">Your email</span>
-            <input required name="email" type="email" autoComplete="email" aria-label="Your email" placeholder="Email" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-violet-400/60 py-3 text-base min-h-[44px]" />
+            <input required name="email" type="email" autoComplete="email" aria-label="Your email" placeholder="Email" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-amber-400/60 py-3 text-base min-h-[44px]" />
           </label>
           <label className="block group">
             <span className="sr-only">Your message</span>
-            <textarea required name="message" rows={3} aria-label="Your message" placeholder="Message" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-violet-400/60 py-3 text-base min-h-[44px]" />
+            <textarea required name="message" rows={3} aria-label="Your message" placeholder="Message" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-amber-400/60 py-3 text-base min-h-[44px]" />
           </label>
           {status === "error" && (
             <p className="text-red-400 text-xs">Something went wrong. Try emailing me directly.</p>
@@ -158,7 +158,7 @@ function ContactFormBlock() {
           <button
             type="submit"
             disabled={status === "sending"}
-            className="mt-2 h-11 rounded-xl bg-violet-500/80 hover:bg-violet-500 disabled:opacity-50 text-white font-medium transition-all duration-200 flex items-center justify-center gap-2"
+            className="mt-2 h-11 rounded-xl bg-amber-500/80 hover:bg-amber-500 disabled:opacity-50 text-white font-medium transition-all duration-200 flex items-center justify-center gap-2"
           >
             {status === "sending" ? "Sending..." : "Send Message"}
           </button>
@@ -171,15 +171,15 @@ function ContactFormBlock() {
 const Home = () => {
   return (
     <>
-      {/* Ambient backdrop — three layered, off-axis radial blooms.
-         Top-center: site signature.
-         Bottom-left: warm fuchsia for color depth (breathes 18s for slow life).
-         Top-right: cool indigo wash to balance. */}
+      {/* Ambient backdrop — graphite base + warm gold blooms with one cool
+         teal counterweight. Color theory: dominant warm hue (amber) with a
+         single cool accent (teal-500 ≈ rgb(20,184,166)) prevents the page
+         from going monotone-warm. */}
       <div aria-hidden className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-slate-950" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(139,92,246,0.14),transparent_62%)]" />
-        <div className="absolute inset-0 ambient-breath bg-[radial-gradient(ellipse_55%_40%_at_15%_110%,rgba(217,70,239,0.10),transparent_65%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_45%_35%_at_95%_5%,rgba(99,102,241,0.08),transparent_70%)]" />
+        <div className="absolute inset-0 bg-neutral-950" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(245,158,11,0.12),transparent_62%)]" />
+        <div className="absolute inset-0 ambient-breath bg-[radial-gradient(ellipse_55%_40%_at_15%_110%,rgba(251,191,36,0.09),transparent_65%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_45%_35%_at_95%_5%,rgba(20,184,166,0.06),transparent_70%)]" />
         <div className="noise" />
       </div>
 
@@ -201,7 +201,7 @@ const Home = () => {
                 className="avatar-glow absolute inset-0 -z-10 pointer-events-none rounded-full"
                 style={{
                   background:
-                    "radial-gradient(closest-side, rgba(139,92,246,0.35), rgba(196,181,253,0.18) 60%, transparent 75%)",
+                    "radial-gradient(closest-side, rgba(245,158,11,0.35), rgba(252,211,77,0.18) 60%, transparent 75%)",
                   filter: "blur(28px)",
                 }}
               />
@@ -226,13 +226,13 @@ const Home = () => {
                 initial={{ opacity: 0, y: -4 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.0 }}
-                className="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded-full bg-violet-500/10 ring-1 ring-violet-400/25 backdrop-blur-sm motion-reduce:animate-none"
+                className="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded-full bg-amber-500/10 ring-1 ring-amber-400/25 backdrop-blur-sm motion-reduce:animate-none"
               >
                 <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-70 motion-safe:animate-ping" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-violet-400" />
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-70 motion-safe:animate-ping" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-400" />
                 </span>
-                <span className="text-[11px] sm:text-xs font-medium text-violet-200/90 tracking-wide">
+                <span className="text-[11px] sm:text-xs font-medium text-amber-200/90 tracking-wide">
                   Available · Summer 2026
                 </span>
               </motion.div>
@@ -242,7 +242,7 @@ const Home = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3, delay: 0.05 }}
-                className="text-violet-400 text-xs sm:text-sm mb-4 font-mono tracking-[0.18em] uppercase"
+                className="text-amber-400 text-xs sm:text-sm mb-4 font-mono tracking-[0.18em] uppercase"
               >
                 Western · Class of 2027
               </motion.p>
@@ -286,7 +286,7 @@ const Home = () => {
                     e.preventDefault();
                     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="px-5 py-2.5 rounded-lg bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium transition-colors duration-200"
+                  className="px-5 py-2.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-sm font-medium transition-colors duration-200"
                 >
                   Get in touch
                 </a>

@@ -204,7 +204,7 @@ export default function CommandPalette() {
           aria-label="Command palette"
         >
           <div
-            className="absolute inset-0 bg-slate-950/70 backdrop-blur-sm"
+            className="absolute inset-0 bg-neutral-950/70 backdrop-blur-sm"
             onClick={close}
             aria-hidden
           />
@@ -214,7 +214,7 @@ export default function CommandPalette() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.985 }}
             transition={{ duration: 0.16, ease: "easeOut" }}
-            className="relative w-full max-w-xl rounded-2xl bg-slate-900/95 ring-1 ring-white/10 shadow-2xl overflow-hidden"
+            className="relative w-full max-w-xl rounded-2xl bg-neutral-900/95 ring-1 ring-white/10 shadow-2xl overflow-hidden"
           >
             <div className="flex items-center gap-3 px-4 py-3 border-b border-white/5">
               <Search className="w-4 h-4 text-slate-500" strokeWidth={2} />
@@ -258,12 +258,12 @@ export default function CommandPalette() {
                           }}
                           className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-colors ${
                             isActive
-                              ? "bg-violet-500/15 text-white"
+                              ? "bg-amber-500/15 text-white"
                               : "text-slate-300 hover:bg-white/5"
                           }`}
                         >
                           <Icon
-                            className={`w-4 h-4 flex-shrink-0 ${isActive ? "text-violet-300" : "text-slate-500"}`}
+                            className={`w-4 h-4 flex-shrink-0 ${isActive ? "text-amber-300" : "text-slate-500"}`}
                             strokeWidth={1.75}
                           />
                           <span className="flex-1 truncate text-sm">{item.label}</span>
@@ -273,7 +273,7 @@ export default function CommandPalette() {
                             </span>
                           )}
                           {isActive && (
-                            <CornerDownLeft className="w-3.5 h-3.5 text-violet-300" strokeWidth={2} />
+                            <CornerDownLeft className="w-3.5 h-3.5 text-amber-300" strokeWidth={2} />
                           )}
                         </button>
                       );

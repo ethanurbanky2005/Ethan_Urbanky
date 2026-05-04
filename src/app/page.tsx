@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { portfolio } from "@/config/portfolio";
 import AmbientNav from "@/components/AmbientNav";
 import AppStore from "@/components/AppStore";
@@ -7,8 +7,61 @@ import ConstellationNav from "@/components/ConstellationNav";
 import LifeJourney from "@/components/LifeJourney";
 import SkillConstellation from "@/components/SkillConstellation";
 import ScrollProgress from "@/components/ScrollProgress";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Globe, Mail, Briefcase, Github, Check } from "lucide-react";
+
+function Typewriter({ text, delay = 0 }: { text: string; delay?: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true });
+  const [displayed, setDisplayed] = useState("");
+
+  useEffect(() => {
+    if (!isInView) return;
+    let i = 0;
+    const timeout = setTimeout(() => {
+      const id = setInterval(() => {
+        setDisplayed(text.slice(0, i + 1));
+        i++;
+        if (i >= text.length) clearInterval(id);
+      }, 55);
+      return () => clearInterval(id);
+    }, delay * 1000);
+    return () => clearTimeout(timeout);
+  }, [isInView, text, delay]);
+
+  return (
+    <span ref={ref}>
+      {displayed}
+      {displayed.length < text.length && (
+        <span className="inline-block w-0.5 h-[1em] bg-blue-400 ml-0.5 align-middle animate-pulse" />
+      )}
+    </span>
+  );
+}
+
+function CountUp({ to, prefix = "", suffix = "" }: { to: number; prefix?: string; suffix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true });
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) return;
+    let startTime: number | null = null;
+    const duration = 1600;
+    let raf: number;
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(eased * to));
+      if (progress < 1) { raf = requestAnimationFrame(step); }
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [isInView, to]);
+
+  return <span ref={ref}>{prefix}{count}{suffix}</span>;
+}
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/mojreowq";
 
@@ -118,14 +171,14 @@ const Home = () => {
         {/* HERO */}
         <section id="hero" className="h-screen-safe md:snap-start flex items-center justify-center px-4 sm:px-6">
           <div className="max-w-3xl w-full">
-            {/* Greeting */}
+            {/* Greeting — typewriter */}
             <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.1 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3, delay: 0.05 }}
               className="text-blue-400 text-sm sm:text-base mb-4 font-mono"
             >
-              Hi, I&apos;m
+              <Typewriter text="Hi, I'm" delay={0.15} />
             </motion.p>
 
             {/* Name */}
@@ -188,24 +241,33 @@ const Home = () => {
               </a>
             </motion.div>
 
-            {/* Stats */}
+            {/* Stats — count-up on enter */}
             <motion.div
               className="flex flex-wrap gap-x-10 gap-y-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.55 }}
             >
-              {[
-                { value: "3×", label: "CI Financial Intern" },
-                { value: "$103B", label: "AUM Managed" },
-                { value: "Co-Founder", label: "CONQ" },
-                { value: "EN / FR", label: "Bilingual" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <div className="text-lg sm:text-xl font-semibold text-white">{stat.value}</div>
-                  <div className="text-xs text-slate-500 mt-0.5 tracking-wide">{stat.label}</div>
+              <div>
+                <div className="text-lg sm:text-xl font-semibold text-white tabular-nums">
+                  <CountUp to={3} suffix="×" />
                 </div>
-              ))}
+                <div className="text-xs text-slate-500 mt-0.5 tracking-wide">CI Financial Intern</div>
+              </div>
+              <div>
+                <div className="text-lg sm:text-xl font-semibold text-white tabular-nums">
+                  $<CountUp to={103} suffix="B" />
+                </div>
+                <div className="text-xs text-slate-500 mt-0.5 tracking-wide">AUM Managed</div>
+              </div>
+              <div>
+                <div className="text-lg sm:text-xl font-semibold text-white">Co-Founder</div>
+                <div className="text-xs text-slate-500 mt-0.5 tracking-wide">CONQ</div>
+              </div>
+              <div>
+                <div className="text-lg sm:text-xl font-semibold text-white">EN / FR</div>
+                <div className="text-xs text-slate-500 mt-0.5 tracking-wide">Bilingual</div>
+              </div>
             </motion.div>
           </div>
         </section>

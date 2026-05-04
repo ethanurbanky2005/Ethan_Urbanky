@@ -107,12 +107,27 @@ export default function SkillConstellation() {
         </h3>
         <div className="flex flex-wrap gap-3">
           {[
-            { name: "Exploring SAP Business Technology Platform", issuer: "SAP Learning", date: "May 2026" },
-            { name: "Discovering SAP Activate — Implementation Methodology", issuer: "SAP Learning", date: "May 2026" },
+            {
+              name: "Exploring SAP Business Technology Platform",
+              issuer: "SAP Learning",
+              date: "May 4, 2026",
+              verify: "https://badger.learning.sap.com/verify/xymor-pytig-lavyg-samuc-mibas",
+            },
+            {
+              name: "Discovering SAP Activate — Implementation Methodology",
+              issuer: "SAP Learning",
+              date: "May 2026",
+              verify: null,
+            },
           ].map((cert) => (
-            <div
+            <a
               key={cert.name}
-              className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/[0.03] border border-white/[0.07] max-w-sm"
+              href={cert.verify ?? undefined}
+              target={cert.verify ? "_blank" : undefined}
+              rel={cert.verify ? "noopener noreferrer" : undefined}
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl bg-white/[0.03] border border-white/[0.07] max-w-sm transition-colors duration-200 ${
+                cert.verify ? "hover:bg-white/[0.06] hover:border-white/15 cursor-pointer" : "cursor-default"
+              }`}
             >
               <div className="w-7 h-7 flex items-center justify-center flex-shrink-0">
                 <Image
@@ -126,9 +141,12 @@ export default function SkillConstellation() {
               </div>
               <div className="min-w-0">
                 <p className="text-xs text-slate-300 font-medium leading-tight">{cert.name}</p>
-                <p className="text-[11px] text-slate-500 mt-0.5">{cert.issuer} · {cert.date}</p>
+                <p className="text-[11px] text-slate-500 mt-0.5">
+                  {cert.issuer} · {cert.date}
+                  {cert.verify && <span className="text-blue-400/70 ml-1">· Verify ↗</span>}
+                </p>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </motion.div>

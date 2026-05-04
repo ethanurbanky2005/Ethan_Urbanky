@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
-import { ExternalLink, Github, Play, X } from "lucide-react";
+import { Download, ExternalLink, Github, Play, X } from "lucide-react";
 import { portfolio } from "@/config/portfolio";
 import { getLogo } from "@/config/logos";
 import Image from "next/image";
@@ -15,6 +15,9 @@ interface Project {
   icon: string;
   github?: string;
   demo?: string;
+  download?: string;
+  downloadNote?: string;
+  screenshot?: string;
 }
 
 export default function AppStore() {
@@ -248,6 +251,20 @@ function AppModal({ project, onClose }: AppModalProps) {
           </div>
         </div>
 
+        {/* Optional screenshot — anchored after the header so the visual sits inline with copy */}
+        {project.screenshot && (
+          <div className="mb-6 rounded-xl overflow-hidden border border-white/10 bg-black/30">
+            <Image
+              src={project.screenshot}
+              alt={`${project.title} screenshot`}
+              width={1200}
+              height={800}
+              className="w-full h-auto object-cover"
+              unoptimized
+            />
+          </div>
+        )}
+
         {/* Tech Stack */}
         <div className="mb-6">
           <h3 className="text-white font-medium mb-3">Technologies</h3>
@@ -264,13 +281,13 @@ function AppModal({ project, onClose }: AppModalProps) {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-3 sm:gap-4">
           {project.demo && (
             <motion.a
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 h-12 rounded-xl bg-violet-600/80 hover:bg-violet-600 active:bg-violet-700 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm border border-violet-400/30 touch-manipulation"
+              className="flex-1 min-w-[160px] h-12 rounded-xl bg-violet-600/80 hover:bg-violet-600 active:bg-violet-700 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm border border-violet-400/30 touch-manipulation"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -278,13 +295,26 @@ function AppModal({ project, onClose }: AppModalProps) {
               <span>Run App</span>
             </motion.a>
           )}
-          
+
+          {project.download && (
+            <motion.a
+              href={project.download}
+              download
+              className="flex-1 min-w-[160px] h-12 rounded-xl bg-violet-600/80 hover:bg-violet-600 active:bg-violet-700 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm border border-violet-400/30 touch-manipulation"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Download size={18} />
+              <span>Download to Play</span>
+            </motion.a>
+          )}
+
           {project.github && (
             <motion.a
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 h-12 rounded-xl bg-white/10 hover:bg-white/20 active:bg-white/30 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm border border-white/20 touch-manipulation"
+              className="flex-1 min-w-[160px] h-12 rounded-xl bg-white/10 hover:bg-white/20 active:bg-white/30 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm border border-white/20 touch-manipulation"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -292,18 +322,29 @@ function AppModal({ project, onClose }: AppModalProps) {
               <span>Source Code</span>
             </motion.a>
           )}
-          
-          <motion.a
-            href={project.github || project.demo || '#'}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="h-12 px-6 rounded-xl bg-white/10 hover:bg-white/20 active:bg-white/30 text-white font-medium transition-all duration-300 flex items-center justify-center backdrop-blur-sm border border-white/20 touch-manipulation"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <ExternalLink size={18} />
-          </motion.a>
+
+          {/* Fallback open-in-new-tab — only shows if there's somewhere to point it */}
+          {(project.github || project.demo) && (
+            <motion.a
+              href={project.github || project.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-12 px-6 rounded-xl bg-white/10 hover:bg-white/20 active:bg-white/30 text-white font-medium transition-all duration-300 flex items-center justify-center backdrop-blur-sm border border-white/20 touch-manipulation"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              aria-label="Open in new tab"
+            >
+              <ExternalLink size={18} />
+            </motion.a>
+          )}
         </div>
+
+        {/* Optional helper note — credentials, requirements, etc. */}
+        {project.downloadNote && (
+          <p className="mt-3 text-xs text-slate-500 leading-relaxed">
+            {project.downloadNote}
+          </p>
+        )}
       </motion.div>
     </motion.div>
   );

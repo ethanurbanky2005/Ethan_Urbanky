@@ -5,11 +5,17 @@ import { getLogo } from "@/config/logos";
 import Image from "next/image";
 import { MapPin } from "lucide-react";
 
-const experiences = [
+/**
+ * Exported so SkillConstellation can cross-reference which roles use each
+ * skill (`tech` array). Single source of truth: edit here, reflects both
+ * places automatically.
+ */
+export const experiences = [
   {
     id: "ucc",
     tab: "Upper Canada College",
     tabShort: "UCC",
+    yearRange: "2019 — 2023",
     company: "Upper Canada College",
     logo: "Upper Canada College",
     title: "IB Diploma",
@@ -20,12 +26,17 @@ const experiences = [
       "Co-organized a Mt. Kilimanjaro expedition that raised $6,440 for The George Hull Centre for Children and Families",
       "Competed in Varsity Rugby and JV Football; graduated with the International Baccalaureate Diploma",
     ],
+    metrics: [
+      { value: "20+", label: "Club members" },
+      { value: "$6,440", label: "Charity raised" },
+    ],
     tech: ["IB Diploma", "Leadership", "Quantum Computing", "Athletics"],
   },
   {
     id: "western",
     tab: "Western University",
     tabShort: "Western",
+    yearRange: "2023 — 2027",
     company: "University of Western Ontario",
     logo: "University of Western Ontario",
     title: "BSc Honours Data Science",
@@ -41,6 +52,7 @@ const experiences = [
     id: "ci-2023",
     tab: "CI Financial '23",
     tabShort: "CI '23",
+    yearRange: "Summer 2023",
     company: "CI Financial",
     logo: "CI Financial",
     title: "Software Developer Intern",
@@ -50,12 +62,18 @@ const experiences = [
       "Built an internal web application in 8 weeks, from requirements analysis across 3 stakeholder groups through to production deployment",
       "Built financial dashboards integrating real-time data APIs; contributed to 10+ Agile ceremonies ensuring on-time delivery",
     ],
+    metrics: [
+      { value: "8 wks", label: "End-to-end ship" },
+      { value: "10+", label: "Agile ceremonies" },
+      { value: "3", label: "Stakeholder groups" },
+    ],
     tech: ["Django", "Python", "PostgreSQL", "JavaScript", "HTML5"],
   },
   {
     id: "ci-2024",
     tab: "CI Financial '24",
     tabShort: "CI '24",
+    yearRange: "Summer 2024",
     company: "CI Financial",
     logo: "CI Financial",
     title: "Full-Stack Developer Intern",
@@ -65,12 +83,19 @@ const experiences = [
       "Built a financial advisory platform serving 900+ advisors managing $46B in assets, integrating 5+ financial APIs into real-time dashboards across 6 Agile sprints",
       "Ran cross-functional sprint reviews between business and technical teams and presented findings to non-technical stakeholders",
     ],
+    metrics: [
+      { value: "$46B", label: "Assets supported" },
+      { value: "900+", label: "Advisors" },
+      { value: "5+", label: "APIs integrated" },
+      { value: "6", label: "Agile sprints" },
+    ],
     tech: ["Django", "React.js", "Python", "Tailwind CSS", "TypeScript"],
   },
   {
     id: "ci-2025",
     tab: "CI Financial '25",
     tabShort: "CI '25",
+    yearRange: "Summer 2025",
     company: "CI Financial",
     logo: "CI Financial",
     title: "Application Architecture Intern",
@@ -80,21 +105,34 @@ const experiences = [
       "Led Snowflake cloud platform integration across the $103B wealth management division, mapping 50+ Sybase/SQR pipelines to future-state cloud architecture",
       "Validated 2M+ client records across 4 transformation stages at 99.9% accuracy; automated Jira workflows cutting 10+ hrs of manual overhead per sprint",
     ],
+    metrics: [
+      { value: "$103B", label: "Division AUM" },
+      { value: "2M+", label: "Records validated" },
+      { value: "50+", label: "Pipelines mapped" },
+      { value: "99.9%", label: "Accuracy" },
+    ],
     tech: ["Python", "Snowflake", "SQL", "Bash", "Jira"],
   },
   {
     id: "conq",
     tab: "CONQ",
     tabShort: "CONQ",
+    yearRange: "2025 — Now",
     company: "CONQ",
     logo: "CONQ",
     title: "Co-Founder & ML/AI Lead",
     period: "2025 to Present",
     location: "London, ON",
+    current: true,
     bullets: [
       "Co-founding a health-tech startup building AI-powered smart glasses for concussion recovery monitoring in contact sports, in active development",
       "Built a multi-modal ML pipeline processing 5 concurrent biometric sensor streams (accelerometer, gyroscope, ECG, SpO₂, skin temperature) for real-time recovery classification",
       "Competed in UWO Presidents Challenge 2026; targeting OHL teams at $12K–$20K per team-season within the $6.58B global concussion market",
+    ],
+    metrics: [
+      { value: "5", label: "Sensor streams" },
+      { value: "$6.58B", label: "Market (TAM)" },
+      { value: "OHL", label: "Target league" },
     ],
     tech: ["Python", "scikit-learn", "pandas", "React.js", "Next.js"],
   },
@@ -102,7 +140,7 @@ const experiences = [
 
 type Experience = (typeof experiences)[number];
 
-const TAB_HEIGHT = 44;
+const TAB_HEIGHT = 56; // Increased to fit name + year range on two lines.
 
 export default function LifeJourney() {
   // Open on most-recent senior role (CI Financial '25). High school last keeps
@@ -148,25 +186,43 @@ export default function LifeJourney() {
             transition={{ type: "spring", stiffness: 400, damping: 35 }}
           />
 
-          {experiences.map((exp, i) => (
-            <button
-              key={exp.id}
-              role="tab"
-              id={`tab-${i}`}
-              aria-selected={activeTab === i}
-              aria-controls={`panel-${i}`}
-              tabIndex={activeTab === i ? 0 : -1}
-              onClick={() => setActiveTab(i)}
-              className={`relative w-full text-left pl-5 pr-3 text-sm transition-colors duration-200 focus:outline-none focus-visible:ring-1 focus-visible:ring-violet-400 rounded-r-sm ${
-                activeTab === i
-                  ? "text-violet-300 font-medium"
-                  : "text-slate-500 hover:text-slate-300"
-              }`}
-              style={{ height: TAB_HEIGHT, fontFamily: "var(--font-mono, monospace)" }}
-            >
-              <span className="block truncate text-xs">{exp.tab}</span>
-            </button>
-          ))}
+          {experiences.map((exp, i) => {
+            const isCurrent = "current" in exp && exp.current;
+            return (
+              <button
+                key={exp.id}
+                role="tab"
+                id={`tab-${i}`}
+                aria-selected={activeTab === i}
+                aria-controls={`panel-${i}`}
+                tabIndex={activeTab === i ? 0 : -1}
+                onClick={() => setActiveTab(i)}
+                className={`relative w-full text-left pl-5 pr-3 transition-colors duration-200 focus:outline-none focus-visible:ring-1 focus-visible:ring-violet-400 rounded-r-sm ${
+                  activeTab === i
+                    ? "text-violet-300"
+                    : "text-slate-500 hover:text-slate-300"
+                }`}
+                style={{ height: TAB_HEIGHT }}
+              >
+                <div className="flex items-center gap-2">
+                  <span
+                    className={`block truncate text-xs ${activeTab === i ? "font-semibold" : "font-medium"}`}
+                  >
+                    {exp.tab}
+                  </span>
+                  {isCurrent && (
+                    <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
+                      <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70 motion-safe:animate-ping" />
+                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                    </span>
+                  )}
+                </div>
+                <span className="block text-[10px] text-slate-600 mt-0.5 font-mono tracking-wide">
+                  {exp.yearRange}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Content panel */}
@@ -196,25 +252,34 @@ export default function LifeJourney() {
           role="tablist"
           aria-label="Experience tabs"
         >
-          {experiences.map((exp, i) => (
-            <button
-              key={exp.id}
-              role="tab"
-              id={`tab-m-${i}`}
-              aria-selected={activeTab === i}
-              aria-controls={`panel-m-${i}`}
-              tabIndex={activeTab === i ? 0 : -1}
-              onClick={() => setActiveTab(i)}
-              className={`flex-shrink-0 px-4 py-3 text-xs whitespace-nowrap border-b-2 -mb-px transition-colors duration-200 focus:outline-none ${
-                activeTab === i
-                  ? "border-violet-400 text-violet-300 font-medium"
-                  : "border-transparent text-slate-500 hover:text-slate-300"
-              }`}
-              style={{ fontFamily: "var(--font-mono, monospace)" }}
-            >
-              {exp.tabShort}
-            </button>
-          ))}
+          {experiences.map((exp, i) => {
+            const isCurrent = "current" in exp && exp.current;
+            return (
+              <button
+                key={exp.id}
+                role="tab"
+                id={`tab-m-${i}`}
+                aria-selected={activeTab === i}
+                aria-controls={`panel-m-${i}`}
+                tabIndex={activeTab === i ? 0 : -1}
+                onClick={() => setActiveTab(i)}
+                className={`flex-shrink-0 inline-flex items-center gap-1.5 px-4 py-3 text-xs whitespace-nowrap border-b-2 -mb-px transition-colors duration-200 focus:outline-none ${
+                  activeTab === i
+                    ? "border-violet-400 text-violet-300 font-medium"
+                    : "border-transparent text-slate-500 hover:text-slate-300"
+                }`}
+                style={{ fontFamily: "var(--font-mono, monospace)" }}
+              >
+                {exp.tabShort}
+                {isCurrent && (
+                  <span className="relative flex h-1.5 w-1.5 flex-shrink-0">
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70 motion-safe:animate-ping" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                  </span>
+                )}
+              </button>
+            );
+          })}
         </div>
 
         <AnimatePresence mode="wait">
@@ -236,6 +301,9 @@ export default function LifeJourney() {
 }
 
 function ExperienceContent({ exp }: { exp: Experience }) {
+  const metrics = "metrics" in exp ? exp.metrics : undefined;
+  const isCurrent = "current" in exp && exp.current;
+
   return (
     <div>
       {/* Header */}
@@ -250,11 +318,22 @@ function ExperienceContent({ exp }: { exp: Experience }) {
             unoptimized
           />
         </div>
-        <div>
-          <h3 className="text-base sm:text-lg font-semibold text-white leading-tight">
-            {exp.title}
-            <span className="text-violet-400 font-normal"> · {exp.company}</span>
-          </h3>
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2 flex-wrap">
+            <h3 className="text-base sm:text-lg font-semibold text-white leading-tight">
+              {exp.title}
+              <span className="text-violet-400 font-normal"> · {exp.company}</span>
+            </h3>
+            {isCurrent && (
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 ring-1 ring-emerald-400/30 text-[10px] font-mono uppercase tracking-[0.12em] text-emerald-300">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70 motion-safe:animate-ping" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                </span>
+                Active
+              </span>
+            )}
+          </div>
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1">
             <span className="text-xs text-slate-500" style={{ fontFamily: "var(--font-mono, monospace)" }}>
               {exp.period}
@@ -266,6 +345,23 @@ function ExperienceContent({ exp }: { exp: Experience }) {
           </div>
         </div>
       </div>
+
+      {/* Metrics strip — pulled out of bullet prose so a recruiter scanning gets
+         the key numbers at a glance without reading. */}
+      {metrics && metrics.length > 0 && (
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5 p-3 rounded-xl bg-white/[0.025] ring-1 ring-white/5">
+          {metrics.map((m) => (
+            <div key={m.label} className="px-1">
+              <div className="font-display text-lg sm:text-xl font-semibold text-white tabular-nums leading-tight">
+                {m.value}
+              </div>
+              <div className="text-[10px] text-slate-500 mt-0.5 tracking-wide uppercase font-mono">
+                {m.label}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Bullets */}
       <ul className="space-y-3 mb-5">

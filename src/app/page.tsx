@@ -9,8 +9,47 @@ import LifeJourney from "@/components/LifeJourney";
 import SkillConstellation from "@/components/SkillConstellation";
 import ScrollProgress from "@/components/ScrollProgress";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { Globe, Mail, Briefcase, Github, Check, FileText } from "lucide-react";
+import { Globe, Mail, Briefcase, Github, Check, FileText, Copy } from "lucide-react";
 import Image from "next/image";
+
+/**
+ * Click-to-copy primitive used by the contact section. Falls back gracefully
+ * if the clipboard API is unavailable (older browsers, insecure contexts).
+ */
+function CopyButton({ value, label, className }: { value: string; label?: string; className?: string }) {
+  const [copied, setCopied] = useState(false);
+  const onClick = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1600);
+    } catch {
+      // No-op if clipboard not available; the underlying mailto: link still works.
+    }
+  };
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={`Copy ${label ?? value}`}
+      className={`inline-flex items-center gap-1.5 text-xs font-mono text-slate-500 hover:text-violet-300 transition-colors ${className ?? ""}`}
+    >
+      {copied ? (
+        <>
+          <Check className="w-3 h-3 text-emerald-400" strokeWidth={2.5} />
+          <span className="text-emerald-400">Copied</span>
+        </>
+      ) : (
+        <>
+          <Copy className="w-3 h-3" strokeWidth={1.75} />
+          <span>Copy</span>
+        </>
+      )}
+    </button>
+  );
+}
 
 function CountUp({ to, prefix = "", suffix = "" }: { to: number; prefix?: string; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -348,9 +387,25 @@ const Home = () => {
                   Contact
                 </h2>
               </div>
-              <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto">
+              <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-5 sm:mb-6">
                 Open to summer 2026 internships and contract work. Always down for a coffee in Toronto or London.
               </p>
+
+              {/* Availability strip — sets expectations without inflating them.
+                 Three honest pieces of information: working hours, location, response. */}
+              <div className="inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-2 px-4 py-2 rounded-full bg-white/[0.03] ring-1 ring-white/[0.07] text-xs text-slate-400">
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-70 motion-safe:animate-ping" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                  </span>
+                  <span className="text-emerald-300/90 font-medium">Available</span>
+                </span>
+                <span className="text-slate-600">·</span>
+                <span className="font-mono text-slate-500">Toronto / London (ET)</span>
+                <span className="text-slate-600">·</span>
+                <span className="font-mono text-slate-500">Replies within 24h</span>
+              </div>
             </div>
             
             <div className="glass-card max-w-4xl mx-auto rounded-2xl lg:rounded-3xl p-6 sm:p-8 lg:p-12">
@@ -372,13 +427,16 @@ const Home = () => {
 
                 <a
                   href="mailto:ethan.urbanky@gmail.com"
-                  className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-6 rounded-xl lg:rounded-2xl bg-white/5 ring-1 ring-white/10 hover:bg-white/10 transition-colors duration-200"
+                  className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-6 rounded-xl lg:rounded-2xl bg-white/5 ring-1 ring-white/10 hover:bg-white/10 transition-colors duration-200 relative"
                 >
                   <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-white/10 flex items-center justify-center flex-shrink-0 text-slate-300 group-hover:text-white transition-colors">
                     <Mail className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={1.5} />
                   </div>
-                  <div className="min-w-0">
-                    <div className="font-semibold text-sm sm:text-base text-slate-100">Email</div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="font-semibold text-sm sm:text-base text-slate-100">Email</div>
+                      <CopyButton value="ethan.urbanky@gmail.com" label="email address" />
+                    </div>
                     <div className="text-slate-400 text-xs sm:text-sm truncate">ethan.urbanky@gmail.com</div>
                   </div>
                 </a>

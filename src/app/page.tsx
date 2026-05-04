@@ -8,7 +8,7 @@ import LifeJourney from "@/components/LifeJourney";
 import SkillConstellation from "@/components/SkillConstellation";
 import ScrollProgress from "@/components/ScrollProgress";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { Globe, Mail, Briefcase, Github, Check } from "lucide-react";
+import { Globe, Mail, Briefcase, Github, Check, FileText } from "lucide-react";
 import Image from "next/image";
 
 function Typewriter({ text, delay = 0 }: { text: string; delay?: number }) {
@@ -228,6 +228,15 @@ const Home = () => {
                   Get in touch
                 </a>
                 <a
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-5 py-2.5 rounded-lg bg-white/10 hover:bg-white/15 text-slate-100 text-sm font-medium border border-white/15 hover:border-white/25 transition-colors duration-200 flex items-center gap-2"
+                >
+                  <FileText className="w-4 h-4" strokeWidth={1.75} />
+                  Résumé
+                </a>
+                <a
                   href="https://linkedin.com/in/ethan-urbanky"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -262,7 +271,7 @@ const Home = () => {
                   <div className="text-lg sm:text-xl font-semibold text-white tabular-nums">
                     $<CountUp to={103} suffix="B" />
                   </div>
-                  <div className="text-xs text-slate-500 mt-0.5 tracking-wide">AUM Managed</div>
+                  <div className="text-xs text-slate-500 mt-0.5 tracking-wide">Division AUM · CI</div>
                 </div>
                 <div>
                   <div className="text-lg sm:text-xl font-semibold text-white">Co-Founder</div>
@@ -275,22 +284,34 @@ const Home = () => {
               </motion.div>
             </div>
 
-            {/* Right: avatar */}
+            {/* Right: avatar with ambient glow + gentle float */}
             <motion.div
-              className="flex-shrink-0"
+              className="flex-shrink-0 relative"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.15 }}
             >
-              <Image
-                src="/avatar.png"
-                alt="Ethan Urbanky"
-                width={240}
-                height={240}
-                className="w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 object-contain drop-shadow-2xl select-none"
-                priority
-                unoptimized
+              {/* Soft radial glow behind avatar (decorative, aria-hidden) */}
+              <div
+                aria-hidden
+                className="avatar-glow absolute inset-0 -z-10 pointer-events-none rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(closest-side, rgba(59,130,246,0.35), rgba(129,140,248,0.18) 60%, transparent 75%)",
+                  filter: "blur(28px)",
+                }}
               />
+              <div className="avatar-float">
+                <Image
+                  src="/avatar.png"
+                  alt="Portrait of Ethan Urbanky"
+                  width={256}
+                  height={256}
+                  className="w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 object-contain drop-shadow-2xl select-none"
+                  priority
+                  unoptimized
+                />
+              </div>
             </motion.div>
 
           </div>
@@ -401,7 +422,15 @@ const Home = () => {
 
               <ContactFormBlock />
             </div>
-    </div>
+
+            {/* Footer — small, professional, no clutter */}
+            <footer className="mt-10 sm:mt-12 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 px-2">
+              <p>© {new Date().getFullYear()} {portfolio.identity.name} · {portfolio.identity.location}</p>
+              <p className="font-mono text-[11px]">
+                Built with Next.js · React · Tailwind
+              </p>
+            </footer>
+          </div>
         </section>
       </main>
       <ScrollProgress />

@@ -4,7 +4,6 @@ export const portfolio = {
     tagline: "Data Science & Software Engineering · 3× CI Financial Intern · Co-Founder @ CONQ",
     location: "London, Ontario, Canada",
     email: "ethan.urbanky@gmail.com",
-    phone: "+1 (647) 710-2061",
     links: {
       website: "https://ethanurbanky.dev",
       linkedin: "https://linkedin.com/in/ethan-urbanky",
@@ -13,17 +12,6 @@ export const portfolio = {
     },
     languages: ["English (Native)", "French (Native)"],
   },
-  creative: {
-    coreTheme: "Dream OS × Timeline Galaxy",
-    defaultMode: "dark" as const,
-    skins: ["studio", "stage", "archive"] as const,
-  },
-
-  aboutNodes: [
-    { id: "origin", symbol: "↺", meaning: "curiosity loop" },
-    { id: "craft", symbol: "◯", meaning: "soft precision" },
-    { id: "values", symbol: "✦", meaning: "clarity through light" },
-  ],
   resume: {
     education: [
       {

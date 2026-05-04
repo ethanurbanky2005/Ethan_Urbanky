@@ -14,11 +14,11 @@ const skillGroups = [
   },
   {
     label: "Data & ML",
-    skills: ["Pandas", "NumPy", "scikit-learn", "Snowflake", "PostgreSQL", "SQR"],
+    skills: ["Pandas", "NumPy", "scikit-learn", "Snowflake", "PostgreSQL", "Matplotlib"],
   },
   {
     label: "Backend & Tools",
-    skills: ["Django", "Docker", "Git", "SAP S/4HANA"],
+    skills: ["Django", "Flask", "Docker", "Git", "SAP S/4HANA"],
   },
 ] as const;
 
@@ -43,7 +43,7 @@ export default function SkillConstellation() {
           transition={{ duration: 0.4, delay: 0.1 }}
           className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto"
         >
-          Applied across 3 internships, 2 startups, and university coursework.
+          Applied across 3 internships at CI Financial, a co-founded startup, and Western coursework.
         </motion.p>
       </div>
 

@@ -485,6 +485,26 @@ body {
   .ambient-breath {
     animation: ambient-breath 20s ease-in-out infinite;
   }
+
+  /* Hero avatar: gentle vertical float (~6px range, 6s cycle). Adds life without distracting. */
+  @keyframes avatar-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .avatar-float {
+    animation: avatar-float 6s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  /* Hero avatar glow: soft cyan/blue ring breathing slowly behind avatar. */
+  @keyframes avatar-glow {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50%      { opacity: 0.85; transform: scale(1.06); }
+  }
+  .avatar-glow {
+    animation: avatar-glow 5s ease-in-out infinite;
+    will-change: opacity, transform;
+  }
 }
 
 /* Reduce animations on mobile and for users who prefer reduced motion */

@@ -5,7 +5,6 @@ describe('Portfolio Configuration', () => {
     expect(portfolio.identity).toBeDefined()
     expect(portfolio.identity.name).toBe('Ethan Urbanky')
     expect(portfolio.identity.email).toMatch(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)
-    expect(portfolio.identity.phone).toBeTruthy()
     expect(portfolio.identity.location).toBeTruthy()
   })
 
@@ -39,14 +38,13 @@ describe('Portfolio Configuration', () => {
 
   test('has comprehensive skills data', () => {
     expect(portfolio.resume.skills).toBeDefined()
-    expect(Array.isArray(portfolio.resume.skills.programming)).toBe(true)
+    expect(Array.isArray(portfolio.resume.skills.languages)).toBe(true)
     expect(Array.isArray(portfolio.resume.skills.frameworks)).toBe(true)
     expect(Array.isArray(portfolio.resume.skills.data)).toBe(true)
-    
-    // Check for key skills
-    expect(portfolio.resume.skills.programming).toContain('Python')
-    expect(portfolio.resume.skills.programming).toContain('JavaScript')
-    expect(portfolio.resume.skills.data).toContain('Pandas')
+
+    expect(portfolio.resume.skills.languages).toContain('Python')
+    expect(portfolio.resume.skills.languages).toContain('JavaScript')
+    expect(portfolio.resume.skills.data).toContain('pandas')
   })
 
   test('has valid projects data', () => {
@@ -71,9 +69,4 @@ describe('Portfolio Configuration', () => {
     expect(uniqueIds.size).toBe(ids.length)
   })
 
-  test('has creative configuration', () => {
-    expect(portfolio.creative).toBeDefined()
-    expect(portfolio.creative.coreTheme).toBeTruthy()
-    expect(portfolio.creative.defaultMode).toBe('dark')
-  })
 })

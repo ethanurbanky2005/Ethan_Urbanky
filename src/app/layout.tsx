@@ -9,13 +9,53 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 const outfit = Outfit({ variable: "--font-display", subsets: ["latin"], weight: ["400", "500", "600", "700"] });
 
+const SITE_URL = "https://ethanurbanky.dev";
+const TITLE = `${portfolio.identity.name} — Data Science & Software Engineering`;
+const DESCRIPTION =
+  "Data Science & Software Engineering student at Western University. 3× CI Financial intern. Co-Founder of CONQ. Bilingual EN/FR.";
+
 export const metadata: Metadata = {
-  title: `${portfolio.identity.name}`,
-  description: `${portfolio.identity.tagline}`,
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: TITLE,
+    template: `%s — ${portfolio.identity.name}`,
+  },
+  description: DESCRIPTION,
+  applicationName: portfolio.identity.name,
+  authors: [{ name: portfolio.identity.name, url: SITE_URL }],
+  creator: portfolio.identity.name,
+  keywords: [
+    "Ethan Urbanky",
+    "Data Science",
+    "Software Engineering",
+    "CI Financial",
+    "Western University",
+    "Machine Learning",
+    "Python",
+    "TypeScript",
+  ],
+  alternates: { canonical: SITE_URL },
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: portfolio.identity.name,
+    title: TITLE,
+    description: DESCRIPTION,
+    locale: "en_CA",
+  },
+  twitter: {
+    card: "summary",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   icons: {
-    icon: '/ethan-brand-logo.svg',
-    shortcut: '/ethan-brand-logo.svg',
-    apple: '/ethan-brand-logo.svg',
+    icon: "/ethan-brand-logo.svg",
+    shortcut: "/ethan-brand-logo.svg",
+    apple: "/ethan-brand-logo.svg",
   },
 };
 

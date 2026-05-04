@@ -105,7 +105,10 @@ type Experience = (typeof experiences)[number];
 const TAB_HEIGHT = 44;
 
 export default function LifeJourney() {
-  const [activeTab, setActiveTab] = useState(0);
+  // Open on most-recent senior role (CI Financial '25). High school last keeps
+  // chronology visible; opening there forces the manager to scroll past it.
+  const DEFAULT_TAB = experiences.findIndex((e) => e.id === "ci-2025");
+  const [activeTab, setActiveTab] = useState(DEFAULT_TAB === -1 ? 0 : DEFAULT_TAB);
 
   const handleKey = useCallback(
     (e: React.KeyboardEvent) => {

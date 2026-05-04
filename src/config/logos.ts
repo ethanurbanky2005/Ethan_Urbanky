@@ -5,7 +5,7 @@ export const logos = {
   
   // Companies
   "CI Financial": "https://upload.wikimedia.org/wikipedia/commons/a/a8/CI_Financial_Logo_2020.svg",
-  "CONQ": "https://conq.ca/favicon.ico",
+  "CONQ": "/conq-logo.png",
   
   // Project - UPick uses text instead of logo
   

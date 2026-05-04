@@ -106,48 +106,39 @@ export default function SkillConstellation() {
           Certifications
         </h3>
         <div className="flex flex-wrap gap-3">
-          {[
-            {
-              name: "Exploring SAP Business Technology Platform",
-              issuer: "SAP Learning",
-              date: "May 4, 2026",
-              verify: "https://badger.learning.sap.com/verify/xymor-pytig-lavyg-samuc-mibas",
-            },
-            {
-              name: "Discovering SAP Activate — Implementation Methodology",
-              issuer: "SAP Learning",
-              date: "May 2026",
-              verify: null,
-            },
-          ].map((cert) => (
-            <a
-              key={cert.name}
-              href={cert.verify ?? undefined}
-              target={cert.verify ? "_blank" : undefined}
-              rel={cert.verify ? "noopener noreferrer" : undefined}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl bg-white/[0.03] border border-white/[0.07] max-w-sm transition-colors duration-200 ${
-                cert.verify ? "hover:bg-white/[0.06] hover:border-white/15 cursor-pointer" : "cursor-default"
-              }`}
-            >
-              <div className="w-7 h-7 flex items-center justify-center flex-shrink-0">
-                <Image
-                  src={getLogo("SAP S/4HANA")}
-                  alt="SAP"
-                  width={24}
-                  height={24}
-                  className="max-w-full max-h-full object-contain filter brightness-0 invert opacity-50"
-                  unoptimized
-                />
+          {/* Completed */}
+          <a
+            href="https://badger.learning.sap.com/verify/xymor-pytig-lavyg-samuc-mibas"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/[0.03] border border-white/[0.07] max-w-sm hover:bg-white/[0.06] hover:border-white/15 transition-colors duration-200 cursor-pointer"
+          >
+            <div className="w-7 h-7 flex items-center justify-center flex-shrink-0">
+              <Image src={getLogo("SAP S/4HANA")} alt="SAP" width={24} height={24}
+                className="max-w-full max-h-full object-contain filter brightness-0 invert opacity-50" unoptimized />
+            </div>
+            <div className="min-w-0">
+              <p className="text-xs text-slate-300 font-medium leading-tight">Exploring SAP Business Technology Platform</p>
+              <p className="text-[11px] text-slate-500 mt-0.5">SAP Learning · May 4, 2026 <span className="text-blue-400/70 ml-1">· Verify ↗</span></p>
+            </div>
+          </a>
+
+          {/* In Progress */}
+          <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/[0.02] border border-white/[0.05] max-w-sm opacity-70">
+            <div className="w-7 h-7 flex items-center justify-center flex-shrink-0">
+              <Image src={getLogo("SAP S/4HANA")} alt="SAP" width={24} height={24}
+                className="max-w-full max-h-full object-contain filter brightness-0 invert opacity-40" unoptimized />
+            </div>
+            <div className="min-w-0">
+              <div className="flex items-center gap-2">
+                <p className="text-xs text-slate-400 font-medium leading-tight">Discovering SAP Activate — Implementation Methodology</p>
               </div>
-              <div className="min-w-0">
-                <p className="text-xs text-slate-300 font-medium leading-tight">{cert.name}</p>
-                <p className="text-[11px] text-slate-500 mt-0.5">
-                  {cert.issuer} · {cert.date}
-                  {cert.verify && <span className="text-blue-400/70 ml-1">· Verify ↗</span>}
-                </p>
-              </div>
-            </a>
-          ))}
+              <p className="text-[11px] text-slate-500 mt-0.5">
+                SAP Learning
+                <span className="ml-2 px-1.5 py-0.5 rounded text-[10px] bg-amber-500/15 text-amber-400/80 border border-amber-500/20 font-medium">In Progress</span>
+              </p>
+            </div>
+          </div>
         </div>
       </motion.div>
     </div>

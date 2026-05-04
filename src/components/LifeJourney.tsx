@@ -92,9 +92,9 @@ const experiences = [
     period: "2025 — Present",
     location: "London, ON",
     bullets: [
-      "Co-founded health-tech startup building AI-powered smart glasses for concussion recovery monitoring in contact sports",
+      "Co-founded health-tech startup building AI-powered smart glasses for concussion recovery monitoring in contact sports — currently in active development",
       "Built multi-modal ML pipeline processing 5 concurrent biometric sensor streams (accelerometer, gyroscope, ECG, SpO₂, skin temperature) for real-time recovery classification",
-      "Competed in UWO Presidents Challenge 2026; targeting OHL teams at $12K–$20K per team-season inside the $6.58B global concussion market",
+      "Competed in UWO Presidents Challenge 2026; go-to-market strategy targets OHL teams at $12K–$20K per team-season within the $6.58B global concussion market",
     ],
     tech: ["Python", "scikit-learn", "pandas", "React.js", "Next.js"],
   },

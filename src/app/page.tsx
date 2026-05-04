@@ -9,6 +9,7 @@ import SkillConstellation from "@/components/SkillConstellation";
 import ScrollProgress from "@/components/ScrollProgress";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Globe, Mail, Briefcase, Github, Check } from "lucide-react";
+import Image from "next/image";
 
 function Typewriter({ text, delay = 0 }: { text: string; delay?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -104,7 +105,7 @@ function ContactFormBlock() {
           <div className="w-14 h-14 rounded-full bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center">
             <Check className="w-7 h-7 text-cyan-400" strokeWidth={2.5} />
           </div>
-          <p className="text-slate-200 font-medium">Thanks — I&apos;ll get back to you.</p>
+          <p className="text-slate-200 font-medium">Thanks, I&apos;ll get back to you soon.</p>
           <button
             type="button"
             onClick={() => setStatus("idle")}
@@ -170,105 +171,128 @@ const Home = () => {
       <main id="main-content" className="relative z-10 md:snap-y md:snap-mandatory h-screen-safe w-full overflow-y-auto overflow-x-hidden safe-area-padding">
         {/* HERO */}
         <section id="hero" className="h-screen-safe md:snap-start flex items-center justify-center px-4 sm:px-6">
-          <div className="max-w-3xl w-full">
-            {/* Greeting — typewriter */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3, delay: 0.05 }}
-              className="text-blue-400 text-sm sm:text-base mb-4 font-mono"
-            >
-              <Typewriter text="Hi, I'm" delay={0.15} />
-            </motion.p>
+          <div className="max-w-5xl w-full flex flex-col-reverse sm:flex-row items-center gap-10 sm:gap-16">
 
-            {/* Name */}
-            <motion.h1
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-semibold tracking-tight leading-[1.05] mb-4"
-            >
-              <span className="block text-white">
-                {portfolio.identity.name.split(" ")[0]}
-              </span>
-              <span className="block text-slate-400">
-                {portfolio.identity.name.split(" ")[1]}.
-              </span>
-            </motion.h1>
+            {/* Left: text */}
+            <div className="flex-1 min-w-0">
+              {/* Greeting — typewriter */}
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3, delay: 0.05 }}
+                className="text-blue-400 text-sm sm:text-base mb-4 font-mono"
+              >
+                <Typewriter text="Hi, I'm" delay={0.15} />
+              </motion.p>
 
-            {/* Tagline */}
-            <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.35 }}
-              className="text-base sm:text-lg md:text-xl text-slate-400 max-w-xl mb-8 leading-relaxed"
-            >
-              Data Science & Software Engineering student at Western University. 3× CI Financial intern. Co-founder of CONQ. Bilingual EN/FR.
-            </motion.p>
+              {/* Name */}
+              <motion.h1
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-semibold tracking-tight leading-[1.05] mb-4"
+              >
+                <span className="block text-white">
+                  {portfolio.identity.name.split(" ")[0]}
+                </span>
+                <span className="block text-slate-400">
+                  {portfolio.identity.name.split(" ")[1]}.
+                </span>
+              </motion.h1>
 
-            {/* CTAs */}
+              {/* Tagline */}
+              <motion.p
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.35 }}
+                className="text-base sm:text-lg md:text-xl text-slate-400 max-w-xl mb-8 leading-relaxed"
+              >
+                Data Science & Software Engineering student at Western University. 3× CI Financial intern. Co-founder of CONQ. Bilingual EN/FR.
+              </motion.p>
+
+              {/* CTAs */}
+              <motion.div
+                className="flex flex-wrap gap-3 mb-14"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.45 }}
+              >
+                <a
+                  href="#contact"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium transition-colors duration-200"
+                >
+                  Get in touch
+                </a>
+                <a
+                  href="https://linkedin.com/in/ethan-urbanky"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-5 py-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 text-sm font-medium border border-white/10 hover:border-white/20 transition-colors duration-200"
+                >
+                  LinkedIn
+                </a>
+                <a
+                  href="https://github.com/ethanurbanky2005"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-5 py-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 text-sm font-medium border border-white/10 hover:border-white/20 transition-colors duration-200"
+                >
+                  GitHub
+                </a>
+              </motion.div>
+
+              {/* Stats */}
+              <motion.div
+                className="flex flex-wrap gap-x-10 gap-y-4"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.55 }}
+              >
+                <div>
+                  <div className="text-lg sm:text-xl font-semibold text-white tabular-nums">
+                    <CountUp to={3} suffix="×" />
+                  </div>
+                  <div className="text-xs text-slate-500 mt-0.5 tracking-wide">CI Financial Intern</div>
+                </div>
+                <div>
+                  <div className="text-lg sm:text-xl font-semibold text-white tabular-nums">
+                    $<CountUp to={103} suffix="B" />
+                  </div>
+                  <div className="text-xs text-slate-500 mt-0.5 tracking-wide">AUM Managed</div>
+                </div>
+                <div>
+                  <div className="text-lg sm:text-xl font-semibold text-white">Co-Founder</div>
+                  <div className="text-xs text-slate-500 mt-0.5 tracking-wide">CONQ</div>
+                </div>
+                <div>
+                  <div className="text-lg sm:text-xl font-semibold text-white">EN / FR</div>
+                  <div className="text-xs text-slate-500 mt-0.5 tracking-wide">Bilingual</div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Right: avatar */}
             <motion.div
-              className="flex flex-wrap gap-3 mb-14"
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.45 }}
+              className="flex-shrink-0"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
             >
-              <a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium transition-colors duration-200"
-              >
-                Get in touch
-              </a>
-              <a
-                href="https://linkedin.com/in/ethan-urbanky"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-5 py-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 text-sm font-medium border border-white/10 hover:border-white/20 transition-colors duration-200"
-              >
-                LinkedIn
-              </a>
-              <a
-                href="https://github.com/ethanurbanky2005"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-5 py-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 text-sm font-medium border border-white/10 hover:border-white/20 transition-colors duration-200"
-              >
-                GitHub
-              </a>
+              <Image
+                src="/avatar.png"
+                alt="Ethan Urbanky"
+                width={240}
+                height={240}
+                className="w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 object-contain drop-shadow-2xl select-none"
+                priority
+                unoptimized
+              />
             </motion.div>
 
-            {/* Stats — count-up on enter */}
-            <motion.div
-              className="flex flex-wrap gap-x-10 gap-y-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.55 }}
-            >
-              <div>
-                <div className="text-lg sm:text-xl font-semibold text-white tabular-nums">
-                  <CountUp to={3} suffix="×" />
-                </div>
-                <div className="text-xs text-slate-500 mt-0.5 tracking-wide">CI Financial Intern</div>
-              </div>
-              <div>
-                <div className="text-lg sm:text-xl font-semibold text-white tabular-nums">
-                  $<CountUp to={103} suffix="B" />
-                </div>
-                <div className="text-xs text-slate-500 mt-0.5 tracking-wide">AUM Managed</div>
-              </div>
-              <div>
-                <div className="text-lg sm:text-xl font-semibold text-white">Co-Founder</div>
-                <div className="text-xs text-slate-500 mt-0.5 tracking-wide">CONQ</div>
-              </div>
-              <div>
-                <div className="text-lg sm:text-xl font-semibold text-white">EN / FR</div>
-                <div className="text-xs text-slate-500 mt-0.5 tracking-wide">Bilingual</div>
-              </div>
-            </motion.div>
           </div>
         </section>
 

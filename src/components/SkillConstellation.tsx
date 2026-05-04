@@ -131,7 +131,7 @@ export default function SkillConstellation() {
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <p className="text-xs text-slate-400 font-medium leading-tight">Discovering SAP Activate — Implementation Methodology</p>
+                <p className="text-xs text-slate-400 font-medium leading-tight">Discovering SAP Activate: Implementation Methodology</p>
               </div>
               <p className="text-[11px] text-slate-500 mt-0.5">
                 SAP Learning

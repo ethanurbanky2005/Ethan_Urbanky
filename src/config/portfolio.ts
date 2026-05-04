@@ -138,5 +138,16 @@ export const portfolio = {
       demo: "https://financetrack-personal.vercel.app",
       mass: 0.8,
     },
+    {
+      id: "balloontd",
+      title: "Balloon Typing Defense",
+      role: "Software Engineer · Team of 4",
+      description: "Full-featured typing tower-defense game built in Java across a 6-phase Agile process. 45+ classes spanning a clean MVC architecture (app / model / GUI layers). Shipped with 171 JUnit 5 tests, 0 failures. Features multi-map level progression, wave-based gameplay, student and teacher account roles, leaderboard, and per-user statistics persistence. Fully documented with class diagrams, wireframes, and requirements specifications.",
+      tech: ["Java", "Swing", "JUnit 5", "OOP", "MVC", "Agile"],
+      icon: "Java",
+      github: null,
+      demo: null,
+      mass: 0.7,
+    },
   ],
 };

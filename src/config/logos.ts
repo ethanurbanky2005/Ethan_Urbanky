@@ -5,7 +5,7 @@ export const logos = {
   
   // Companies
   "CI Financial": "https://upload.wikimedia.org/wikipedia/commons/a/a8/CI_Financial_Logo_2020.svg",
-  "Cactus Club Cafe": "https://upload.wikimedia.org/wikipedia/commons/8/81/Cactus-Club-Cafe-Logo.gif",
+  "CONQ": "https://conq.ca/favicon.ico",
   
   // Project - UPick uses text instead of logo
   
@@ -45,6 +45,8 @@ export const logos = {
   "Snowflake": "https://cdn.simpleicons.org/snowflake",
   "Seaborn": "https://cdn.simpleicons.org/seaborn",
   "Matplotlib": "https://cdn.simpleicons.org/matplotlib",
+  "scikit-learn": "https://cdn.simpleicons.org/scikitlearn",
+  "SAP S/4HANA": "https://cdn.simpleicons.org/sap",
   
   // Databases
   "PostgreSQL": "https://cdn.simpleicons.org/postgresql",

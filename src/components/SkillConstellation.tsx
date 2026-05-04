@@ -1,298 +1,202 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { getLogo } from "@/config/logos";
 import Image from "next/image";
 
-
-/* Spread-out positions to reduce clutter; keep related skills loosely grouped by category. */
 const skills = [
-  { name: "Python", level: 95, category: "core", x: 22, y: 18 },
-  { name: "JavaScript", level: 90, category: "frontend", x: 18, y: 42 },
-  { name: "Java", level: 85, category: "core", x: 78, y: 22 },
-  { name: "React", level: 90, category: "frontend", x: 15, y: 58 },
-  { name: "Django", level: 88, category: "backend", x: 82, y: 48 },
-  { name: "TypeScript", level: 85, category: "frontend", x: 38, y: 72 },
-  { name: "HTML5", level: 95, category: "frontend", x: 12, y: 28 },
-  { name: "CSS", level: 92, category: "frontend", x: 58, y: 62 },
-  { name: "Tailwind CSS", level: 92, category: "frontend", x: 45, y: 85 },
-  { name: "SQL", level: 88, category: "data", x: 85, y: 28 },
-  { name: "PostgreSQL", level: 80, category: "data", x: 18, y: 75 },
-  { name: "Snowflake", level: 75, category: "data", x: 72, y: 78 },
-  { name: "C++", level: 78, category: "core", x: 28, y: 88 },
-  { name: "Docker", level: 78, category: "devops", x: 88, y: 68 },
-  { name: "Pandas", level: 88, category: "data", x: 68, y: 15 },
-  { name: "Git", level: 95, category: "devops", x: 50, y: 50 },
-  { name: "NumPy", level: 85, category: "data", x: 55, y: 35 },
-  { name: "SQR", level: 70, category: "data", x: 35, y: 55 },
+  { name: "Python", level: 95, category: "core" },
+  { name: "JavaScript", level: 90, category: "frontend" },
+  { name: "Java", level: 85, category: "core" },
+  { name: "React", level: 90, category: "frontend" },
+  { name: "Django", level: 88, category: "backend" },
+  { name: "TypeScript", level: 85, category: "frontend" },
+  { name: "HTML5", level: 95, category: "frontend" },
+  { name: "CSS", level: 92, category: "frontend" },
+  { name: "Tailwind CSS", level: 92, category: "frontend" },
+  { name: "SQL", level: 88, category: "data" },
+  { name: "PostgreSQL", level: 80, category: "data" },
+  { name: "Snowflake", level: 78, category: "data" },
+  { name: "C++", level: 78, category: "core" },
+  { name: "Docker", level: 78, category: "devops" },
+  { name: "Pandas", level: 88, category: "data" },
+  { name: "Git", level: 95, category: "devops" },
+  { name: "NumPy", level: 85, category: "data" },
+  { name: "SQR", level: 70, category: "data" },
+  { name: "scikit-learn", level: 80, category: "data" },
+  { name: "SAP S/4HANA", level: 65, category: "backend" },
 ];
 
-const categories = {
-  core: { color: "from-cyan-400 to-blue-500", glow: "rgba(34, 211, 238, 0.4)" },
-  frontend: { color: "from-emerald-400 to-teal-500", glow: "rgba(16, 185, 129, 0.4)" },
-  backend: { color: "from-purple-400 to-pink-500", glow: "rgba(147, 51, 234, 0.4)" },
-  data: { color: "from-orange-400 to-red-500", glow: "rgba(249, 115, 22, 0.4)" },
-  devops: { color: "from-yellow-400 to-amber-500", glow: "rgba(245, 158, 11, 0.4)" },
+const categoryConfig: Record<string, { label: string; color: string }> = {
+  core:     { label: "Languages",   color: "bg-blue-500" },
+  frontend: { label: "Frontend",    color: "bg-indigo-500" },
+  backend:  { label: "Backend",     color: "bg-violet-500" },
+  data:     { label: "Data & ML",   color: "bg-sky-500" },
+  devops:   { label: "DevOps",      color: "bg-slate-400" },
+};
+
+const skillDescriptions: Record<string, string> = {
+  "Python": "Core language across all 3 CI Financial internships — ETL pipelines, data validation at 99.9% accuracy, and Jira sprint automation",
+  "JavaScript": "Used at CI Financial to build real-time financial dashboards integrating 5+ live data APIs for 900+ advisors",
+  "Java": "University algorithms and data structures coursework; foundational for understanding enterprise system design patterns",
+  "React": "Built the 900+ advisor financial advisory platform at CI Financial (2024); also powers the CONQ marketing site",
+  "Django": "Delivered two full production web apps at CI Financial — 2023 (8 weeks) and 2024 (6 Agile sprints)",
+  "TypeScript": "Type-safe frontend across Next.js projects — FinanceTrack, this portfolio, and CONQ's web presence",
+  "HTML5": "Semantic markup across all CI Financial web projects and personal builds; accessibility-conscious structure",
+  "CSS": "Custom styling for CI Financial dashboards alongside component libraries; animation and responsive layout work",
+  "Tailwind CSS": "Utility-first styling used across CONQ, FinanceTrack, and this portfolio — rapid iteration without design drift",
+  "SQL": "Production queries across Sybase, PostgreSQL, and Snowflake at CI Financial — financial record joins, validation, and pipeline logic",
+  "PostgreSQL": "Database for the 2023 CI Financial internal app; structured financial records and multi-stakeholder data requirements",
+  "Snowflake": "Led the $103B AUM Snowflake migration at CI Financial (2025) — 50+ pipelines mapped, 2M+ client records validated",
+  "C++": "University systems programming; low-level memory management and performance thinking that shapes how I reason about production systems",
+  "Docker": "Containerized CI Financial project environments for consistent dev-to-prod parity across team deployments",
+  "Pandas": "Data processing backbone of CONQ's multi-modal ML pipeline — handling 5 concurrent biometric sensor streams in real time",
+  "Git": "Version control across all 3 CI Financial internships and every personal project; branching strategy in 6-sprint Agile cycles",
+  "NumPy": "Numerical core for CONQ's recovery classification model and UPick's feature engineering against live odds data",
+  "SQR": "Read and mapped 50+ legacy SQR batch pipelines to future-state Snowflake architecture at CI Financial (2025)",
+  "scikit-learn": "ML model development for CONQ's biometric recovery classifier and UPick's probability-calibrated parlay predictions",
+  "SAP S/4HANA": "ERP fundamentals trained via SAP Learning; applied cloud implementation methodology in SAP BTP certification coursework",
 };
 
 export default function SkillConstellation() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [mounted, setMounted] = useState(false);
+  const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const categories = Object.keys(categoryConfig);
 
-  // Draw connection lines between related skills
-  const connections = [
-    ["Python", "Django"],
-    ["Python", "Pandas"],
-    ["Python", "NumPy"],
-    ["JavaScript", "React"],
-    ["JavaScript", "TypeScript"],
-    ["React", "TypeScript"],
-    ["HTML5", "CSS"],
-    ["CSS", "Tailwind CSS"],
-    ["SQL", "PostgreSQL"],
-    ["SQL", "Snowflake"],
-    ["Docker", "Git"],
-    ["Java", "C++"],
-  ];
+  const visibleSkills = selectedCategory
+    ? skills.filter(s => s.category === selectedCategory)
+    : skills;
+
+  // Group visible skills by category for display
+  const grouped = categories.reduce((acc, cat) => {
+    const catSkills = visibleSkills.filter(s => s.category === cat);
+    if (catSkills.length > 0) acc[cat] = catSkills;
+    return acc;
+  }, {} as Record<string, typeof skills>);
 
   return (
-    <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
+    <div className="relative max-w-7xl mx-auto px-4 sm:px-6 w-full">
+      {/* Heading */}
       <div className="text-center mb-8 lg:mb-10">
-        <div className="inline-block">
-          <h2 className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight mb-4 lg:mb-6 bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-cyan-300 bg-clip-text text-transparent leading-tight">Skills</h2>
-          <motion.div
-            className="h-0.5 w-full rounded-full bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-cyan-400"
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            style={{ transformOrigin: "left" }}
-          />
-        </div>
-        <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mt-4">Hover to explore skills and connections.</p>
+        <h2 className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight mb-4 text-white">
+          Skills
+        </h2>
+        <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto">
+          Applied across 3 internships, 2 startups, and independent projects.
+        </p>
       </div>
 
-      {/* Category filters */}
-      <div className="flex flex-wrap justify-center gap-2 sm:gap-3 lg:gap-4 mb-8 lg:mb-10">
+      {/* Category filter tabs */}
+      <div className="flex flex-wrap justify-center gap-2 mb-8">
         <button
-          onClick={() => setSelectedCategory(null)}
-          className={`px-3 sm:px-4 py-2 rounded-full transition-all duration-300 text-sm sm:text-base ${
-            selectedCategory === null 
-              ? 'bg-white/20 ring-2 ring-white/40' 
-              : 'bg-white/5 ring-1 ring-white/10 hover:bg-white/10'
+          onClick={() => { setSelectedCategory(null); setSelectedSkill(null); }}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+            !selectedCategory
+              ? "bg-blue-600 text-white"
+              : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-slate-200 border border-white/10"
           }`}
         >
-          All Skills
+          All
         </button>
-        {Object.entries(categories).map(([cat, config]) => (
+        {categories.map(cat => (
           <button
             key={cat}
-            onClick={() => setSelectedCategory(selectedCategory === cat ? null : cat)}
-            className={`px-3 sm:px-4 py-2 rounded-full transition-all duration-300 capitalize text-sm sm:text-base ${
-              selectedCategory === cat 
-                ? `bg-gradient-to-r ${config.color} text-white shadow-[0_0_20px_${config.glow}]`
-                : 'bg-white/5 ring-1 ring-white/10 hover:bg-white/10'
+            onClick={() => {
+              setSelectedCategory(selectedCategory === cat ? null : cat);
+              setSelectedSkill(null);
+            }}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+              selectedCategory === cat
+                ? "bg-blue-600 text-white"
+                : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-slate-200 border border-white/10"
             }`}
           >
-            {cat}
+            {categoryConfig[cat].label}
           </button>
         ))}
       </div>
 
-      {/* Height: on mobile use 72dvh (fills most of viewport) clamped to 280–400px so it scales on short screens (e.g. landscape) but doesn’t exceed 400px or drop below 280px; sm/lg align with Tailwind breakpoints. */}
-      <div ref={containerRef} className="relative h-[max(280px,min(400px,72dvh))] sm:h-[450px] lg:h-[500px] rounded-2xl lg:rounded-3xl bg-gradient-to-br from-slate-900/50 to-slate-800/30 ring-1 ring-white/10 backdrop-blur-sm overflow-hidden touch-manipulation">
-        {/* Connection lines */}
-        <svg className="absolute inset-0 w-full h-full pointer-events-none">
-          {connections.map(([skill1, skill2], i) => {
-            const s1 = skills.find(s => s.name === skill1);
-            const s2 = skills.find(s => s.name === skill2);
-            if (!s1 || !s2) return null;
-
-            const isVisible = !selectedCategory || 
-              s1.category === selectedCategory || 
-              s2.category === selectedCategory ||
-              hoveredSkill === s1.name ||
-              hoveredSkill === s2.name;
-
-            return (
-              <motion.line
-                key={`${skill1}-${skill2}`}
-                x1={`${s1.x}%`}
-                y1={`${s1.y}%`}
-                x2={`${s2.x}%`}
-                y2={`${s2.y}%`}
-                stroke="rgba(34, 211, 238, 0.25)"
-                strokeWidth="1"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ 
-                  pathLength: isVisible ? 1 : 0, 
-                  opacity: isVisible ? 0.35 : 0.08 
-                }}
-                transition={{ duration: 0.8, delay: i * 0.1 }}
-              />
-            );
-          })}
-        </svg>
-
-        {/* Skills */}
-        {skills.map((skill, i) => {
-          const isVisible = !selectedCategory || skill.category === selectedCategory;
-          const isHovered = hoveredSkill === skill.name;
-          const categoryConfig = categories[skill.category as keyof typeof categories];
-
-          // Simplified collision detection for better performance
-          const getOptimalTooltipPosition = () => {
-            // Simple position based on quadrant - much faster than full collision detection
-            if (skill.y < 30) return { key: 'bottom', class: 'top-full mt-4 left-1/2 -translate-x-1/2' };
-            if (skill.y > 70) return { key: 'top', class: 'bottom-full mb-4 left-1/2 -translate-x-1/2' };
-            if (skill.x < 50) return { key: 'right', class: 'left-full ml-4 top-1/2 -translate-y-1/2' };
-            return { key: 'left', class: 'right-full mr-4 top-1/2 -translate-y-1/2' };
-          };
-
-          const optimalPosition = getOptimalTooltipPosition();
-
-          return (
-            <motion.div
-              key={skill.name}
-              className="absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer group"
-              style={{ left: `${skill.x}%`, top: `${skill.y}%` }}
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ 
-                scale: isVisible ? 1 : 0.3, 
-                opacity: isVisible ? 1 : 0.3 
-              }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 1.1 }}
-              onHoverStart={() => setHoveredSkill(skill.name)}
-              onHoverEnd={() => setHoveredSkill(null)}
-              onTap={() => setHoveredSkill(hoveredSkill === skill.name ? null : skill.name)}
-            >
-              <div 
-                className={`relative w-16 h-16 rounded-full bg-gradient-to-br ${categoryConfig.color} ring-2 ring-white/20 backdrop-blur-sm flex items-center justify-center transition-all duration-300 group-hover:ring-white/40 p-3`}
-                style={{ 
-                  boxShadow: isHovered ? `0 0 30px ${categoryConfig.glow}` : undefined 
-                }}
-              >
-                <Image
-                  src={getLogo(skill.name)}
-                  alt={skill.name}
-                  width={32}
-                  height={32}
-                  className="max-w-full max-h-full object-contain filter brightness-0 invert"
-                  unoptimized={true}
-                />
-                
-                {/* Skill level ring */}
-                <svg className="absolute inset-0 w-full h-full -rotate-90">
-                  <circle
-                    cx="50%"
-                    cy="50%"
-                    r="28"
-                    fill="none"
-                    stroke="rgba(255,255,255,0.1)"
-                    strokeWidth="2"
-                  />
-                  <motion.circle
-                    cx="50%"
-                    cy="50%"
-                    r="28"
-                    fill="none"
-                    stroke="rgba(255,255,255,0.6)"
-                    strokeWidth="2"
-                    strokeDasharray={`${2 * Math.PI * 28}`}
-                    initial={{ strokeDashoffset: `${2 * Math.PI * 28}` }}
-                    animate={{ 
-                      strokeDashoffset: `${2 * Math.PI * 28 * (1 - skill.level / 100)}` 
-                    }}
-                    transition={{ duration: 1, delay: i * 0.1 }}
-                  />
-                </svg>
-              </div>
-
-              {/* Collision-aware tooltip with optimal positioning */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ 
-                  opacity: isHovered ? 1 : 0, 
-                  scale: isHovered ? 1 : 0.8 
-                }}
-                className={`absolute pointer-events-none z-30 px-4 py-3 bg-slate-900/98 backdrop-blur-md rounded-xl text-sm whitespace-nowrap ring-1 ring-cyan-400/20 shadow-2xl shadow-cyan-500/20 ${optimalPosition.class}`}
-              >
-                <div className="font-semibold text-cyan-300">{skill.name}</div>
-                <div className="text-xs text-slate-400 mt-1">{skill.level}% proficiency</div>
-                {/* Small arrow indicator pointing to the skill */}
-                <div className={`absolute w-2 h-2 bg-slate-900 rotate-45 ring-1 ring-cyan-400/20 ${
-                  optimalPosition.key.includes('bottom') ? '-top-1 left-1/2 -translate-x-1/2' :
-                  optimalPosition.key.includes('top') ? '-bottom-1 left-1/2 -translate-x-1/2' :
-                  optimalPosition.key.includes('right') ? '-left-1 top-1/2 -translate-y-1/2' :
-                  '-right-1 top-1/2 -translate-y-1/2'
-                }`} />
-              </motion.div>
-            </motion.div>
-          );
-        })}
-
-        {/* Floating particles for ambiance - reduced for performance */}
-        {mounted && Array.from({ length: 8 }).map((_, i) => (
+      {/* Skills grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {Object.entries(grouped).map(([cat, catSkills]) => (
           <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-cyan-400/20 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -15, 0],
-              opacity: [0.2, 0.6, 0.2],
-            }}
-            transition={{
-              duration: 6 + Math.random() * 3,
-              repeat: Infinity,
-              delay: Math.random() * 3,
-            }}
-          />
+            key={cat}
+            layout
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 8 }}
+            transition={{ duration: 0.3 }}
+            className="bg-white/[0.03] border border-white/10 rounded-2xl p-5"
+          >
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-4">
+              {categoryConfig[cat].label}
+            </h3>
+            <div className="space-y-3">
+              {catSkills.map((skill, i) => (
+                <motion.button
+                  key={skill.name}
+                  initial={{ opacity: 0, x: -6 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.04 }}
+                  onClick={() => setSelectedSkill(selectedSkill === skill.name ? null : skill.name)}
+                  className={`w-full flex items-center gap-3 text-left group transition-colors duration-150 rounded-lg px-2 py-1.5 -mx-2 ${
+                    selectedSkill === skill.name ? "bg-white/5" : "hover:bg-white/[0.03]"
+                  }`}
+                >
+                  <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 p-1.5">
+                    <Image
+                      src={getLogo(skill.name)}
+                      alt={skill.name}
+                      width={20}
+                      height={20}
+                      className="max-w-full max-h-full object-contain filter brightness-0 invert opacity-70"
+                      unoptimized={true}
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className={`text-sm font-medium transition-colors ${
+                        selectedSkill === skill.name ? "text-white" : "text-slate-300 group-hover:text-white"
+                      }`}>
+                        {skill.name}
+                      </span>
+                      <span className="text-xs text-slate-600 ml-2">{skill.level}%</span>
+                    </div>
+                    <div className="h-0.5 bg-white/5 rounded-full overflow-hidden">
+                      <motion.div
+                        className={`h-full ${categoryConfig[cat].color} rounded-full`}
+                        initial={{ width: 0 }}
+                        animate={{ width: `${skill.level}%` }}
+                        transition={{ duration: 0.7, delay: i * 0.04, ease: "easeOut" }}
+                      />
+                    </div>
+                  </div>
+                </motion.button>
+              ))}
+            </div>
+          </motion.div>
         ))}
       </div>
 
-      {/* Fixed height container to prevent layout shifts */}
-      <div className="mt-8 h-16 flex items-center justify-center">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: hoveredSkill ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
-          className="text-center"
-        >
-          {hoveredSkill && (
-            <p className="text-slate-300 max-w-2xl">
-              <span className="font-semibold text-cyan-300">{hoveredSkill}</span> — 
-              {hoveredSkill === "Python" && " My core language for everything from web backends to ML pipelines"}
-              {hoveredSkill === "JavaScript" && " Dynamic scripting language for interactive web experiences"}
-              {hoveredSkill === "Java" && " Enterprise-grade object-oriented programming powerhouse"}
-              {hoveredSkill === "React" && " Building dynamic, responsive user interfaces"}
-              {hoveredSkill === "Django" && " Rapid web development with Python's most popular framework"}
-              {hoveredSkill === "TypeScript" && " Type-safe JavaScript for robust applications"}
-              {hoveredSkill === "HTML5" && " The foundation of web structure and semantic markup"}
-              {hoveredSkill === "CSS" && " Styling and layout mastery for beautiful interfaces"}
-              {hoveredSkill === "Tailwind CSS" && " Utility-first CSS for rapid, consistent styling"}
-              {hoveredSkill === "SQL" && " Database querying and data manipulation expertise"}
-              {hoveredSkill === "PostgreSQL" && " Robust relational database for complex applications"}
-              {hoveredSkill === "Snowflake" && " Cloud data warehouse platform for analytics"}
-              {hoveredSkill === "C++" && " Systems programming and performance optimization"}
-              {hoveredSkill === "Docker" && " Containerization for consistent development and deployment"}
-              {hoveredSkill === "Pandas" && " Data manipulation and analysis powerhouse"}
-              {hoveredSkill === "Git" && " Version control and collaborative development"}
-              {hoveredSkill === "NumPy" && " Numerical computing foundation for data science"}
-              {hoveredSkill === "SQR" && " Structured Query Reporting for business intelligence"}
-            </p>
+      {/* Selected skill description */}
+      <div className="mt-6 min-h-[3.5rem] flex items-center justify-center">
+        <AnimatePresence mode="wait">
+          {selectedSkill && skillDescriptions[selectedSkill] && (
+            <motion.p
+              key={selectedSkill}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.2 }}
+              className="text-sm text-slate-400 max-w-2xl text-center leading-relaxed"
+            >
+              <span className="font-medium text-blue-400">{selectedSkill}</span>
+              {" — "}
+              {skillDescriptions[selectedSkill]}
+            </motion.p>
           )}
-        </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );

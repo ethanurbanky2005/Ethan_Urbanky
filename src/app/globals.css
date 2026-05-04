@@ -411,9 +411,9 @@ main#main-content {
 :root {
   --bg-primary: #0a0b10;
   --bg-elevated: rgba(15, 23, 42, 0.8);
-  --accent: #22d3ee;
-  --accent-muted: rgba(34, 211, 238, 0.12);
-  --accent-secondary: #3b82f6;
+  --accent: #3b82f6;
+  --accent-muted: rgba(59, 130, 246, 0.12);
+  --accent-secondary: #818cf8;
   --text-primary: #e2e8f0;
   --text-muted: #94a3b8;
 }
@@ -474,9 +474,7 @@ body {
 /* Constellation overlay tames orbits */
 .constellation-open [data-orb] { transition: transform .2s ease-out; }
 
-/* Subtle aura pulse */
-@keyframes aura { 0%,100%{ box-shadow: 0 0 40px rgba(34,211,238,.18);} 50%{ box-shadow: 0 0 80px rgba(34,211,238,.25);} }
-.pulse-aura { animation: aura 6s ease-in-out infinite; }
+/* Removed: pulse-aura (decorative, no content value) */
 
 /* Ambient backdrop breath: very slow gradient shift (only when motion is OK) */
 @media (prefers-reduced-motion: no-preference) {

@@ -8,71 +8,85 @@ const journeySteps = [
   {
     id: "foundation",
     year: "2023",
-    title: "The Foundation",
-    subtitle: "Upper Canada College",
-    story: "Built my academic foundation at Upper Canada College, graduating with an IB Diploma. Co-founded the Quantum Computing Club because emerging technology fascinated me. Rugby taught me teamwork and perseverance—skills that translate directly to collaborative development and pushing through complex coding challenges.",
+    title: "Upper Canada College",
+    subtitle: "IB Diploma · Toronto",
+    story: "Graduated with an International Baccalaureate Diploma from Upper Canada College. Co-founded the school's first Quantum Computing Club, recruiting 20+ members and running 8 educational sessions on emerging computing paradigms. Competed in Varsity Rugby and JV Football. Co-organized a summit of Mt. Kilimanjaro fundraising $6,440 for The George Hull Centre for Children and Families.",
     visual: "Upper Canada College",
     color: "from-blue-400 to-cyan-500",
     stats: [
-      { label: "Academic Achievement", value: "IB Diploma" },
-      { label: "Athletic Commitment", value: "Varsity Rugby" },
-      { label: "Leadership Initiative", value: "Club Co-Founder" }
+      { label: "Achievement", value: "IB Diploma" },
+      { label: "Club Founded", value: "Quantum Computing Club · 20+ members" },
+      { label: "Fundraised", value: "$6,440 for children's mental health" }
     ]
   },
   {
     id: "university-growth",
-    year: "2023-2027",
-    title: "Academic Evolution",
-    subtitle: "University of Western Ontario",
-    story: "Pursuing a Bachelor of Science with Honors Specialization in Data Science at Western. Diving deep into data analysis with Python, Pandas, and NumPy. Mastering object-oriented programming in Java, advanced data structures, and algorithm analysis. Building the analytical foundation that bridges mathematics, statistics, and real-world problem solving.",
+    year: "2023 — 2027",
+    title: "University of Western Ontario",
+    subtitle: "BSc Honours Specialization in Data Science",
+    story: "Pursuing a Bachelor of Science with Honours Specialization in Data Science at Western. Core coursework spans machine learning, statistical analysis, algorithm design, and database systems. Completed Business for Science (BUIS 2295F/G) through Ivey Business School's case method — developing financial acumen and decision-making under ambiguity alongside technical depth.",
     visual: "University of Western Ontario",
     color: "from-purple-600 to-purple-400",
     stats: [
-      { label: "Institution", value: "University of Western Ontario" },
-      { label: "Program", value: "Data Science (Honors)" },
-      { label: "Graduation", value: "2027" }
+      { label: "Program", value: "Honours Data Science" },
+      { label: "Business Training", value: "Ivey Case Method (BUIS 2295)" },
+      { label: "Expected", value: "2027" }
     ]
   },
   {
     id: "first-impact",
     year: "Summer 2023",
-    title: "First Real Impact",
-    subtitle: "CI Financial",
-    story: "My first internship at CI Financial. Designed and developed the initial version of their internal web application using Django, HTML, CSS, and JavaScript. Built back-end logic for financial data retrieval, optimized database queries, and created interactive dashboards. Participated in agile development processes with daily stand-ups and sprint planning.",
+    title: "Software Developer Intern",
+    subtitle: "CI Financial · Toronto",
+    story: "First professional engineering role at CI Financial, Canada's largest independent wealth manager. Delivered an end-to-end internal web application in 8 weeks — from structured requirements analysis across three stakeholder groups through to production deployment. Contributed to 10+ Agile ceremonies and built financial dashboards integrating real-time data APIs.",
     visual: "CI Financial",
     color: "from-emerald-400 to-teal-500",
     stats: [
-      { label: "Tech Stack", value: "Django + HTML/CSS + JavaScript" },
-      { label: "Project Impact", value: "Internal web app foundation" },
-      { label: "Development Process", value: "Agile methodology" }
+      { label: "Delivered", value: "Full web app in 8 weeks" },
+      { label: "Stack", value: "Django · Python · PostgreSQL · JavaScript" },
+      { label: "Process", value: "10+ Agile ceremonies" }
     ]
   },
   {
     id: "level-up",
     year: "Summer 2024",
-    title: "Leadership & Growth",
-    subtitle: "CI Financial Return",
-    story: "They brought me back with significantly more responsibility. Developed fully responsive front-end with Tailwind CSS, integrated data pipelines from internal APIs, and optimized Django ORM for data-heavy endpoints. Led agile sprints, daily stand-ups, and cross-functional meetings. Streamlined DevOps practices and automated deployments.",
+    title: "Full-Stack Developer Intern",
+    subtitle: "CI Financial · Toronto",
+    story: "Returned to CI Financial with expanded scope, leading delivery of a financial advisory platform serving 900+ advisors managing $46B in assets. Integrated 5+ financial data APIs into real-time dashboards, facilitated cross-functional sprint reviews between business and technical teams, and produced stakeholder presentations communicating complex data to non-technical audiences.",
     visual: "CI Financial",
     color: "from-orange-400 to-red-500",
     stats: [
-      { label: "Leadership Role", value: "Led agile sprints & meetings" },
-      { label: "Technical Stack", value: "Django + Tailwind + APIs" },
-      { label: "DevOps Impact", value: "Automated deployments" }
+      { label: "Platform Scale", value: "900+ advisors · $46B AUM" },
+      { label: "APIs Integrated", value: "5+ financial data sources" },
+      { label: "Sprints Delivered", value: "6 Agile sprints on schedule" }
     ]
   },
   {
-    id: "entrepreneur",
-    year: "2024-Present",
-    title: "Building the Future",
-    subtitle: "UPick & FinanceTrack",
-    story: "Founding and developing multiple applications including UPick (college football ML platform) and FinanceTrack (comprehensive financial management app). Managing full product lifecycles from concept to deployment, implementing advanced features like ML models, real-time analytics, secure authentication, and interactive dashboards using modern tech stacks.",
-    visual: "UPick",
+    id: "arch-2025",
+    year: "Summer 2025",
+    title: "Architecture at Scale",
+    subtitle: "CI Financial — Third Return",
+    story: "Returned to CI Financial for a third consecutive summer, this time leading cloud architecture work across a $103B wealth management division. Spearheaded the Snowflake integration replacing a legacy Sybase/SQR stack, mapping As-Is data pipelines to a future-state cloud architecture across 50+ pipelines and validating 2M+ client records at 99.9% accuracy.",
+    visual: "CI Financial",
+    color: "from-violet-400 to-purple-600",
+    stats: [
+      { label: "Scale", value: "$103B AUM · 50+ pipelines" },
+      { label: "Data Validated", value: "2M+ client records" },
+      { label: "Efficiency Gained", value: "10+ hrs saved per sprint" }
+    ]
+  },
+  {
+    id: "conq",
+    year: "2025 — Present",
+    title: "Co-Founding CONQ",
+    subtitle: "AI-Powered Concussion Recovery",
+    story: "Co-founded CONQ, a health-tech startup building AI-powered smart glasses for concussion recovery monitoring in contact sports. As ML/AI Technical Lead, I built a multi-modal machine learning pipeline processing 5 concurrent biometric sensor streams — accelerometer, gyroscope, ECG, SpO2, and skin temperature — for real-time recovery classification. Competed in the UWO Presidents Challenge 2026 and targeting the OHL at $12K–$20K per team-season.",
+    visual: "CONQ",
     color: "from-cyan-400 to-blue-600",
     stats: [
-      { label: "Projects", value: "UPick + FinanceTrack" },
-      { label: "Tech Stack", value: "Next.js + Python + ML + Supabase" },
-      { label: "Features", value: "ML Models + Financial Analytics" }
+      { label: "Market", value: "$6.58B global concussion market" },
+      { label: "Sensors", value: "5 biometric streams · real-time ML" },
+      { label: "Target", value: "OHL · $12K–$20K per team-season" }
     ]
   }
 ];
@@ -83,28 +97,14 @@ export default function LifeJourney() {
   return (
     <div ref={containerRef} className="relative">
       {/* Main timeline line running through the center */}
-      <div className="absolute left-1/2 top-0 w-1 h-full transform -translate-x-1/2 z-0">
-        <motion.div 
-          className="w-full bg-gradient-to-b from-transparent via-cyan-400/60 via-cyan-400/60 to-transparent rounded-full"
+      <div className="absolute left-1/2 top-0 w-px h-full transform -translate-x-1/2 z-0">
+        <motion.div
+          className="w-full bg-gradient-to-b from-transparent via-white/15 to-transparent rounded-full"
           style={{ height: '100%' }}
           initial={{ scaleY: 0 }}
           whileInView={{ scaleY: 1 }}
           viewport={{ once: true, margin: "-200px" }}
-          transition={{ duration: 3, ease: "easeOut" }}
-        />
-        
-        {/* Animated pulse traveling along the line */}
-        <motion.div
-          className="absolute top-0 left-1/2 w-2 h-8 bg-gradient-to-b from-cyan-300 to-blue-500 rounded-full transform -translate-x-1/2 shadow-[0_0_20px_rgba(34,211,238,0.8)]"
-          animate={{ 
-            y: [0, 600, 0],
-            opacity: [0, 1, 0]
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
         />
       </div>
 
@@ -141,50 +141,17 @@ export default function LifeJourney() {
                     </div>
                   </div>
 
-                  {/* Visual logo with themed background */}
-                  <div className="mb-6 absolute top-4 right-8 w-24 h-24 flex items-center justify-center">
-                    {/* Animated background orb */}
-                    <motion.div
-                      className={`absolute inset-0 rounded-full bg-gradient-to-br ${step.color} opacity-10 blur-sm`}
-                      animate={{ 
-                        scale: [1, 1.1, 1],
-                        opacity: [0.1, 0.2, 0.1] 
-                      }}
-                      transition={{ 
-                        duration: 3, 
-                        repeat: Infinity, 
-                        ease: "easeInOut" 
-                      }}
-                    />
-                    
-                    {/* Secondary glow effect */}
-                    <motion.div
-                      className={`absolute inset-2 rounded-full bg-gradient-to-br ${step.color} opacity-5`}
-                      animate={{ 
-                        scale: [1.2, 1, 1.2],
-                        opacity: [0.05, 0.15, 0.05] 
-                      }}
-                      transition={{ 
-                        duration: 4, 
-                        repeat: Infinity, 
-                        ease: "easeInOut",
-                        delay: 1 
-                      }}
-                    />
-                    
-                    {/* Logo container with subtle background */}
-                    <div className={`relative w-20 h-20 rounded-xl bg-gradient-to-br ${step.color} bg-opacity-5 border border-white/10 backdrop-blur-sm flex items-center justify-center p-2 shadow-lg`}>
+                  {/* Visual logo */}
+                  <div className="absolute top-4 right-8 w-20 h-20 flex items-center justify-center">
+                    <div className="relative w-16 h-16 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-2">
                       <Image
                         src={getLogo(step.visual)}
                         alt={step.visual}
-                        width={56}
-                        height={56}
-                        className="max-w-full max-h-full object-contain filter brightness-0 invert opacity-90"
+                        width={48}
+                        height={48}
+                        className="max-w-full max-h-full object-contain filter brightness-0 invert opacity-80"
                         unoptimized={true}
                       />
-                      
-                      {/* Subtle inner glow */}
-                      <div className={`absolute inset-0 rounded-xl bg-gradient-to-br ${step.color} opacity-10 mix-blend-soft-light`} />
                     </div>
                   </div>
 
@@ -193,7 +160,7 @@ export default function LifeJourney() {
                     <h3 className={`text-xl sm:text-2xl lg:text-3xl font-bold mb-2 bg-gradient-to-r ${step.color} bg-clip-text text-transparent`}>
                       {step.title}
                     </h3>
-                    <p className="text-cyan-300/90 text-base sm:text-lg mb-4">{step.subtitle}</p>
+                    <p className="text-blue-300/90 text-base sm:text-lg mb-4">{step.subtitle}</p>
                     <p className="text-slate-300/90 leading-relaxed mb-6">{step.story}</p>
 
                     {/* Stats */}
@@ -207,7 +174,7 @@ export default function LifeJourney() {
                           className="flex justify-between items-center p-3 rounded-xl bg-white/5 ring-1 ring-white/10"
                         >
                           <span className="text-slate-400 text-sm">{stat.label}</span>
-                          <span className="font-semibold text-cyan-300 text-sm">{stat.value}</span>
+                          <span className="font-semibold text-blue-300 text-sm">{stat.value}</span>
                         </motion.div>
                       ))}
                     </div>

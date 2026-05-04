@@ -6,16 +6,41 @@ import AppStore from "@/components/AppStore";
 import ConstellationNav from "@/components/ConstellationNav";
 import LifeJourney from "@/components/LifeJourney";
 import SkillConstellation from "@/components/SkillConstellation";
-import QuantumField from "@/components/QuantumField";
 import ScrollProgress from "@/components/ScrollProgress";
 import { motion, AnimatePresence } from "framer-motion";
 import { Globe, Mail, Briefcase, Github, Check } from "lucide-react";
 
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mojreowq";
+
 function ContactFormBlock() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus("sending");
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+      if (res.ok) {
+        setStatus("sent");
+        form.reset();
+        setTimeout(() => setStatus("idle"), 5000);
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  };
+
   return (
     <AnimatePresence mode="wait">
-      {sent ? (
+      {status === "sent" ? (
         <motion.div
           key="thanks"
           initial={{ opacity: 0, scale: 0.98 }}
@@ -27,10 +52,9 @@ function ContactFormBlock() {
             <Check className="w-7 h-7 text-cyan-400" strokeWidth={2.5} />
           </div>
           <p className="text-slate-200 font-medium">Thanks — I&apos;ll get back to you.</p>
-          <p className="text-slate-500 text-sm">Demo only · form was not submitted.</p>
           <button
             type="button"
-            onClick={() => setSent(false)}
+            onClick={() => setStatus("idle")}
             className="text-sm text-cyan-400 hover:text-cyan-300 underline underline-offset-2"
           >
             Send another
@@ -41,8 +65,6 @@ function ContactFormBlock() {
           key="form"
           id="contact-form"
           className="grid grid-cols-1 gap-4 sm:gap-6"
-          action="#"
-          method="post"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onKeyDown={(e: React.KeyboardEvent<HTMLFormElement>) => {
@@ -51,26 +73,30 @@ function ContactFormBlock() {
               (e.currentTarget as HTMLFormElement).requestSubmit();
             }
           }}
-          onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-            e.preventDefault();
-            setSent(true);
-            e.currentTarget.reset();
-            setTimeout(() => setSent(false), 4000);
-          }}
+          onSubmit={handleSubmit}
         >
           <label className="block group">
             <span className="sr-only">Your name</span>
-            <input name="name" autoComplete="name" aria-label="Your name" placeholder="Name" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-cyan-400/60 py-3 text-base min-h-[44px]" />
+            <input required name="name" autoComplete="name" aria-label="Your name" placeholder="Name" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-cyan-400/60 py-3 text-base min-h-[44px]" />
           </label>
           <label className="block group">
             <span className="sr-only">Your email</span>
-            <input name="email" type="email" autoComplete="email" aria-label="Your email" placeholder="Email" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-cyan-400/60 py-3 text-base min-h-[44px]" />
+            <input required name="email" type="email" autoComplete="email" aria-label="Your email" placeholder="Email" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-cyan-400/60 py-3 text-base min-h-[44px]" />
           </label>
           <label className="block group">
             <span className="sr-only">Your message</span>
-            <textarea name="message" rows={3} aria-label="Your message" placeholder="Message" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-cyan-400/60 py-3 text-base min-h-[44px]" />
+            <textarea required name="message" rows={3} aria-label="Your message" placeholder="Message" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-cyan-400/60 py-3 text-base min-h-[44px]" />
           </label>
-          <p className="mt-2 text-slate-500 text-xs">Demo only · form is not submitted.</p>
+          {status === "error" && (
+            <p className="text-red-400 text-xs">Something went wrong. Try emailing me directly.</p>
+          )}
+          <button
+            type="submit"
+            disabled={status === "sending"}
+            className="mt-2 h-11 rounded-xl bg-cyan-500/80 hover:bg-cyan-500 disabled:opacity-50 text-white font-medium transition-all duration-200 flex items-center justify-center gap-2"
+          >
+            {status === "sending" ? "Sending..." : "Send Message"}
+          </button>
         </motion.form>
       )}
     </AnimatePresence>
@@ -80,12 +106,11 @@ function ContactFormBlock() {
 const Home = () => {
   return (
     <>
-      {/* Ambient backdrop: layered depth */}
+      {/* Ambient backdrop */}
       <div aria-hidden className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,var(--accent-muted),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-500/10 via-slate-900 to-slate-950 ambient-breath opacity-90" />
+        <div className="absolute inset-0 bg-slate-950" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(59,130,246,0.08),transparent_60%)]" />
         <div className="noise" />
-        <QuantumField />
       </div>
 
 
@@ -93,15 +118,6 @@ const Home = () => {
         {/* HERO */}
         <section id="hero" className="h-screen-safe md:snap-start flex items-center justify-center px-4 sm:px-6">
           <div className="max-w-5xl text-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="mx-auto mb-8 h-24 w-24 rounded-full bg-gradient-to-br from-cyan-400/20 to-slate-700/40 ring-1 ring-white/10 flex items-center justify-center pulse-aura"
-            >
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500" />
-            </motion.div>
-
             <motion.h1
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
@@ -122,16 +138,35 @@ const Home = () => {
               transition={{ duration: 0.4, delay: 0.4 }}
               className="text-base sm:text-lg md:text-xl text-slate-400 font-medium"
             >
-              {portfolio.identity.tagline}
+              Data Science · Software Engineering · Consulting
             </motion.p>
 
+            <motion.div
+              className="mt-10 flex flex-wrap justify-center gap-8 sm:gap-12"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.5 }}
+            >
+              {[
+                { value: "3×", label: "CI Financial Intern" },
+                { value: "$103B", label: "AUM Managed" },
+                { value: "Co-Founder", label: "CONQ Health-Tech" },
+                { value: "EN / FR", label: "Native Bilingual" },
+              ].map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <div className="text-xl sm:text-2xl font-semibold text-blue-400">{stat.value}</div>
+                  <div className="text-xs text-slate-500 mt-1 tracking-wide uppercase">{stat.label}</div>
+                </div>
+              ))}
+            </motion.div>
+
             <motion.p
-              className="mt-10 text-slate-500 text-sm hidden md:block"
+              className="mt-10 text-slate-600 text-sm hidden md:block"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.3, delay: 0.55 }}
+              transition={{ duration: 0.3, delay: 0.65 }}
             >
-              Scroll or ↓ to continue · G for menu
+              Scroll to explore
             </motion.p>
           </div>
         </section>
@@ -153,18 +188,10 @@ const Home = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4 }}
-                  className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight mb-4 lg:mb-6 bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-cyan-300 bg-clip-text text-transparent leading-tight"
+                  className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight mb-4 lg:mb-6 text-white leading-tight"
                 >
                   Experience
                 </motion.h2>
-                <motion.div
-                  className="h-0.5 w-full rounded-full bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-cyan-400"
-                  initial={{ scaleX: 0 }}
-                  whileInView={{ scaleX: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.15 }}
-                  style={{ transformOrigin: "left" }}
-                />
               </div>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -191,20 +218,12 @@ const Home = () => {
           <div className="max-w-6xl mx-auto w-full">
             <div className="text-center mb-8 sm:mb-10 lg:mb-12">
               <div className="inline-block">
-                <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-cyan-300 bg-clip-text text-transparent mb-4 lg:mb-6 leading-tight">
+                <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight text-white mb-4 lg:mb-6 leading-tight">
                   Contact
                 </h2>
-                <motion.div
-                  className="h-0.5 w-full rounded-full bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-cyan-400"
-                  initial={{ scaleX: 0 }}
-                  whileInView={{ scaleX: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.1 }}
-                  style={{ transformOrigin: "left" }}
-                />
               </div>
               <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto">
-                Get in touch for projects or collaboration.
+                Open to internship opportunities, consulting roles, and technical collaboration.
               </p>
             </div>
             

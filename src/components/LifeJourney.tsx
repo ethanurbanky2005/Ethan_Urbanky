@@ -1,209 +1,291 @@
 "use client";
-import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useState, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { getLogo } from "@/config/logos";
 import Image from "next/image";
+import { MapPin } from "lucide-react";
 
-const journeySteps = [
+const experiences = [
   {
-    id: "foundation",
-    year: "2023",
-    title: "Upper Canada College",
-    subtitle: "IB Diploma · Toronto",
-    story: "Graduated with an International Baccalaureate Diploma from Upper Canada College. Co-founded the school's first Quantum Computing Club, recruiting 20+ members and running 8 educational sessions on emerging computing paradigms. Competed in Varsity Rugby and JV Football. Co-organized a summit of Mt. Kilimanjaro fundraising $6,440 for The George Hull Centre for Children and Families.",
-    visual: "Upper Canada College",
-    color: "from-blue-400 to-cyan-500",
-    stats: [
-      { label: "Achievement", value: "IB Diploma" },
-      { label: "Club Founded", value: "Quantum Computing Club · 20+ members" },
-      { label: "Fundraised", value: "$6,440 for children's mental health" }
-    ]
+    id: "ucc",
+    tab: "Upper Canada College",
+    tabShort: "UCC",
+    company: "Upper Canada College",
+    logo: "Upper Canada College",
+    title: "IB Diploma",
+    period: "Sept 2019 — Jun 2023",
+    location: "Toronto, ON",
+    bullets: [
+      "Co-founded the school's first Quantum Computing Club — recruited 20+ members and facilitated 8 educational sessions on emerging computing paradigms",
+      "Co-organized a Mt. Kilimanjaro expedition fundraising $6,440 for The George Hull Centre for Children and Families",
+      "Competed in Varsity Rugby and JV Football; graduated with International Baccalaureate Diploma",
+    ],
+    tech: ["IB Diploma", "Leadership", "Quantum Computing", "Athletics"],
   },
   {
-    id: "university-growth",
-    year: "2023 — 2027",
-    title: "University of Western Ontario",
-    subtitle: "BSc Honours Specialization in Data Science",
-    story: "Pursuing a Bachelor of Science with Honours Specialization in Data Science at Western. Core coursework spans machine learning, statistical analysis, algorithm design, and database systems. Completed Business for Science (BUIS 2295F/G) through Ivey Business School's case method — developing financial acumen and decision-making under ambiguity alongside technical depth.",
-    visual: "University of Western Ontario",
-    color: "from-purple-600 to-purple-400",
-    stats: [
-      { label: "Program", value: "Honours Data Science" },
-      { label: "Business Training", value: "Ivey Case Method (BUIS 2295)" },
-      { label: "Expected", value: "2027" }
-    ]
+    id: "western",
+    tab: "Western University",
+    tabShort: "Western",
+    company: "University of Western Ontario",
+    logo: "University of Western Ontario",
+    title: "BSc Honours Data Science",
+    period: "Sept 2023 — Apr 2027",
+    location: "London, ON",
+    bullets: [
+      "Honours Specialization in Data Science — core coursework spanning machine learning, statistical analysis, algorithm design, and database systems",
+      "Business for Science (BUIS 2295F/G) through Ivey Business School's case method — financial management and decision-making under ambiguity alongside technical depth",
+    ],
+    tech: ["Machine Learning", "Statistical Analysis", "Python", "SQL", "Ivey Case Method"],
   },
   {
-    id: "first-impact",
-    year: "Summer 2023",
+    id: "ci-2023",
+    tab: "CI Financial '23",
+    tabShort: "CI '23",
+    company: "CI Financial",
+    logo: "CI Financial",
     title: "Software Developer Intern",
-    subtitle: "CI Financial · Toronto",
-    story: "First professional engineering role at CI Financial, Canada's largest independent wealth manager. Delivered an end-to-end internal web application in 8 weeks — from structured requirements analysis across three stakeholder groups through to production deployment. Contributed to 10+ Agile ceremonies and built financial dashboards integrating real-time data APIs.",
-    visual: "CI Financial",
-    color: "from-emerald-400 to-teal-500",
-    stats: [
-      { label: "Delivered", value: "Full web app in 8 weeks" },
-      { label: "Stack", value: "Django · Python · PostgreSQL · JavaScript" },
-      { label: "Process", value: "10+ Agile ceremonies" }
-    ]
+    period: "Jun 2023 — Aug 2023",
+    location: "Toronto, ON",
+    bullets: [
+      "Delivered an end-to-end internal web application in 8 weeks — from structured requirements analysis across 3 stakeholder groups through to production deployment",
+      "Built financial dashboards integrating real-time data APIs; contributed to 10+ Agile ceremonies ensuring on-time delivery",
+    ],
+    tech: ["Django", "Python", "PostgreSQL", "JavaScript", "HTML5"],
   },
   {
-    id: "level-up",
-    year: "Summer 2024",
+    id: "ci-2024",
+    tab: "CI Financial '24",
+    tabShort: "CI '24",
+    company: "CI Financial",
+    logo: "CI Financial",
     title: "Full-Stack Developer Intern",
-    subtitle: "CI Financial · Toronto",
-    story: "Returned to CI Financial with expanded scope, leading delivery of a financial advisory platform serving 900+ advisors managing $46B in assets. Integrated 5+ financial data APIs into real-time dashboards, facilitated cross-functional sprint reviews between business and technical teams, and produced stakeholder presentations communicating complex data to non-technical audiences.",
-    visual: "CI Financial",
-    color: "from-orange-400 to-red-500",
-    stats: [
-      { label: "Platform Scale", value: "900+ advisors · $46B AUM" },
-      { label: "APIs Integrated", value: "5+ financial data sources" },
-      { label: "Sprints Delivered", value: "6 Agile sprints on schedule" }
-    ]
+    period: "May 2024 — Aug 2024",
+    location: "Toronto, ON",
+    bullets: [
+      "Built financial advisory platform serving 900+ advisors managing $46B in assets — integrated 5+ financial APIs into real-time dashboards across 6 Agile sprints",
+      "Facilitated cross-functional sprint reviews between business and technical teams; produced audience-tailored presentations for non-technical stakeholders",
+    ],
+    tech: ["Django", "React.js", "Python", "Tailwind CSS", "TypeScript"],
   },
   {
-    id: "arch-2025",
-    year: "Summer 2025",
-    title: "Architecture at Scale",
-    subtitle: "CI Financial — Third Return",
-    story: "Returned to CI Financial for a third consecutive summer, this time leading cloud architecture work across a $103B wealth management division. Spearheaded the Snowflake integration replacing a legacy Sybase/SQR stack, mapping As-Is data pipelines to a future-state cloud architecture across 50+ pipelines and validating 2M+ client records at 99.9% accuracy.",
-    visual: "CI Financial",
-    color: "from-violet-400 to-purple-600",
-    stats: [
-      { label: "Scale", value: "$103B AUM · 50+ pipelines" },
-      { label: "Data Validated", value: "2M+ client records" },
-      { label: "Efficiency Gained", value: "10+ hrs saved per sprint" }
-    ]
+    id: "ci-2025",
+    tab: "CI Financial '25",
+    tabShort: "CI '25",
+    company: "CI Financial",
+    logo: "CI Financial",
+    title: "Application Architecture Intern",
+    period: "May 2025 — Aug 2025",
+    location: "Toronto, ON",
+    bullets: [
+      "Led Snowflake cloud platform integration across $103B wealth management division — mapped 50+ Sybase/SQR pipelines to future-state cloud architecture",
+      "Validated 2M+ client records across 4 transformation stages at 99.9% accuracy; automated Jira workflows eliminating 10+ hrs of manual overhead per sprint",
+    ],
+    tech: ["Python", "Snowflake", "SQL", "Bash", "Jira"],
   },
   {
     id: "conq",
-    year: "2025 — Present",
-    title: "Co-Founding CONQ",
-    subtitle: "AI-Powered Concussion Recovery",
-    story: "Co-founded CONQ, a health-tech startup building AI-powered smart glasses for concussion recovery monitoring in contact sports. As ML/AI Technical Lead, I built a multi-modal machine learning pipeline processing 5 concurrent biometric sensor streams — accelerometer, gyroscope, ECG, SpO2, and skin temperature — for real-time recovery classification. Competed in the UWO Presidents Challenge 2026 and targeting the OHL at $12K–$20K per team-season.",
-    visual: "CONQ",
-    color: "from-cyan-400 to-blue-600",
-    stats: [
-      { label: "Market", value: "$6.58B global concussion market" },
-      { label: "Sensors", value: "5 biometric streams · real-time ML" },
-      { label: "Target", value: "OHL · $12K–$20K per team-season" }
-    ]
-  }
-];
+    tab: "CONQ",
+    tabShort: "CONQ",
+    company: "CONQ",
+    logo: "CONQ",
+    title: "Co-Founder & ML/AI Lead",
+    period: "2025 — Present",
+    location: "London, ON",
+    bullets: [
+      "Co-founded health-tech startup building AI-powered smart glasses for concussion recovery monitoring in contact sports",
+      "Built multi-modal ML pipeline processing 5 concurrent biometric sensor streams (accelerometer, gyroscope, ECG, SpO₂, skin temperature) for real-time recovery classification",
+      "Competed in UWO Presidents Challenge 2026; targeting OHL teams at $12K–$20K per team-season inside the $6.58B global concussion market",
+    ],
+    tech: ["Python", "scikit-learn", "pandas", "React.js", "Next.js"],
+  },
+] as const;
+
+type Experience = (typeof experiences)[number];
+
+const TAB_HEIGHT = 44;
 
 export default function LifeJourney() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [activeTab, setActiveTab] = useState(0);
+
+  const handleKey = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+        e.preventDefault();
+        setActiveTab((prev) => (prev + 1) % experiences.length);
+      }
+      if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+        e.preventDefault();
+        setActiveTab((prev) => (prev - 1 + experiences.length) % experiences.length);
+      }
+    },
+    []
+  );
+
+  const active = experiences[activeTab];
 
   return (
-    <div ref={containerRef} className="relative">
-      {/* Main timeline line running through the center */}
-      <div className="absolute left-1/2 top-0 w-px h-full transform -translate-x-1/2 z-0">
-        <motion.div
-          className="w-full bg-gradient-to-b from-transparent via-white/15 to-transparent rounded-full"
-          style={{ height: '100%' }}
-          initial={{ scaleY: 0 }}
-          whileInView={{ scaleY: 1 }}
-          viewport={{ once: true, margin: "-200px" }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-        />
-      </div>
+    <div className="w-full max-w-4xl mx-auto">
+      {/* ── Desktop layout ────────────────────────────────────────── */}
+      <div className="hidden sm:flex gap-0">
+        {/* Tab sidebar */}
+        <div
+          className="relative flex-shrink-0 w-40 lg:w-48"
+          role="tablist"
+          aria-label="Experience tabs"
+          onKeyDown={handleKey}
+        >
+          {/* Track line */}
+          <div className="absolute left-0 top-0 bottom-0 w-px bg-white/10" />
 
+          {/* Sliding indicator */}
+          <motion.div
+            className="absolute left-0 w-0.5 bg-blue-400 rounded-full z-10"
+            style={{ height: TAB_HEIGHT }}
+            animate={{ y: activeTab * TAB_HEIGHT }}
+            transition={{ type: "spring", stiffness: 400, damping: 35 }}
+          />
 
-
-      {/* Journey steps */}
-      <div className="space-y-16 sm:space-y-24 lg:space-y-32 py-10 sm:py-16 lg:py-20">
-        {journeySteps.map((step, index) => {
-          const isLeft = index % 2 === 0;
-
-          return (
-            <motion.div
-              key={step.id}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
-              className={`relative flex items-center ${isLeft ? 'justify-start' : 'justify-end'} px-4 sm:px-8 lg:px-16`}
+          {experiences.map((exp, i) => (
+            <button
+              key={exp.id}
+              role="tab"
+              id={`tab-${i}`}
+              aria-selected={activeTab === i}
+              aria-controls={`panel-${i}`}
+              tabIndex={activeTab === i ? 0 : -1}
+              onClick={() => setActiveTab(i)}
+              className={`relative w-full text-left pl-5 pr-3 text-sm transition-colors duration-200 focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-400 rounded-r-sm ${
+                activeTab === i
+                  ? "text-blue-300 font-medium"
+                  : "text-slate-500 hover:text-slate-300"
+              }`}
+              style={{ height: TAB_HEIGHT, fontFamily: "var(--font-mono, monospace)" }}
             >
-              {/* Timeline dot */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 ring-4 ring-slate-950 shadow-[0_0_20px_rgba(34,211,238,0.4)] z-10" />
+              <span className="block truncate text-xs">{exp.tab}</span>
+            </button>
+          ))}
+        </div>
 
-              {/* Content card */}
-              <div className={`max-w-lg w-full ${isLeft ? 'mr-auto pr-8 lg:pr-16' : 'ml-auto pl-8 lg:pl-16'}`}>
-                <motion.div
-                  className={`relative rounded-3xl bg-gradient-to-br from-white/10 to-white/5 ring-1 ring-white/20 backdrop-blur-xl p-8 shadow-2xl`}
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {/* Year badge */}
-                  <div className="absolute -top-4 left-8">
-                    <div className={`px-4 py-2 rounded-full bg-gradient-to-r ${step.color} text-white text-sm font-semibold shadow-lg`}>
-                      {step.year}
-                    </div>
-                  </div>
-
-                  {/* Visual logo */}
-                  <div className="absolute top-4 right-8 w-20 h-20 flex items-center justify-center">
-                    <div className="relative w-16 h-16 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center p-2">
-                      <Image
-                        src={getLogo(step.visual)}
-                        alt={step.visual}
-                        width={48}
-                        height={48}
-                        className="max-w-full max-h-full object-contain filter brightness-0 invert opacity-80"
-                        unoptimized={true}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Content: padding-right clears the top-right logo so title/subtitle don’t sit under it */}
-                  <div className="relative z-10 pr-28 sm:pr-32">
-                    <h3 className={`text-xl sm:text-2xl lg:text-3xl font-bold mb-2 bg-gradient-to-r ${step.color} bg-clip-text text-transparent`}>
-                      {step.title}
-                    </h3>
-                    <p className="text-blue-300/90 text-base sm:text-lg mb-4">{step.subtitle}</p>
-                    <p className="text-slate-300/90 leading-relaxed mb-6">{step.story}</p>
-
-                    {/* Stats */}
-                    <div className="grid grid-cols-1 gap-3">
-                      {step.stats.map((stat, i) => (
-                        <motion.div
-                          key={stat.label}
-                          initial={{ opacity: 0, x: isLeft ? -20 : 20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          transition={{ delay: i * 0.1 }}
-                          className="flex justify-between items-center p-3 rounded-xl bg-white/5 ring-1 ring-white/10"
-                        >
-                          <span className="text-slate-400 text-sm">{stat.label}</span>
-                          <span className="font-semibold text-blue-300 text-sm">{stat.value}</span>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Connecting line to timeline */}
-                  <div className={`absolute top-1/2 ${isLeft ? '-right-8 lg:-right-16' : '-left-8 lg:-left-16'} w-8 lg:w-16 h-px bg-gradient-to-r ${isLeft ? 'from-white/20 to-transparent' : 'from-transparent to-white/20'}`} />
-                </motion.div>
-              </div>
+        {/* Content panel */}
+        <div className="flex-1 pl-10 lg:pl-14 min-h-[320px]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active.id}
+              id={`panel-${activeTab}`}
+              role="tabpanel"
+              aria-labelledby={`tab-${activeTab}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
+            >
+              <ExperienceContent exp={active} />
             </motion.div>
-          );
-        })}
+          </AnimatePresence>
+        </div>
       </div>
 
-      {/* Final message */}
-      <motion.div
-        className="text-center py-20"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      >
-        <h3 className="font-display text-4xl font-semibold bg-gradient-to-r from-[var(--accent)] to-[var(--accent-secondary)] bg-clip-text text-transparent mb-4">
-          Ready for What&apos;s Next
-        </h3>
-        <p className="text-xl text-slate-300/90 max-w-2xl mx-auto">
-          This journey is just the beginning. Ready to build the future together?
-        </p>
-      </motion.div>
+      {/* ── Mobile layout ─────────────────────────────────────────── */}
+      <div className="sm:hidden">
+        {/* Horizontal scrollable tabs */}
+        <div
+          className="relative flex overflow-x-auto border-b border-white/10 mb-6 scrollbar-none"
+          role="tablist"
+          aria-label="Experience tabs"
+        >
+          {experiences.map((exp, i) => (
+            <button
+              key={exp.id}
+              role="tab"
+              id={`tab-m-${i}`}
+              aria-selected={activeTab === i}
+              aria-controls={`panel-m-${i}`}
+              tabIndex={activeTab === i ? 0 : -1}
+              onClick={() => setActiveTab(i)}
+              className={`flex-shrink-0 px-4 py-3 text-xs whitespace-nowrap border-b-2 -mb-px transition-colors duration-200 focus:outline-none ${
+                activeTab === i
+                  ? "border-blue-400 text-blue-300 font-medium"
+                  : "border-transparent text-slate-500 hover:text-slate-300"
+              }`}
+              style={{ fontFamily: "var(--font-mono, monospace)" }}
+            >
+              {exp.tabShort}
+            </button>
+          ))}
+        </div>
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`m-${active.id}`}
+            id={`panel-m-${activeTab}`}
+            role="tabpanel"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
+          >
+            <ExperienceContent exp={active} />
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
+
+function ExperienceContent({ exp }: { exp: Experience }) {
+  return (
+    <div>
+      {/* Header */}
+      <div className="flex items-start gap-3 mb-5">
+        <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 p-1.5 mt-0.5">
+          <Image
+            src={getLogo(exp.logo)}
+            alt={exp.company}
+            width={24}
+            height={24}
+            className="max-w-full max-h-full object-contain filter brightness-0 invert opacity-75"
+            unoptimized
+          />
+        </div>
+        <div>
+          <h3 className="text-base sm:text-lg font-semibold text-white leading-tight">
+            {exp.title}
+            <span className="text-blue-400 font-normal"> · {exp.company}</span>
+          </h3>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1">
+            <span className="text-xs text-slate-500" style={{ fontFamily: "var(--font-mono, monospace)" }}>
+              {exp.period}
+            </span>
+            <span className="flex items-center gap-1 text-xs text-slate-600">
+              <MapPin size={10} />
+              {exp.location}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Bullets */}
+      <ul className="space-y-3 mb-5">
+        {exp.bullets.map((bullet, i) => (
+          <li key={i} className="flex gap-3 text-sm text-slate-400 leading-relaxed">
+            <span className="text-blue-400 mt-[3px] flex-shrink-0 text-xs">▹</span>
+            <span>{bullet}</span>
+          </li>
+        ))}
+      </ul>
+
+      {/* Tech pills */}
+      <div className="flex flex-wrap gap-1.5">
+        {exp.tech.map((t) => (
+          <span
+            key={t}
+            className="px-2.5 py-1 text-xs rounded-md bg-blue-500/10 text-blue-300/80 border border-blue-500/15"
+            style={{ fontFamily: "var(--font-mono, monospace)" }}
+          >
+            {t}
+          </span>
+        ))}
+      </div>
     </div>
   );
 }

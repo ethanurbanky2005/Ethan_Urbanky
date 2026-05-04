@@ -117,57 +117,96 @@ const Home = () => {
       <main id="main-content" className="relative z-10 md:snap-y md:snap-mandatory h-screen-safe w-full overflow-y-auto overflow-x-hidden safe-area-padding">
         {/* HERO */}
         <section id="hero" className="h-screen-safe md:snap-start flex items-center justify-center px-4 sm:px-6">
-          <div className="max-w-5xl text-center">
+          <div className="max-w-3xl w-full">
+            {/* Greeting */}
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              className="text-blue-400 text-sm sm:text-base mb-4 font-mono"
+            >
+              Hi, I&apos;m
+            </motion.p>
+
+            {/* Name */}
             <motion.h1
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-semibold tracking-tight leading-[1.1] mb-6"
+              className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-semibold tracking-tight leading-[1.05] mb-4"
             >
-              <span className="block bg-gradient-to-r from-white via-cyan-100 to-white bg-clip-text text-transparent">
+              <span className="block text-white">
                 {portfolio.identity.name.split(" ")[0]}
               </span>
-              <span className="block bg-gradient-to-r from-[var(--accent)] via-[var(--accent-secondary)] to-cyan-300 bg-clip-text text-transparent">
-                {portfolio.identity.name.split(" ")[1]}
+              <span className="block text-slate-400">
+                {portfolio.identity.name.split(" ")[1]}.
               </span>
             </motion.h1>
 
+            {/* Tagline */}
             <motion.p
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.4 }}
-              className="text-base sm:text-lg md:text-xl text-slate-400 font-medium"
+              transition={{ duration: 0.4, delay: 0.35 }}
+              className="text-base sm:text-lg md:text-xl text-slate-400 max-w-xl mb-8 leading-relaxed"
             >
-              Data Science · Software Engineering · Consulting
+              Data Science & Software Engineering student at Western University. 3× CI Financial intern. Co-founder of CONQ. Bilingual EN/FR.
             </motion.p>
 
+            {/* CTAs */}
             <motion.div
-              className="mt-10 flex flex-wrap justify-center gap-8 sm:gap-12"
+              className="flex flex-wrap gap-3 mb-14"
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.5 }}
+              transition={{ duration: 0.4, delay: 0.45 }}
+            >
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium transition-colors duration-200"
+              >
+                Get in touch
+              </a>
+              <a
+                href="https://linkedin.com/in/ethan-urbanky"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 text-sm font-medium border border-white/10 hover:border-white/20 transition-colors duration-200"
+              >
+                LinkedIn
+              </a>
+              <a
+                href="https://github.com/ethanurbanky2005"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 text-sm font-medium border border-white/10 hover:border-white/20 transition-colors duration-200"
+              >
+                GitHub
+              </a>
+            </motion.div>
+
+            {/* Stats */}
+            <motion.div
+              className="flex flex-wrap gap-x-10 gap-y-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.55 }}
             >
               {[
                 { value: "3×", label: "CI Financial Intern" },
                 { value: "$103B", label: "AUM Managed" },
-                { value: "Co-Founder", label: "CONQ Health-Tech" },
-                { value: "EN / FR", label: "Native Bilingual" },
+                { value: "Co-Founder", label: "CONQ" },
+                { value: "EN / FR", label: "Bilingual" },
               ].map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <div className="text-xl sm:text-2xl font-semibold text-blue-400">{stat.value}</div>
-                  <div className="text-xs text-slate-500 mt-1 tracking-wide uppercase">{stat.label}</div>
+                <div key={stat.label}>
+                  <div className="text-lg sm:text-xl font-semibold text-white">{stat.value}</div>
+                  <div className="text-xs text-slate-500 mt-0.5 tracking-wide">{stat.label}</div>
                 </div>
               ))}
             </motion.div>
-
-            <motion.p
-              className="mt-10 text-slate-600 text-sm hidden md:block"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3, delay: 0.65 }}
-            >
-              Scroll to explore
-            </motion.p>
           </div>
         </section>
 
@@ -178,32 +217,18 @@ const Home = () => {
           </div>
         </section>
 
-        {/* LIFE JOURNEY - Immersive scroll-driven story */}
-        <section id="about" className="relative md:snap-start min-h-screen-safe">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <div className="text-center pt-20 pb-12">
-              <div className="inline-block">
-                <motion.h2
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4 }}
-                  className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight mb-4 lg:mb-6 text-white leading-tight"
-                >
-                  Experience
-                </motion.h2>
-              </div>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto"
-              >
-                Education, experience, and projects.
-              </motion.p>
-            </div>
-            
+        {/* EXPERIENCE */}
+        <section id="about" className="relative md:snap-start min-h-screen-safe flex items-center justify-center py-20">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 w-full">
+            <motion.h2
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
+              className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight text-white mb-12"
+            >
+              Experience
+            </motion.h2>
             <LifeJourney />
           </div>
         </section>

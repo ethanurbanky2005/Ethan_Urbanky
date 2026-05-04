@@ -137,7 +137,7 @@ export const portfolio = {
       demo: null,
       download: "/balloon-typing-defense.zip",
       downloadNote: "Requires Java 17+. Demo accounts: student1 / Student123 · teacher1 / Teacher123",
-      screenshot: "/balloon-td-home.webp",
+      screenshot: "/balloon-td-gameplay.webp",
       mass: 0.7,
     },
   ],

@@ -119,7 +119,7 @@ export default function SkillConstellation() {
             </div>
             <div className="min-w-0">
               <p className="text-xs text-slate-300 font-medium leading-tight">Exploring SAP Business Technology Platform</p>
-              <p className="text-[11px] text-slate-500 mt-0.5">SAP Learning · May 4, 2026 <span className="text-blue-400/70 ml-1">· Verify ↗</span></p>
+              <p className="text-[11px] text-slate-500 mt-0.5">SAP Learning · May 4, 2026 <span className="text-violet-400/70 ml-1">· Verify ↗</span></p>
             </div>
           </a>
 

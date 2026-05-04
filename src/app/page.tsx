@@ -11,35 +11,6 @@ import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Globe, Mail, Briefcase, Github, Check, FileText } from "lucide-react";
 import Image from "next/image";
 
-function Typewriter({ text, delay = 0 }: { text: string; delay?: number }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true });
-  const [displayed, setDisplayed] = useState("");
-
-  useEffect(() => {
-    if (!isInView) return;
-    let i = 0;
-    const timeout = setTimeout(() => {
-      const id = setInterval(() => {
-        setDisplayed(text.slice(0, i + 1));
-        i++;
-        if (i >= text.length) clearInterval(id);
-      }, 55);
-      return () => clearInterval(id);
-    }, delay * 1000);
-    return () => clearTimeout(timeout);
-  }, [isInView, text, delay]);
-
-  return (
-    <span ref={ref}>
-      {displayed}
-      {displayed.length < text.length && (
-        <span className="inline-block w-0.5 h-[1em] bg-blue-400 ml-0.5 align-middle animate-pulse" />
-      )}
-    </span>
-  );
-}
-
 function CountUp({ to, prefix = "", suffix = "" }: { to: number; prefix?: string; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
@@ -102,14 +73,14 @@ function ContactFormBlock() {
           exit={{ opacity: 0 }}
           className="flex flex-col items-center justify-center gap-4 py-8 text-center"
         >
-          <div className="w-14 h-14 rounded-full bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center">
-            <Check className="w-7 h-7 text-cyan-400" strokeWidth={2.5} />
+          <div className="w-14 h-14 rounded-full bg-violet-500/20 border border-violet-400/40 flex items-center justify-center">
+            <Check className="w-7 h-7 text-violet-400" strokeWidth={2.5} />
           </div>
           <p className="text-slate-200 font-medium">Thanks, I&apos;ll get back to you soon.</p>
           <button
             type="button"
             onClick={() => setStatus("idle")}
-            className="text-sm text-cyan-400 hover:text-cyan-300 underline underline-offset-2"
+            className="text-sm text-violet-400 hover:text-violet-300 underline underline-offset-2"
           >
             Send another
           </button>
@@ -131,15 +102,15 @@ function ContactFormBlock() {
         >
           <label className="block group">
             <span className="sr-only">Your name</span>
-            <input required name="name" autoComplete="name" aria-label="Your name" placeholder="Name" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-cyan-400/60 py-3 text-base min-h-[44px]" />
+            <input required name="name" autoComplete="name" aria-label="Your name" placeholder="Name" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-violet-400/60 py-3 text-base min-h-[44px]" />
           </label>
           <label className="block group">
             <span className="sr-only">Your email</span>
-            <input required name="email" type="email" autoComplete="email" aria-label="Your email" placeholder="Email" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-cyan-400/60 py-3 text-base min-h-[44px]" />
+            <input required name="email" type="email" autoComplete="email" aria-label="Your email" placeholder="Email" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-violet-400/60 py-3 text-base min-h-[44px]" />
           </label>
           <label className="block group">
             <span className="sr-only">Your message</span>
-            <textarea required name="message" rows={3} aria-label="Your message" placeholder="Message" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-cyan-400/60 py-3 text-base min-h-[44px]" />
+            <textarea required name="message" rows={3} aria-label="Your message" placeholder="Message" className="peer w-full bg-transparent placeholder:text-slate-500/70 outline-none border-b border-white/10 focus:border-violet-400/60 py-3 text-base min-h-[44px]" />
           </label>
           {status === "error" && (
             <p className="text-red-400 text-xs">Something went wrong. Try emailing me directly.</p>
@@ -147,7 +118,7 @@ function ContactFormBlock() {
           <button
             type="submit"
             disabled={status === "sending"}
-            className="mt-2 h-11 rounded-xl bg-cyan-500/80 hover:bg-cyan-500 disabled:opacity-50 text-white font-medium transition-all duration-200 flex items-center justify-center gap-2"
+            className="mt-2 h-11 rounded-xl bg-violet-500/80 hover:bg-violet-500 disabled:opacity-50 text-white font-medium transition-all duration-200 flex items-center justify-center gap-2"
           >
             {status === "sending" ? "Sending..." : "Send Message"}
           </button>
@@ -163,26 +134,55 @@ const Home = () => {
       {/* Ambient backdrop */}
       <div aria-hidden className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute inset-0 bg-slate-950" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(59,130,246,0.08),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(139,92,246,0.08),transparent_60%)]" />
         <div className="noise" />
       </div>
 
 
       <main id="main-content" className="relative z-10 md:snap-y md:snap-mandatory h-screen-safe w-full overflow-y-auto overflow-x-hidden safe-area-padding">
-        {/* HERO */}
+        {/* HERO — avatar leads, text supports */}
         <section id="hero" className="h-screen-safe md:snap-start flex items-center justify-center px-4 sm:px-6">
-          <div className="max-w-5xl w-full flex flex-col-reverse sm:flex-row items-center gap-10 sm:gap-16">
+          <div className="max-w-6xl w-full flex flex-col sm:flex-row items-center gap-8 sm:gap-12 lg:gap-16">
 
-            {/* Left: text */}
+            {/* LEFT — Avatar with ambient glow + gentle float */}
+            <motion.div
+              className="flex-shrink-0 relative"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+            >
+              <div
+                aria-hidden
+                className="avatar-glow absolute inset-0 -z-10 pointer-events-none rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(closest-side, rgba(139,92,246,0.35), rgba(196,181,253,0.18) 60%, transparent 75%)",
+                  filter: "blur(28px)",
+                }}
+              />
+              <div className="avatar-float">
+                <Image
+                  src="/avatar.png"
+                  alt="Portrait of Ethan Urbanky"
+                  width={320}
+                  height={320}
+                  className="w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 object-contain drop-shadow-2xl select-none"
+                  priority
+                  unoptimized
+                />
+              </div>
+            </motion.div>
+
+            {/* RIGHT — Text */}
             <div className="flex-1 min-w-0">
-              {/* Greeting — typewriter */}
+              {/* Kicker — editorial label, replaces "Hi, I'm" cliché */}
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3, delay: 0.05 }}
-                className="text-blue-400 text-sm sm:text-base mb-4 font-mono"
+                className="text-violet-400 text-xs sm:text-sm mb-4 font-mono tracking-[0.18em] uppercase"
               >
-                <Typewriter text="Hi, I'm" delay={0.15} />
+                Western · Class of 2027
               </motion.p>
 
               {/* Name */}
@@ -200,14 +200,15 @@ const Home = () => {
                 </span>
               </motion.h1>
 
-              {/* Tagline */}
+              {/* Tagline — first-person voice, signature project highlighted */}
               <motion.p
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.35 }}
-                className="text-base sm:text-lg md:text-xl text-slate-400 max-w-xl mb-8 leading-relaxed"
+                className="text-base sm:text-lg md:text-xl text-slate-300 max-w-xl mb-8 leading-relaxed"
               >
-                Data Science & Software Engineering student at Western University. 3× CI Financial intern. Co-founder of CONQ. Bilingual EN/FR.
+                Third-year Data Science at Western. Three summers at CI Financial. Currently co-building{" "}
+                <span className="text-white font-medium">CONQ</span>: AI smart-glasses for concussion recovery.
               </motion.p>
 
               {/* CTAs */}
@@ -223,7 +224,7 @@ const Home = () => {
                     e.preventDefault();
                     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium transition-colors duration-200"
+                  className="px-5 py-2.5 rounded-lg bg-violet-600 hover:bg-violet-500 text-white text-sm font-medium transition-colors duration-200"
                 >
                   Get in touch
                 </a>
@@ -284,36 +285,6 @@ const Home = () => {
               </motion.div>
             </div>
 
-            {/* Right: avatar with ambient glow + gentle float */}
-            <motion.div
-              className="flex-shrink-0 relative"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-            >
-              {/* Soft radial glow behind avatar (decorative, aria-hidden) */}
-              <div
-                aria-hidden
-                className="avatar-glow absolute inset-0 -z-10 pointer-events-none rounded-full"
-                style={{
-                  background:
-                    "radial-gradient(closest-side, rgba(59,130,246,0.35), rgba(129,140,248,0.18) 60%, transparent 75%)",
-                  filter: "blur(28px)",
-                }}
-              />
-              <div className="avatar-float">
-                <Image
-                  src="/avatar.png"
-                  alt="Portrait of Ethan Urbanky"
-                  width={256}
-                  height={256}
-                  className="w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 object-contain drop-shadow-2xl select-none"
-                  priority
-                  unoptimized
-                />
-              </div>
-            </motion.div>
-
           </div>
         </section>
 
@@ -355,7 +326,7 @@ const Home = () => {
                 </h2>
               </div>
               <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto">
-                Open to internship opportunities, consulting roles, and technical collaboration.
+                Open to summer 2026 internships and contract work. Always down for a coffee in Toronto or London.
               </p>
             </div>
             

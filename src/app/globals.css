@@ -258,7 +258,7 @@ main#main-content {
     top: 2rem !important;
     width: 0.125rem !important;
     height: calc(100% - 4rem) !important;
-    background: linear-gradient(180deg, rgba(34, 211, 238, 0.4), rgba(34, 211, 238, 0.1)) !important;
+    background: linear-gradient(180deg, rgba(167, 139, 250, 0.4), rgba(167, 139, 250, 0.1)) !important;
     z-index: 1 !important;
   }
   
@@ -279,8 +279,8 @@ main#main-content {
     width: 0.75rem !important;
     height: 0.75rem !important;
     border-radius: 50% !important;
-    background: linear-gradient(135deg, #22d3ee, #3b82f6) !important;
-    box-shadow: 0 0 12px rgba(34, 211, 238, 0.5) !important;
+    background: linear-gradient(135deg, #a78bfa, #8b5cf6) !important;
+    box-shadow: 0 0 12px rgba(167, 139, 250, 0.5) !important;
     z-index: 10 !important;
     border: 2px solid rgba(15, 23, 42, 1) !important;
   }
@@ -293,7 +293,7 @@ main#main-content {
     top: 2.375rem !important; /* Center of dot */
     width: 1rem !important; /* Short horizontal line */
     height: 0.0625rem !important;
-    background: linear-gradient(90deg, rgba(34, 211, 238, 0.6), rgba(34, 211, 238, 0.2)) !important;
+    background: linear-gradient(90deg, rgba(167, 139, 250, 0.6), rgba(167, 139, 250, 0.2)) !important;
     z-index: 5 !important;
   }
   
@@ -411,9 +411,9 @@ main#main-content {
 :root {
   --bg-primary: #0a0b10;
   --bg-elevated: rgba(15, 23, 42, 0.8);
-  --accent: #3b82f6;
-  --accent-muted: rgba(59, 130, 246, 0.12);
-  --accent-secondary: #818cf8;
+  --accent: #8b5cf6;
+  --accent-muted: rgba(139, 92, 246, 0.12);
+  --accent-secondary: #c4b5fd;
   --text-primary: #e2e8f0;
   --text-muted: #94a3b8;
 }

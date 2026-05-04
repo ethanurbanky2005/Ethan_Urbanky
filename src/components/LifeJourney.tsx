@@ -142,7 +142,7 @@ export default function LifeJourney() {
 
           {/* Sliding indicator */}
           <motion.div
-            className="absolute left-0 w-0.5 bg-blue-400 rounded-full z-10"
+            className="absolute left-0 w-0.5 bg-violet-400 rounded-full z-10"
             style={{ height: TAB_HEIGHT }}
             animate={{ y: activeTab * TAB_HEIGHT }}
             transition={{ type: "spring", stiffness: 400, damping: 35 }}
@@ -157,9 +157,9 @@ export default function LifeJourney() {
               aria-controls={`panel-${i}`}
               tabIndex={activeTab === i ? 0 : -1}
               onClick={() => setActiveTab(i)}
-              className={`relative w-full text-left pl-5 pr-3 text-sm transition-colors duration-200 focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-400 rounded-r-sm ${
+              className={`relative w-full text-left pl-5 pr-3 text-sm transition-colors duration-200 focus:outline-none focus-visible:ring-1 focus-visible:ring-violet-400 rounded-r-sm ${
                 activeTab === i
-                  ? "text-blue-300 font-medium"
+                  ? "text-violet-300 font-medium"
                   : "text-slate-500 hover:text-slate-300"
               }`}
               style={{ height: TAB_HEIGHT, fontFamily: "var(--font-mono, monospace)" }}
@@ -207,7 +207,7 @@ export default function LifeJourney() {
               onClick={() => setActiveTab(i)}
               className={`flex-shrink-0 px-4 py-3 text-xs whitespace-nowrap border-b-2 -mb-px transition-colors duration-200 focus:outline-none ${
                 activeTab === i
-                  ? "border-blue-400 text-blue-300 font-medium"
+                  ? "border-violet-400 text-violet-300 font-medium"
                   : "border-transparent text-slate-500 hover:text-slate-300"
               }`}
               style={{ fontFamily: "var(--font-mono, monospace)" }}
@@ -253,7 +253,7 @@ function ExperienceContent({ exp }: { exp: Experience }) {
         <div>
           <h3 className="text-base sm:text-lg font-semibold text-white leading-tight">
             {exp.title}
-            <span className="text-blue-400 font-normal"> · {exp.company}</span>
+            <span className="text-violet-400 font-normal"> · {exp.company}</span>
           </h3>
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-1">
             <span className="text-xs text-slate-500" style={{ fontFamily: "var(--font-mono, monospace)" }}>
@@ -271,7 +271,7 @@ function ExperienceContent({ exp }: { exp: Experience }) {
       <ul className="space-y-3 mb-5">
         {exp.bullets.map((bullet, i) => (
           <li key={i} className="flex gap-3 text-sm text-slate-400 leading-relaxed">
-            <span className="text-blue-400 mt-[3px] flex-shrink-0 text-xs">▹</span>
+            <span className="text-violet-400 mt-[3px] flex-shrink-0 text-xs">▹</span>
             <span>{bullet}</span>
           </li>
         ))}
@@ -282,7 +282,7 @@ function ExperienceContent({ exp }: { exp: Experience }) {
         {exp.tech.map((t) => (
           <span
             key={t}
-            className="px-2.5 py-1 text-xs rounded-md bg-blue-500/10 text-blue-300/80 border border-blue-500/15"
+            className="px-2.5 py-1 text-xs rounded-md bg-violet-500/10 text-violet-300/80 border border-violet-500/15"
             style={{ fontFamily: "var(--font-mono, monospace)" }}
           >
             {t}

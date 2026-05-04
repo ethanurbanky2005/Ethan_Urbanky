@@ -45,7 +45,7 @@ export default function AppStore() {
           transition={{ delay: 0.2 }}
           className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto"
         >
-          Products built from concept to deployment.
+          Four builds, each shipped end-to-end.
         </motion.p>
       </div>
 
@@ -92,13 +92,13 @@ function AppTile({ project, index, onOpen }: AppTileProps) {
       data-cursor-hover
       onClick={onOpen}
     >
-      <div className="relative rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md p-6 transition-all duration-300 hover:bg-white/8 hover:border-blue-400/20 hover:shadow-[0_0_24px_rgba(59,130,246,0.08),0_20px_40px_rgba(0,0,0,0.3)] active:scale-[0.99] touch-manipulation">
+      <div className="relative rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md p-6 transition-all duration-300 hover:bg-white/8 hover:border-violet-400/20 hover:shadow-[0_0_24px_rgba(139,92,246,0.08),0_20px_40px_rgba(0,0,0,0.3)] active:scale-[0.99] touch-manipulation">
 
         {/* Header row: icon + title */}
         <div className="flex items-center gap-4 mb-4">
           <motion.div
             layoutId={`project-icon-${project.id}`}
-            className="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-400/20 to-blue-500/20 border border-white/10 flex items-center justify-center flex-shrink-0 p-2"
+            className="w-14 h-14 rounded-xl bg-gradient-to-br from-violet-400/20 to-violet-500/20 border border-white/10 flex items-center justify-center flex-shrink-0 p-2"
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
           >
             <Image
@@ -113,7 +113,7 @@ function AppTile({ project, index, onOpen }: AppTileProps) {
           <div className="min-w-0">
             <motion.h3
               layoutId={`project-title-${project.id}`}
-              className="text-white font-semibold text-base group-hover:text-blue-300 transition-colors leading-tight"
+              className="text-white font-semibold text-base group-hover:text-violet-300 transition-colors leading-tight"
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
             >
               {project.title}
@@ -146,7 +146,7 @@ function AppTile({ project, index, onOpen }: AppTileProps) {
 
         {/* Hover arrow */}
         <div className="absolute top-5 right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-          <ExternalLink size={14} className="text-blue-400" />
+          <ExternalLink size={14} className="text-violet-400" />
         </div>
       </div>
     </motion.div>
@@ -221,7 +221,7 @@ function AppModal({ project, onClose }: AppModalProps) {
           <div className="flex items-start gap-6 mb-6">
             <motion.div
               layoutId={`project-icon-${project.id}`}
-              className="w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-400/20 to-blue-500/20 border border-white/20 flex items-center justify-center flex-shrink-0 p-3"
+              className="w-20 h-20 rounded-2xl bg-gradient-to-br from-violet-400/20 to-violet-500/20 border border-white/20 flex items-center justify-center flex-shrink-0 p-3"
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
             >
               <Image
@@ -242,7 +242,7 @@ function AppModal({ project, onClose }: AppModalProps) {
               >
                 {project.title}
               </motion.h2>
-              <p className="text-blue-400 mb-3">{project.role}</p>
+              <p className="text-violet-400 mb-3">{project.role}</p>
               <p className="text-slate-300 leading-relaxed">{project.description}</p>
             </div>
           </div>
@@ -270,7 +270,7 @@ function AppModal({ project, onClose }: AppModalProps) {
               href={project.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 h-12 rounded-xl bg-blue-600/80 hover:bg-blue-600 active:bg-blue-700 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm border border-cyan-400/30 touch-manipulation"
+              className="flex-1 h-12 rounded-xl bg-violet-600/80 hover:bg-violet-600 active:bg-violet-700 text-white font-medium transition-all duration-300 flex items-center justify-center gap-2 backdrop-blur-sm border border-violet-400/30 touch-manipulation"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >

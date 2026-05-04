@@ -31,14 +31,14 @@ export default function ScrollProgress() {
     >
       {/* CSS scroll-driven when supported (compositor thread); JS fallback otherwise */}
       <div
-        className="scroll-progress-js h-full bg-gradient-to-r from-[var(--accent)] to-cyan-400"
+        className="scroll-progress-js h-full bg-gradient-to-r from-[var(--accent)] to-violet-400"
         style={{
           width: `${progress * 100}%`,
           transition: "width 0.12s ease-out",
         }}
       />
       <div
-        className="scroll-progress-css h-full w-full bg-gradient-to-r from-[var(--accent)] to-cyan-400"
+        className="scroll-progress-css h-full w-full bg-gradient-to-r from-[var(--accent)] to-violet-400"
       />
     </div>
   );

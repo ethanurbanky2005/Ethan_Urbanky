@@ -54,8 +54,8 @@ export default function Cursor() {
       ref={ref}
       className={`fixed z-[200] pointer-events-none h-5 w-5 rounded-full ring-2 transition-all duration-200 hidden md:block ${
         isHoveringInteractive && canHover
-          ? "bg-cyan-400/60 ring-cyan-400/80 scale-125"
-          : "bg-cyan-300/40 ring-cyan-400/60 scale-100"
+          ? "bg-violet-400/60 ring-violet-400/80 scale-125"
+          : "bg-violet-300/40 ring-violet-400/60 scale-100"
       }`}
       aria-hidden
     />

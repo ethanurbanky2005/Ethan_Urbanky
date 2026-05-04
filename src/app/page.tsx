@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { portfolio } from "@/config/portfolio";
 import AmbientNav from "@/components/AmbientNav";
 import AppStore from "@/components/AppStore";
+import CommandPalette from "@/components/CommandPalette";
 import ConstellationNav from "@/components/ConstellationNav";
 import LifeJourney from "@/components/LifeJourney";
 import SkillConstellation from "@/components/SkillConstellation";
@@ -131,10 +132,15 @@ function ContactFormBlock() {
 const Home = () => {
   return (
     <>
-      {/* Ambient backdrop */}
+      {/* Ambient backdrop — three layered, off-axis radial blooms.
+         Top-center: site signature.
+         Bottom-left: warm fuchsia for color depth (breathes 18s for slow life).
+         Top-right: cool indigo wash to balance. */}
       <div aria-hidden className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute inset-0 bg-slate-950" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(139,92,246,0.08),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(139,92,246,0.14),transparent_62%)]" />
+        <div className="absolute inset-0 ambient-breath bg-[radial-gradient(ellipse_55%_40%_at_15%_110%,rgba(217,70,239,0.10),transparent_65%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_45%_35%_at_95%_5%,rgba(99,102,241,0.08),transparent_70%)]" />
         <div className="noise" />
       </div>
 
@@ -175,6 +181,23 @@ const Home = () => {
 
             {/* RIGHT — Text */}
             <div className="flex-1 min-w-0">
+              {/* Availability pill — soft signal of openness without screaming.
+                 Pulsing dot uses Tailwind's animate-ping; gated to hover-capable / no-reduce-motion via CSS isolation below. */}
+              <motion.div
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.0 }}
+                className="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded-full bg-violet-500/10 ring-1 ring-violet-400/25 backdrop-blur-sm motion-reduce:animate-none"
+              >
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-70 motion-safe:animate-ping" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-violet-400" />
+                </span>
+                <span className="text-[11px] sm:text-xs font-medium text-violet-200/90 tracking-wide">
+                  Available · Summer 2026
+                </span>
+              </motion.div>
+
               {/* Kicker — editorial label, replaces "Hi, I'm" cliché */}
               <motion.p
                 initial={{ opacity: 0 }}
@@ -394,12 +417,21 @@ const Home = () => {
               <ContactFormBlock />
             </div>
 
-            {/* Footer — small, professional, no clutter */}
+            {/* Footer — small, professional, no clutter. ⌘K hint advertises the palette. */}
             <footer className="mt-10 sm:mt-12 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 px-2">
               <p>© {new Date().getFullYear()} {portfolio.identity.name} · {portfolio.identity.location}</p>
-              <p className="font-mono text-[11px]">
-                Built with Next.js · React · Tailwind
-              </p>
+              <div className="flex items-center gap-4">
+                <span className="hidden sm:inline-flex items-center gap-1.5 font-mono text-[11px] text-slate-500">
+                  Press
+                  <kbd className="px-1.5 py-0.5 bg-white/5 ring-1 ring-white/10 rounded text-slate-400">
+                    ⌘ K
+                  </kbd>
+                  to navigate
+                </span>
+                <p className="font-mono text-[11px]">
+                  Built with Next.js · React · Tailwind
+                </p>
+              </div>
             </footer>
           </div>
         </section>
@@ -407,6 +439,7 @@ const Home = () => {
       <ScrollProgress />
       <ConstellationNav />
       <AmbientNav />
+      <CommandPalette />
     </>
   );
 };

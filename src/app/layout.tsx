@@ -44,9 +44,10 @@ export const metadata: Metadata = {
     locale: "en_CA",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
+    creator: "@ethanurbanky",
   },
   robots: {
     index: true,
